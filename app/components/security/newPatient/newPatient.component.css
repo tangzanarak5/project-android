@@ -1,0 +1,48 @@
+.StackBg {
+    background-color: #00352c;
+  }
+  .Cloud-Light {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+}
+.sizeFontTitle {
+    font-size: 24px;
+}
+.labelTitle {
+    margin-left: 11% ;
+    margin-top: 80px ;
+}
+.marginMiddle {
+    margin-top: 15px;
+    text-align: center;
+}
+.marginBottom {
+    margin-bottom: 70px;
+}
+.sizeFontR {
+    font-size: 20px;
+}
+.sizePictureRegister {
+    margin-top: 50px;
+    height: 50%;
+    width: 50%;
+}
+.mdi {
+    font-family: "Material Icons", "MaterialIcons-Regular";
+    font-size: 24px;
+    color: black;
+  }
+.setCenter {
+    text-align: center ;
+}
+.b {
+    color: black;
+}
+.Cloud-Lights {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+    font-size: 20px;
+}
+.bg{
+    background-color: #00352c;
+}

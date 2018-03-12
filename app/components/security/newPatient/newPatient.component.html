@@ -1,0 +1,17 @@
+<ActionBar>
+        <StackLayout>
+                <GridLayout width="100%" height="100%">
+                        <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" [nsRouterLink]="['../standbytologin']"></Label>
+                        <label horizontalAlignment="center" class="setCenter b Cloud-Lights" text="ผู้ป่วยใหม่"></label>
+                </GridLayout>
+        </StackLayout>
+</ActionBar>
+    <ScrollView sdkExampleTitle sdkToggleNavButton>
+        <StackLayout class="Cloud-Light StackBg">
+            <Label text = "เมนูผู้ป่วยใหม่" style="color :white" class="labelTitle sizeFontTitle fontBlack marginBottom"></Label>
+            <Image class = "sizePictureRegister" src="~/images/register.png" [nsRouterLink]="['../verifyidcard']"></Image>
+            <Label text = "ลงทะเบียนเวชระเบียน" style="color :white" class="marginMiddle sizeFontR" [nsRouterLink]="['../verifyidcard']"></Label>
+            <Image class = "sizePictureRegister" src="~/images/search.png" [nsRouterLink]="['../verifyHn']"></Image>
+            <Label text = "ตรวจสอบผลลงทะเบียน" style="color :white" class="marginMiddle sizeFontR" [nsRouterLink]="['../verifyHn']"></Label>
+        </StackLayout>
+    </ScrollView>

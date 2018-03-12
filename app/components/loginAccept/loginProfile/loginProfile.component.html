@@ -1,0 +1,61 @@
+<sidebar #sidebar></sidebar>
+
+<ActionBar class="bg">
+        <StackLayout>
+                <GridLayout width="100%" height="100%">
+                <Label horizontalAlignment="left" class="mdi" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
+                <label horizontalAlignment="center" class="setCenter w Cloud-Lights" text="PERSONAL HEALTH CARE"></label>
+                </GridLayout>
+        </StackLayout>
+</ActionBar>
+
+<ScrollView sdkExampleTitle sdkToggleNavButton>
+<StackLayout>
+        <StackLayout>
+                <GridLayout columns="*, *, *" rows="20, 60, 10, 40, 20, 60, 10, 40, 20, 60, 10, 40" width="100%" height="100%">
+
+                        <label row="0" col="0" class="bdr" text="" (tap) = "toProfileUser()"></label>
+                        <Image row="1" col="0" class="imgSizeGrid bdr"  src="~/images/profile.jpg" (tap) = "toProfileUser()"></Image>
+                        <label row="2" col="0" class="bdr" text="" (tap) = "toProfileUser()"></label>
+                        <label row="3" col="0" class="setCenter Cloud-Light2 bdr bdb" text="ประวัติส่วนตัว" (tap) = "toProfileUser()"></label>
+
+                        <label row="0" col="1" class="bdr" text="" (tap) = "toBlood()"></label>
+                        <Image row="1" col="1" class="imgSizeGrid bdr" src="~/images/blood.jpg" (tap) = "toBlood()"></Image>
+                        <label row="2" col="1" class="bdr" text="" (tap) = "toBlood()"></label>
+                        <label row="3" col="1" class="setCenter Cloud-Light2 bdr bdb" text="ผลเลือด" (tap) = "toBlood()"></label>
+
+                        <label row="0" col="2" class="bdr" text="" (tap) = "toAppointment()"></label>
+                        <Image row="1" col="2" class="imgSizeGrid" src="~/images/meet.jpg" (tap) = "toAppointment()"></Image>
+                        <label row="2" col="2" class="bdr" text="" (tap) = "toAppointment()"></label>
+                        <label row="3" col="2" class="setCenter Cloud-Light2 bdr bdb" text="หมายนัด" (tap) = "toAppointment()"></label>
+
+                        <label row="4" col="0" class="bdr" text="" (tap) = "toMedicine()"></label>
+                        <Image row="5" col="0" class="imgSizeGrid bdr" src="~/images/medecine.jpg" (tap) = "toMedicine()"></Image>
+                        <label row="6" col="0" class="bdr" text="" (tap) = "toMedicine()"></label>
+                        <label row="7" col="0" class="setCenter Cloud-Light2 bdr bdb" text="ยาและวิธีการใช้" (tap) = "toMedicine()"></label>
+
+                        <label row="4" col="1" class="bdr" text="" (tap) = "toCost()"></label>
+                        <Image row="5" col="1" class="imgSizeGrid bdr" src="~/images/pay.jpg" (tap) = "toCost()"></Image>
+                        <label row="6" col="1" class="bdr" text="" (tap) = "toCost()"></label>
+                        <label row="7" col="1" class="setCenter Cloud-Light2 bdr bdb" text="ค่าใช้จ่าย" (tap) = "toCost()"></label>
+
+                        <label row="4" col="2" class="bdr" text="" (tap) = "web()"></label>
+                        <Image row="5" col="2" class="imgSizeGrid" src="~/images/www.jpg" (tap) = "web()"></Image>
+                        <label row="6" col="2" class="bdr" text="" (tap) = "web()"></label>
+                        <label row="7" col="2" class="setCenter Cloud-Light2 bdr bdb" text="เว็บไซต์" (tap) = "web()"></label>
+
+                        <label row="8" col="0" class="bdr" text="" (tap) = "news()"></label>
+                        <Image row="9" col="0" class="imgSizeGrid bdr" src="~/images/news.png" (tap) = "news()"></Image>
+                        <label row="10" col="0" class="bdr" text="" (tap) = "news()"></label>
+                        <label row="11" col="0" class="setCenter Cloud-Light2 bdr bdb" text="ข่าวสาร" (tap) = "news()"></label>
+
+                        <label row="8" col="1" class="bdr" text="" (tap) = "showBarcode()"></label>
+                        <Image row="9" col="1" class="imgSizeGrid bdr" src="~/images/barcode.png" (tap) = "showBarcode()"></Image>
+                        <label row="10" col="1" class="bdr" text="" (tap) = "showBarcode()"></label>
+                        <label row="11" col="1" class="setCenter Cloud-Light2 bdr bdb" text="บาร์โค้ด" (tap) = "showBarcode()"></label>
+
+                </GridLayout>
+        </StackLayout>1
+</StackLayout>
+</ScrollView>
+

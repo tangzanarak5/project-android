@@ -1,0 +1,60 @@
+.sizePicture {
+    margin-top: 50px;
+    height: 100%;
+    width: 0%;
+}
+.sizeInput {
+    width: 80%;
+    font-size: 18px;
+}
+.sizeLogin {
+    background-color: #004D40;
+    width: 75%;
+    font-size: 18px;
+}
+.sizeButton {
+    height: 10%;
+    width: 65%;
+    font-size: 18px;
+    background-color: #327066;
+    margin-bottom: -15px;
+}
+.sizeButtonC {
+    width: 20%;
+    font-size: 16px;
+    background-color: #327066;
+    border-radius: 1000px;
+}
+.StackBg {
+  background-color: #00352c;
+}
+.marginTop {
+    margin-top: 40px;
+}
+.marginMiddle {
+    text-align: center;
+}
+.marginRight {
+    text-align: right;
+    margin-right: 40px;
+}
+.Cloud-Light {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+}
+.C {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+    text-align: center;
+    font-size: 26px;
+}
+.sizeFont {
+    font-size: 16px;
+}
+.sizeFontR {
+    font-size: 20px;
+}
+.icon {
+    font-family: 'icomoon';
+    font-size: 48;
+ }

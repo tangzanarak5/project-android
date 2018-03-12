@@ -1,0 +1,58 @@
+<ActionBar>
+        <StackLayout>
+                <GridLayout width="100%" height="100%">
+                        <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" [nsRouterLink]="['../verifyidcard']"></Label>
+                        <label horizontalAlignment="center" class="setCenter b Cloud-Lights" text="ประวัติส่วนตัว"></label>
+                </GridLayout>
+        </StackLayout>
+</ActionBar>
+    <ScrollView sdkExampleTitle sdkToggleNavButton>
+            <StackLayout class="StackBgColor">
+  <StackLayout class="Cloud-Light">
+
+        <StackLayout class="StackBgColor">
+                <Image class = "sizePicture" src="~/images/logo app.png"></Image>
+                <Label class = "title" style = "color:white" text = "แบบฟอร์มเวชระเบียนออนไลน์"></Label>
+                <Label text = ""></Label>
+                <Label class ="titleLabel" style = "color:white" text = "Step 1/4 "></Label>
+                <label text=""></label>
+                <StackLayout class="StackBg">
+                <StackLayout class="boxBg">
+                <TextField class = "allAroundTextField inputColor bottomlast" [text] = "user.idCard" editable= "false"></TextField>
+            </StackLayout>
+                    <Label text = ""></Label>
+                </StackLayout>
+        </StackLayout>
+
+        <StackLayout class="StackBg">
+            <StackLayout class="boxBg">
+
+        <TextField class = "allAroundTextField inputColor" editable= "false" [(ngModel)] = "user.nameTitle"  hint="* คำนำหน้าชื่อ" (tap)="nameTitleActionDialog()" ></TextField>
+
+        <TextField class = "allAroundTextField inputColor" hint="* ชื่อ"[(ngModel)] = "user.name" ></TextField>
+        
+        <TextField class = "allAroundTextField inputColor" hint="* นามสกุล"[(ngModel)] = "user.surname" ></TextField>
+       
+        <TextField class = "allAroundTextField inputColor" editable = "false" [(ngModel)] = "user.gender"  hint="* เพศ" (tap)="genderActionDialog()" ></TextField>
+        
+        <TextField class="allAroundTextField inputColor" editable= "false" [text]="showBirthDayZero" hint="* วันเกิด" (tap) = "showModal()"></TextField>
+
+        <TextField class = "allAroundTextField inputColor"  [editable] = "editableNation" [(ngModel)] = "user.nation"  hint="* สัญชาติ" (tap)="nationActionDialog()" ></TextField>
+
+        <TextField class = "allAroundTextField inputColor bottomlast"  [editable] = "editableReligion" [(ngModel)] = "user.religion"  hint="* ศาสนา" (tap)="religionActionDialog()" ></TextField>
+                
+    </StackLayout>
+    <Label text = ""></Label>
+    </StackLayout>
+
+            <StackLayout class="StackBgColor">
+                <StackLayout class=""> 
+            <Button class="btn btn-primary Button Cloud-Light" text = "ต่อไป" (tap)="nextToAddress()" ></Button>
+                </StackLayout>
+            </StackLayout>
+
+        </StackLayout>
+    </StackLayout>
+    </ScrollView>
+
+

@@ -1,0 +1,29 @@
+.bg{
+    background-color: #00352c;
+}
+.mdi {
+    font-family: "Material Icons", "MaterialIcons-Regular";
+    font-size: 24px;
+    color: white;
+  }
+.setCenter {
+    text-align: center ;
+}
+.w {
+    color: white;
+}
+.Cloud-Lights {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+    font-size: 20px;
+}
+.rights {
+    margin-right: 5%
+}
+.setCenter {
+    text-align: center;
+}
+.setSize {
+    height: 90%;
+    width: 90%;
+}

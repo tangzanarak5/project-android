@@ -1,0 +1,18 @@
+<sidebar #sidebar></sidebar>
+<ActionBar class="bg">
+<StackLayout>
+        <GridLayout width="100%" height="100%">
+            <Label horizontalAlignment="right" class="mdi rights" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
+            <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" (tap) = "toBack()"></Label>
+            <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]="selectBloodResult.name"></label>
+        </GridLayout>
+</StackLayout>
+</ActionBar>
+<ScrollView orientation="horizontal" sdkExampleTitle sdkToggleNavButton>
+<!-- <StackLayout orientation="horizontal">
+<Image class="setSize" src="https://chart.googleapis.com/chart?chs=280x400&amp;chd=t:10,50,60,80,40,35&amp;chds=0,150&amp;cht=bvs&amp;chxl=0:|14|27|14|27|14|27|1:|ก.พ.|พ.ค.|ก.พ.|พ.ค.|ก.พ.|พ.ค.|2:|2560|2560|2560|2560|2560|2560|&amp;chtt=text&amp;chxt=x,x,x,y&amp;chds=a"></Image>
+</StackLayout> -->
+<StackLayout orientation="horizontal" *ngIf="isChart">
+    <Image class="setSize" [src]="'https://chart.googleapis.com/chart?chs=280x400&amp;chd=' + this.chd + '&amp;chds=' + this.sizes + '&amp;cht=lc&amp;chxl=' + this.chxl[0] + this.chxl[1] + this.chxl[2] + '&amp;chtt=' + this.selectBloodResult.name + '&amp;chxt=x,x,x,y&amp;chds=a&amp;chm=o,996600,0,-1,6&amp;chco=000000&amp;chf=c,ls,90,FFFFFF,0.47,88BBAA,0.21,F4EFAF,0.17,FF9797,0.15'"></Image>
+</StackLayout>
+</ScrollView>

@@ -1,0 +1,212 @@
+.sizePicture {
+    margin-top: -325px;
+    height: 25%;
+    width: 25%;
+    margin-right: 65%;
+}
+.sizePic {
+    height: 50%;
+    width: 50%;
+}
+.bgWhite {
+    background-color: white;
+}
+.Cloud-Light2 {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+    font-size: 14px;
+}
+.Cloud-Light4 {
+    font-family: "Cloud-Light" ;
+    font-weight: 600;
+    font-size: 16px;
+}
+.Cloud-Light {
+    font-family: "Cloud-Light" ;
+    font-weight: 500;
+    font-size: 16px;
+}
+.Cloud-Lights {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+    font-size: 20px;
+}
+.Cloud-LightLogout {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+    font-size: 16px;
+}
+.setLabel {
+    margin-left: 35%;
+}
+.title {
+    font-size: 50px;
+}
+.bg{
+    background-color: #00352c;
+}
+.sizePicture2 {
+    height: 80%;
+    width: 70%;
+}
+.setStack {
+    width: 32%;
+    margin-right: 65%;
+}
+.setStack2 {
+    width: 32%;
+    margin-left: 1%;
+    margin-top: -320px;
+}
+.setStack3 {
+    width: 32%;
+    margin-left: -5%;
+    margin-top: -320px;
+}
+.sizeLogin {
+    background-color: #004D40;
+    width: 75%;
+    font-size: 18px;
+}
+.labelCenter{
+    text-align: center;
+}
+.setIcon{
+    border-radius: 50%;
+    width: 60%;
+    height: 50%;
+    margin-left: 21%;
+    border-style: solid;
+    border-width: 5px;
+}
+.setIconNews{
+    width: 60%;
+    height: 50%;
+    margin-left: 21%;
+}
+.setSpaceIcon{
+    width: 0.2%;
+    height: 32%;
+}
+.setSpaceLine{
+    width: 100%;
+    height: 1px;
+}
+.setNews{
+    width: 100%;
+    height: 40%;
+}
+.setLabelIcon {
+    margin-left: 2%;
+}
+.setFatChart {
+    margin-left: 36%;
+}
+.setDrug {
+    margin-left: 45%;
+}
+.setCenter {
+    text-align: center ;
+}
+.topDown {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.top {
+    margin-top: 20px;
+}
+titleMargin {
+    margin-left: 20%;
+}
+.Button {
+    color: red;
+    background-color: #ffffff;
+}
+.mdi {
+    font-family: "Material Icons", "MaterialIcons-Regular";
+    font-size: 24px;
+    color: white;
+  }
+  .mdis {
+    font-family: "Material Icons", "MaterialIcons-Regular";
+    font-size: 48px;
+    color: orange;
+  }
+  .opa {
+      opacity: 0.2;
+      height: 55%;
+      width: 55% ;
+  }
+.bdr{
+    border-right-width: 1px;
+    border-color: lightgray;
+}
+.bdl{
+    border-left-width: 1px;
+    border-color: lightgray;
+}
+.bdt{
+    border-top-width: 1px;
+    border-color: lightgray;
+}
+.bdb{
+    border-bottom-width: 1px;
+    border-color: lightgray;
+}
+.imgSize {
+    width:50% ;
+    height:10% ;
+    margin-left: 25%;
+}
+.fix{
+    position: fixed;
+}
+.center {
+    text-align: center;
+}
+.black {
+    color: black;
+}
+.mleft0 {
+    margin-left: 2.5%;
+ }
+.mleft1 {
+   margin-left: 10%;
+}
+.mleft2 {
+    margin-left: 6.5%;
+ }
+ .mtop {
+    margin-top: 15%;
+ }
+ .mbottom {
+    margin-bottom: 15%;
+ }
+.bdrc{
+    border-right-width: 1px;
+    border-color: green;
+}
+.bdlc{
+    border-left-width: 1px;
+    border-color: green;
+}
+.bdtc{
+    border-top-width: 1px;
+    border-color: green;
+}
+.bdbc{
+    border-bottom-width: 1px;
+    border-color: green;
+}
+.w {
+    color: white;
+}
+.right {
+    text-align: right;
+}
+.rights {
+    margin-right: 5%
+}
+.lefts {
+    margin-left: 5%
+}

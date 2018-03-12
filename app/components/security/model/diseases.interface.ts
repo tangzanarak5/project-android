@@ -1,0 +1,5 @@
+interface iDiseases {
+    
+    name: string;
+    
+}

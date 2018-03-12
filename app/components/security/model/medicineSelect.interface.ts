@@ -1,0 +1,5 @@
+interface iMedicineSelect {
+    
+    name: string;
+    
+}

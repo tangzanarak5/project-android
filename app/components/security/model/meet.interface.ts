@@ -1,0 +1,5 @@
+interface iMeet {
+    
+    dateMeet: string;
+    
+}

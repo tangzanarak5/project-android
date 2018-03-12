@@ -1,0 +1,13 @@
+<ActionBar>
+        <StackLayout>
+                <GridLayout width="100%" height="100%">
+                        <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" [nsRouterLink]="['../newPatient']"></Label>
+                        <label horizontalAlignment="center" class="setCenter b Cloud-Lights" text="ตรวจสอบหมายเลขผู้ป่วย"></label>
+                </GridLayout>
+        </StackLayout>
+</ActionBar>
+<StackLayout class="Cloud-Light">
+    <Label text = "ตรวจสอบการลงทะเบียน" class="labelTitle sizeFontTitle fontBlack"></Label>
+    <TextField keyboardType = "number" [(ngModel)]="checkHn.idCard" hint="หมายเลขบัตรประชาชน" class="sizeInput sizeFont" maxLength="13"></TextField>
+    <Button class="btn btn-primary Button sizeFont Cloud-Light" text = "ตรวจสอบ" (tap)="checkIdCard()"></Button>
+</StackLayout>

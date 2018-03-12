@@ -1,0 +1,66 @@
+.sizeInput {
+    width: 80%;
+    font-size: 16px;
+    margin-top: 90px;
+    margin-right: 0%;
+}
+.bottomlast {
+    margin-bottom: 30px;
+}
+.Button {
+    width: 40%;
+    font-size: 16px;
+    background-color: #fd8421;
+    margin-left: 45%;
+}
+.StackBgColor {
+    background-color: #004D40;
+}
+.StackBg {
+    background-color: #195e53;
+}
+.inputColor {
+    background-color: #F5F5F5;
+    border-radius: 2px;
+}
+.boxBg {
+    background-color: white;
+    margin-left: 5% ;
+    margin-right: 5% ;
+    margin-top: 40px;
+    margin-bottom: -13px;
+}
+.Cloud-Light {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+}
+.allAroundTextField {
+    width: 80%;
+    font-size: 16px;
+    margin-top: 30px;
+    margin-right: 0%;
+}
+.warning {
+    margin-left: 5%;
+}
+.buttonPicture {
+    width: 80%;
+    font-size: 16px;
+    background-color: #008CBA;
+}
+.sizePicture {
+    margin-top: 105px;
+    height: 25%;
+    width: 25%;
+}
+.title {
+    font-size: 28px;
+    text-align: center;
+}
+.titleLabel {
+    font-size: 18px;
+    margin-left: 4%;
+}
+.bottomSick {
+    margin-bottom: 40px;
+}

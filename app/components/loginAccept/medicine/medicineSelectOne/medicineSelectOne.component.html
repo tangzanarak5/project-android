@@ -1,0 +1,24 @@
+<sidebar #sidebar></sidebar>
+<ActionBar class="bg">
+        <StackLayout>
+                <GridLayout width="100%" height="100%">
+                        <Label horizontalAlignment="right" class="mdi rights" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
+                        <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" (tap) = "toBack()"></Label>
+                        <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]='medicineSelect.name'></label>
+                </GridLayout>
+        </StackLayout>
+</ActionBar>
+
+<ScrollView sdkExampleTitle sdkToggleNavButton>
+<StackLayout>
+        <GridLayout columns="10, *, 10" rows="20, 35, 25, 90, 25, 200" width="100%" height="100%">
+                <label row="0" col="0" text=""></label>
+                <label row="0" col="2" text=""></label>
+                <Label row="1" col="1" class = "Cloud-Light black" [text]='medicine[medicineNumber].namee + " ( " + medicine[medicineNumber].namet + " )"'></Label>
+                <Label row="2" col="1" class = "Cloud-LightTitle black" text="สรรพคุณ"></Label>
+                <TextView row="3" col="1" class = "Cloud-LightTin mleft" editable= "false" [text]="medicine[medicineNumber].data"></TextView>
+                <Label row="4" col="1" class = "Cloud-LightTitle black" text="วิธีใช้"></Label>
+                <TextView row="5" col="1" class = "Cloud-LightTin mleft" editable= "false" [text]="medicine[medicineNumber].use"></TextView>
+        </GridLayout>
+</StackLayout>
+</ScrollView>
