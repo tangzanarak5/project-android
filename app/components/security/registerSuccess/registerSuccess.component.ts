@@ -48,7 +48,7 @@ export class registerSuccessComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         page: Page
-    ) { page.actionBarHidden = true;}
+    ) {}
 
     ngOnInit(): void {
         

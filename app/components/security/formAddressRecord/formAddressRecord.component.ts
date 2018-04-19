@@ -89,7 +89,7 @@ nextToReletion () {
         if (this.postcode == "") {
             this.inputAlret = this.inputAlret + "\n- รหัสไปรษณีย์"
         }
-        if (this.user.telephone == "") {
+        if (this.user.telephone == "" || this.user.telephone.length < 10) {
             this.inputAlret = this.inputAlret + "\n- โทรศัพท์"
         }
         if (this.inputAlret != "") {

@@ -22,7 +22,7 @@
 		android:name="com.tns.NativeScriptApplication"
 		android:allowBackup="true"
 		android:icon="@drawable/icon"
-		android:label="Personal Health Care"
+		android:label="Bhubejhr Care"
 		android:theme="@style/AppTheme">
 
 		<activity

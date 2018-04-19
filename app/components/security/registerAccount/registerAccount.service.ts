@@ -17,7 +17,7 @@ export class registerAccountService {
         console.log(securityService.getCheckRegister);
         this.checkRegister = JSON.parse(securityService.getCheckRegister);
         console.log(this.checkRegister.idCard);
-        let url = "https://cpa.go.th/api/patient.php?request=get&cid=" + this.checkRegister.idCard + "&token=" + this.token;
+        let url = "http://api.cpa.go.th/patient.php?request=get&cid=" + this.checkRegister.idCard + "&token=" + this.token;
         return this.http.get(url).map(response => response.json())
         .catch(this.handleErrors);
     }

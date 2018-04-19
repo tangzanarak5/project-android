@@ -147,7 +147,7 @@ changeImg () {
           function (uploadedFile) {
             console.log("File uploaded: " + JSON.stringify(uploadedFile));
             console.log("File uploaded: " + JSON.stringify(uploadedFile.url));
-            tns.user.pic = JSON.stringify(uploadedFile.url)
+            tns.user.pic = JSON.stringify(uploadedFile.url).substring(1,JSON.stringify(uploadedFile.url).length - 1)
             
             securityService.setUserData = JSON.stringify(tns.user);
             tns.formPicAndAcceptService.postDataPatient();

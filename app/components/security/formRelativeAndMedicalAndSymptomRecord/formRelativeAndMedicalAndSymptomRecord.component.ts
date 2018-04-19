@@ -79,7 +79,7 @@ net () {
         if (this.user.contact == "") {
             this.inputAlret = this.inputAlret + "\n- เกี่ยวข้องเป็น... "
         }
-        if (this.user.telephoneRelative == "") {
+        if (this.user.telephoneRelative == "" || this.user.telephoneRelative.length < 10) {
             this.inputAlret = this.inputAlret + "\n- โทรศัพท์ "
         }
         if (this.inputAlret != "") {

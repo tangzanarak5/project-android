@@ -36,6 +36,7 @@ export class loginProfileComponent implements OnInit {
     gender ;
     dob ;
     blood ;
+    test = "2https://firebasestorage.googleapis.com/v0/b/fir-appproject14.appspot.com/o/uploads%2Fimages%2F1600100651243?alt=media&token=af313a20-2763-4563-9a36-51a20af355302" ;
     loader = new LoadingIndicator();
 
      options = {
@@ -72,7 +73,6 @@ export class loginProfileComponent implements OnInit {
 
     ngOnInit(): void {
         
-        // if (securityService.getDataUser == "") {this.router.navigate(["/security/standbytologin"]);}
         this.dataUser = JSON.parse(securityService.getDataUser);
         console.log(JSON.stringify(this.dataUser.dataset));
         console.log(this.dataUser.dataset.hn)
@@ -81,10 +81,6 @@ export class loginProfileComponent implements OnInit {
         this.cid = this.dataUser.dataset.cid
         this.gender = "เพศ " + this.dataUser.dataset.gender
         this.dob = "วันเกิด " + this.dataUser.dataset.dob
-        // if (this.dataUser.dataset.blood == null) {
-        //     this.blood = "เลือด -"
-        // }
-        // else {this.blood = "เลือด " + this.dataUser.dataset.blood}
     }
 
     constructor(

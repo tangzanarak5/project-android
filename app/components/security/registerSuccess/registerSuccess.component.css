@@ -32,3 +32,22 @@
 .sizeFonts {
     font-size: 40px;
 }
+.mdi {
+    font-family: "Material Icons", "MaterialIcons-Regular";
+    font-size: 24px;
+    color: black;
+  }
+.setCenter {
+    text-align: center ;
+}
+.b {
+    color: black;
+}
+.Cloud-Lights {
+    font-family: "Cloud-Light" ;
+    font-weight: 800;
+    font-size: 20px;
+}
+.bg{
+    background-color: #00352c;
+}

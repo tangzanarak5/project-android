@@ -25,6 +25,7 @@ import { medicineSelectComponent } from "./medicine/medicineSelect/medicineSelec
 import { medicineSelectOneComponent } from "./medicine/medicineSelectOne/medicineSelectOne.component";
 import { selectCostComponent } from "./cost/selectCost/selectCost.component";
 import { bloodChartComponent } from "./bloodResult/bloodChart/bloodChart.component";
+import { appointmentService } from "./appointment/appointment.service";
 
 @NgModule({
 
@@ -58,7 +59,8 @@ import { bloodChartComponent } from "./bloodResult/bloodChart/bloodChart.compone
     ],
     providers: [
         ModalDialogService,
-        loginProfileService
+        loginProfileService,
+        appointmentService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -20,6 +20,8 @@ import * as observableArray from "tns-core-modules/data/observable-array";
 import * as labelModule from "tns-core-modules/ui/label";
 import * as listViewModule from "tns-core-modules/ui/list-view";
 import { meet } from "../../security/model/meet.model"
+import { appointmentService } from "./appointment.service";
+import {SetupItemViewArgs} from "nativescript-angular/directives";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -46,8 +48,17 @@ export class appointmentComponent implements OnInit {
     appoint1 = true;
     appoint2 = false;
     appoint3 = false;
+    appoint4 = false;
+    docterWorking  ;
+    docterWorkingTime ;
+    docterWorkingDay;
+    time1;
+    time2;
+    time3;
+    time4;
+    timeShow = [];
+    timeCheck = [];
     loader = new LoadingIndicator();
-   
     public myItems: Array<DataItem>;
     private counter: number;
     medicine = [
@@ -64,6 +75,21 @@ export class appointmentComponent implements OnInit {
             namet : "เวลา 13.15 น."
         }
     ] ;
+    times = [
+        {
+            time : "10.00 น."
+        },
+        {
+            time : "10.30 น."
+        },
+        {
+            time : "11.00 น."
+        },
+        {
+            time : "11.30 น."
+        }
+    ] ;
+    appoint ;
      options = {
         message: 'Loading...',
         progress: 0.65,
@@ -97,11 +123,8 @@ export class appointmentComponent implements OnInit {
       }
 
     ngOnInit(): void {
-        
+        let tns = this ;
         this.dataUser = JSON.parse(securityService.getDataUser);
-        this.meet = new meet ;
-        this.meet = JSON.parse(securityService.getMeet);
-        console.log(JSON.stringify(this.meet.dateMeet));
         console.log(JSON.stringify(this.dataUser.dataset));
         console.log(this.dataUser.dataset.hn)
         this.nameAndsurname = this.dataUser.dataset.fname + " " + this.dataUser.dataset.lname
@@ -113,6 +136,36 @@ export class appointmentComponent implements OnInit {
             this.blood = "เลือด -"
         }
         else {this.blood = "เลือด " + this.dataUser.dataset.blood}
+
+        this.appointmentService.getAppointment()
+        .subscribe(
+                        (Response) => {
+                          //console.log(Response);
+                          let Responsed = Response.find(item => item.hn_id === tns.hospitalnumber);
+                          //console.log(tns.hospitalnumber);
+                          if (Responsed.appoint_status == "0") {
+                            tns.appoint = Responsed ;
+                            console.log(JSON.stringify(tns.appoint));
+                          }
+                        },
+                        (error) => {
+                            alert("ไม่สามารถเชื่อต่อได้");
+                        }
+                    )
+                    this.appointmentService.getDocterworking()
+                    .subscribe(
+                        (Response) => {
+                        // let ResponseDocterWorking = Response.find(item => item.docter_id === tns.appoint.docter_id);
+                        
+                        tns.docterWorking = Response;
+                        //console.log(JSON.stringify(tns.docterWorking));  
+                        
+                        },
+                        (error) => {
+                            alert("ไม่สามารถเชื่อต่อได้");
+                        }
+                    )  
+                    //console.log(JSON.stringify(this.appoint));
     }
 
     constructor(
@@ -120,6 +173,7 @@ export class appointmentComponent implements OnInit {
         private modal: ModalDialogService,
         private vcRef: ViewContainerRef,
         private route: ActivatedRoute,
+        private appointmentService: appointmentService,
         private router: Router,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
@@ -132,6 +186,16 @@ export class appointmentComponent implements OnInit {
         console.log("connect");
         this.router.navigate(["/loginProfile"]);
         this.demoLoader();
+    }
+
+    getAppoint () {
+        console.log(this.appoint);
+    }
+
+    checkDocter (i) {
+        if (this.appoint.docter_id == i.docter_id && i.docterWorking_status == 0) {
+            return true ;
+        }
     }
 
     private demoLoader() {
@@ -151,45 +215,126 @@ export class appointmentComponent implements OnInit {
         this.appoint3 = true;
     }
 
-    public onItemTap2(args) {
-        this.loader.show(this.options);
-        console.log("------------------------ ItemTapped: " + args.index); 
-        dialogs.confirm({
-            title: "เลื่อนนัดแพทย์",
-            message: "จาก\n\n" + this.meet.dateMeet + "\n\nไปยัง\n\n" + this.medicine[args.index].namee + " " + this.medicine[args.index].namet,
-            cancelButtonText: "ตกลง",
-            okButtonText: "ยกเลิก"
-        }).then(result => {
-            if (result == true) {
-                this.loader.hide();
-            }
-            else if (result == false) {
-                this.meet.dateMeet = this.medicine[args.index].namee + " " + this.medicine[args.index].namet ;
-                securityService.setMeet = JSON.stringify(this.meet);
-                console.log(securityService.getMeet);
-                this.loader.hide();
-                console.log("Dialog result: " + result);
-                this.loader.show(this.options);
-            }
-            // result argument is boolean
-            if(result == false){
-                dialogs.confirm({
-                    title: "เลื่อนนัดแพทย์",
-                    message: "การเลื่อนนัดแพทย์สำเร็จ",
-                    cancelButtonText: "ตกลง"
-                }).then(result => {
-                    // result argument is boolean
-                    console.log("Dialog result: " + result);
-                    // this.router.navigate(["/loginProfile"]);
-                    this.appoint3 = false ;
-                    this.appoint2 = false ;
-                    this.appoint1 = true ;
-                    this.demoLoader();
-                });  
-            }
-
-        
-        });   
+    times1 () {
+        if (this.time1 == 0) {
+            return true
+        }
+    }
+    times2 () {
+        if (this.time2 == 0) {
+            return true ;
+        }
+    }
+    times3 () {
+        if (this.time3 == 0) {
+            return true ;
+        }
+    }
+    times4 () {
+        if (this.time4 == 0) {
+            return true ;
+        }
     }
 
+    public selectDay(args) {
+        console.log("------------------------ ItemTapped: " + this.docterWorking[args.index].docterWorking_id); 
+        this.docterWorkingTime = this.docterWorking[args.index].docterWorking_id ;
+        
+        this.docterWorkingDay = this.docterWorking[args.index].docterWorking_day ;
+        console.log(this.docterWorkingDay);
+        let wTime = this.docterWorking.find(item => item.docterWorking_id === this.docterWorkingTime);
+        // this.timeShow = wTime.docterWorking_1000_1030;
+        // this.time2 = wTime.docterWorking_1030_1100;
+        // this.time3 = wTime.docterWorking_1100_1130;
+        // this.time4 = wTime.docterWorking_1130_1200;
+        this.timeShow = this.times
+        this.timeCheck.push(wTime.docterWorking_1000_1030);
+        this.timeCheck.push(wTime.docterWorking_1030_1100);
+        this.timeCheck.push(wTime.docterWorking_1100_1130);
+        this.timeCheck.push(wTime.docterWorking_1130_1200);
+        this.check () 
+        this.appoint1 = false;
+        this.appoint2 = false;
+        this.appoint3 = false;
+        this.appoint4 = true;
+    }
+    getFormatDate (dateStr) {
+        let date = new Date(dateStr)
+        let month
+        if(date.getMonth() == 0){
+            month = 1
+        }
+        else if(date.getMonth() == 1){
+            month = 2
+        }
+        else if(date.getMonth() == 2){
+            month = 3
+        }
+        else if(date.getMonth() == 3){
+            month = 4
+        }
+        else if(date.getMonth() == 4){
+            month = 5
+        }
+        else if(date.getMonth() == 5){
+            month = 6
+        }
+        else if(date.getMonth() == 6){
+            month = 7
+        }
+        else if(date.getMonth() == 7){
+            month = 8
+        }
+        else if(date.getMonth() == 8){
+            month = 9
+        }
+        else if(date.getMonth() == 9){
+            month = 10
+        }
+        else if(date.getMonth() == 10){
+            month = 11
+        }
+        else if(date.getMonth() == 11){
+            month = 12
+        }
+
+        let str = date.getDate() + "/" + month + "/" +date.getFullYear()
+        // console.log("eieiei", date.getDate)
+        return str
+    }
+    public onItemTap2(args) {
+        let tns= this
+       console.log(this.timeShow[args.index].time);
+       console.log(this.docterWorkingTime);
+       console.log(this.appoint.appoint_id);
+       console.log(this.docterWorkingDay) ;
+       console.log(this.appoint.appoint_day) ;
+       console.log(this.appoint.appoint_time) ;
+       dialogs.confirm({
+        title: "เลื่อนนัด",
+        message: "จาก วันที่ " + this.getFormatDate(this.appoint.appoint_day) + " เวลา " + this.appoint.appoint_time + "\n" + "เป็น วันที่ " + this.getFormatDate(this.docterWorkingDay) + " เวลา " + this.timeShow[args.index].time,
+        cancelButtonText: "ยอมรับ",
+        okButtonText: "ยกเลิก"
+    }).then(result => {
+        // result argument is boolean
+        console.log("Dialog result: " + result);
+        if (result == false) {
+            this.loader.show(this.options);
+            tns.appointmentService.postAppoint(this.timeShow[args.index].time, this.docterWorkingTime, this.appoint.appoint_id, this.docterWorkingDay, this.appoint.appoint_day, this.appoint.appoint_time);
+            alert("เลื่อนนัดสำเร็จ");
+            this.router.navigate(["/loginProfile"]);
+            this.demoLoader()
+        }
+    });   
+    }
+    check () {
+        this.timeCheck.forEach ((element, index) => {
+            if (element == 1) 
+                this.timeShow.splice(index, 1)
+        })
+    }
+    onSetupItemView(args: SetupItemViewArgs) {
+        if(this.timeCheck[args.index] === 1)
+            this.timeShow.splice(args.index, 1)
+    }
  }

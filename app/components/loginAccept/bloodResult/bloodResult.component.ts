@@ -53,6 +53,22 @@ export class bloodResultComponent implements OnInit {
         {
             namee : "Hypertension",
             namet : "ความดัน"
+        },
+        {
+            namee : "Malignant tumor",
+            namet : "มะเร็ง"
+        },
+        {
+            namee : "Essential thrombocytosis",
+            namet : "การสร้างเกล็ดเลือดมากผิดปกติ"
+        },
+        {
+            namee : "Immune thrombocytopenia",
+            namet : "การสร้างเกล็ดเลือดน้อยผิดปกติ"
+        },
+        {
+            namee : "Other",
+            namet : "อื่นๆ"
         }
     ] ;
 
