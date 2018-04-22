@@ -17,6 +17,7 @@ import { sideBarComponent } from "../loginProfile/sideBar/sideBar.component";
 import { TNSFontIconService } from 'nativescript-ng2-fonticon';
 import {LoadingIndicator} from "nativescript-loading-indicator";
 import {Input, ChangeDetectionStrategy} from '@angular/core';
+import { RouterExtensions } from "nativescript-angular/router";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -113,6 +114,7 @@ export class profileUserComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private loginProfileService: loginProfileService,
+        private routerExtensions: RouterExtensions,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
                 console.log("url", s);

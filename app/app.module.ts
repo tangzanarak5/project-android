@@ -10,6 +10,7 @@ import { ModalDialogService } from "nativescript-angular/modal-dialog";
 import { loginAcceptModule } from "./components/loginAccept/loginAccept.module";
 import { TNSFontIconModule } from 'nativescript-ng2-fonticon';
 import {CarouselDirective} from "nativescript-ng2-carousel/nativescript-ng2-carousel";
+import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 
 @NgModule({
     bootstrap: [
@@ -25,7 +26,8 @@ import {CarouselDirective} from "nativescript-ng2-carousel/nativescript-ng2-caro
         NativeScriptHttpModule,
         TNSFontIconModule.forRoot({
             'mdi': 'material-design-icons.css'
-          })
+          }),
+        NativeScriptUIChartModule
     ],
     declarations: [
         AppComponent,

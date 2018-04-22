@@ -23,6 +23,7 @@ import { standard } from "../../../security/model/standard.model"
 import { showStandardComponent } from "./showStandard/showStandard.component";
 import * as dockModule from "tns-core-modules/ui/layouts/dock-layout";
 import { sideBarComponent } from "../../loginProfile/sideBar/sideBar.component";
+import { bloodChartService } from "../bloodChart/bloodChart.service";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -308,7 +309,7 @@ export class bloodResultSelectTotalComponent implements OnInit {
         console.log(securityService.getStandard);
 
         if (this.selectBloodResult.name == "ชีพจร") {
-            this.resultTotal = this.P ;
+            this.resultTotal = this.bloodChartService.getP();
             this.unit = " ครั้งต่อนาที" ;
         }
         if (this.selectBloodResult.name == "ความดันโลหิต") {
@@ -316,19 +317,19 @@ export class bloodResultSelectTotalComponent implements OnInit {
             this.unit = " มม.ปรอท" ;
         }
         if (this.selectBloodResult.name == "คอเลสเตอรอลที่ดี") {
-            this.resultTotal = this.HDL ;
+            this.resultTotal = this.bloodChartService.getHDL();
             this.unit = " mg/dL" ;
         }
         if (this.selectBloodResult.name == "ไขมันไม่ดี") {
-            this.resultTotal = this.LDL ;
+            this.resultTotal = this.bloodChartService.getLDL();
             this.unit = " mg/dL" ;
         }
         if (this.selectBloodResult.name == "ระดับน้ำตาลในเลือด") {
-            this.resultTotal = this.resultFBS ;
+            this.resultTotal = this.bloodChartService.getFBS();
             this.unit = " mg/dL" ;
         }
         if (this.selectBloodResult.name == "ระดับน้ำตาลเฉลี่ยในเลือด") {
-            this.resultTotal = this.HBAONEC ;
+            this.resultTotal = this.bloodChartService.getHBAONEC();
             this.unit = " mg %" ;
         }
         
@@ -342,6 +343,7 @@ export class bloodResultSelectTotalComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private loginProfileService: loginProfileService,
+        private bloodChartService: bloodChartService,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
                 console.log("url", s);
@@ -369,15 +371,15 @@ export class bloodResultSelectTotalComponent implements OnInit {
 // ***********************************************************************************************************
         if (this.selectBloodResult.name == "ชีพจร") {
             if (i > 140 || i < 30) {
-                this.bloodResult = "~/images/red.png" ;
+                this.bloodResult = "~/images/rh.png" ;
                 return true ;
             }
             else if (i > 100 && i > 60) {
-                this.bloodResult = "~/images/yellow.png" ;
+                this.bloodResult = "~/images/yh.png" ;
                 return true ;
             }
             else if (i >= 60 && i <= 100) {
-                this.bloodResult = "~/images/green.png" ;
+                this.bloodResult = "~/images/gh.png" ;
                 return true ;
             }
         }
@@ -386,7 +388,7 @@ export class bloodResultSelectTotalComponent implements OnInit {
             if (i.substring(2,3) == " ") {
                     if (i.substring(4,5) == " ") {
                         if (parseInt(i.substring(0,2)) <= 99 && parseInt(i.substring(5,7)) <= 79) {
-                            this.bloodResult = "~/images/green.png" ;
+                            this.bloodResult = "~/images/gh.png" ;
                             return true ;
                     }
                 }
@@ -394,15 +396,15 @@ export class bloodResultSelectTotalComponent implements OnInit {
             if (i.substring(3,4) == " ") {
                 if (i.substring(5,6) == " ") {
                     if (parseInt(i.substring(0,3)) <= 120 && parseInt(i.substring(5,7)) <= 79) {
-                        this.bloodResult = "~/images/green.png" ;
+                        this.bloodResult = "~/images/gh.png" ;
                         return true ;
                     }
                     if (parseInt(i.substring(0,3)) <= 160 && parseInt(i.substring(5,8)) <= 100) {
-                        this.bloodResult = "~/images/yellow.png" ;
+                        this.bloodResult = "~/images/yh.png" ;
                         return true ;
                     }
                     if (parseInt(i.substring(0,3)) >= 180 && parseInt(i.substring(5,8)) >= 110) {
-                        this.bloodResult = "~/images/red.png" ;
+                        this.bloodResult = "~/images/rh.png" ;
                         return true ;
                     }
                 }
@@ -411,60 +413,60 @@ export class bloodResultSelectTotalComponent implements OnInit {
 // *************************************************************************************************************
         if (this.selectBloodResult.name == "คอเลสเตอรอลที่ดี") {
             if (i < 40 || i > 60) {
-                this.bloodResult = "~/images/red.png" ;
+                this.bloodResult = "~/images/rh.png" ;
                 return true ;
             }
             if (i >= 45 && i <= 55) {
-                this.bloodResult = "~/images/green.png" ;
+                this.bloodResult = "~/images/gh.png" ;
                 return true ;
             }
             if (i > 45 && i > 55) {
-                this.bloodResult = "~/images/yellow.png" ;
+                this.bloodResult = "~/images/yh.png" ;
                 return true ;
             }
         }
  // ****************************************************************************************************
         if (this.selectBloodResult.name == "ไขมันไม่ดี") {
             if (i <= 100) {
-                this.bloodResult = "~/images/green.png" ;
+                this.bloodResult = "~/images/gh.png" ;
                 return true ;
             }
             if (i > 100 && i < 160) {
-                this.bloodResult = "~/images/yellow.png" ;
+                this.bloodResult = "~/images/yh.png" ;
                 return true ;
             }
             if (i >= 160) {
-                this.bloodResult = "~/images/red.png" ;
+                this.bloodResult = "~/images/rh.png" ;
                 return true ;
             }
         }
 // **************************************************************************************************
         if (this.selectBloodResult.name == "ระดับน้ำตาลในเลือด") {
             if (i <= 100 && i >= 70) {
-                this.bloodResult = "~/images/green.png" ;
+                this.bloodResult = "~/images/gh.png" ;
                 return true ;
             }
             if (i > 100 && i <= 125) {
-                this.bloodResult = "~/images/yellow.png" ;
+                this.bloodResult = "~/images/yh.png" ;
                 return true ;
             }
             if (i > 125) {
-                this.bloodResult = "~/images/red.png" ;
+                this.bloodResult = "~/images/rh.png" ;
                 return true ;
             }
         }
     // ***********************************************************************************************
         if (this.selectBloodResult.name == "ระดับน้ำตาลเฉลี่ยในเลือด") {
             if (parseFloat(i) < 5.7) {
-                this.bloodResult = "~/images/green.png" ;
+                this.bloodResult = "~/images/gh.png" ;
                 return true ;
             }
             if (parseFloat(i) >= 5.7 && parseFloat(i) <= 6.4) {
-                this.bloodResult = "~/images/yellow.png" ;
+                this.bloodResult = "~/images/yh.png" ;
                 return true ;
             }
             if (parseFloat(i) > 6.4) {
-                this.bloodResult = "~/images/red.png" ;
+                this.bloodResult = "~/images/rh.png" ;
                 return true ;
             }
         }
