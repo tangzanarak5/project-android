@@ -11,14 +11,16 @@ export class standbytologinService {
 
     idp: idp;
     token = "a27cf250553d383da99d35260807f4bd2";
+    headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
+    options = new RequestOptions({ headers: this.headers });
 
     getDataPatient (): Observable<any> {
         this.idp = new idp();
         console.log(securityService.getIdp);
         this.idp = JSON.parse(securityService.getIdp);
         console.log(this.idp.username);
-        let url = "http://api.cpa.go.th/patient.php?request=get&cid=" + this.idp.username + "&token=" + this.token;
-        return this.http.get(url).map(response => response.json())
+        let url = "http://apis.cpa.go.th/patient/" + this.idp.username ;
+        return this.http.get(url, this.options).map(response => response.json())
         .catch(this.handleErrors);
     }
   

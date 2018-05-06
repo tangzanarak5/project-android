@@ -19,6 +19,7 @@ import {LoadingIndicator} from "nativescript-loading-indicator";
 import {Input, ChangeDetectionStrategy} from '@angular/core';
 import { diseases } from "../../../security/model/diseases.model"
 import { medicineSelect } from "../../../security/model/medicineSelect.model"
+import { medicineService } from "../medicine.service";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -42,163 +43,8 @@ export class medicineSelectComponent implements OnInit {
     hospitalnumber ;
     loader = new LoadingIndicator();
     connect = true ;
-    disease = [
-        {
-            namee : "Diabetes Mellitus",
-            namet : "เบาหวาน"
-        },
-        {
-            namee : "Hypercholesterolemia",
-            namet : "ไขมัน"
-        },
-        {
-            namee : "Hypertension",
-            namet : "ความดัน"
-        }
-    ] ;
-    medicine = [
-        {
-            namee : "Metformin",
-            namet : "ยาลดน้ำตาลในเลือด",
-            data : "ลดการดูดซึมสารอาหารที่ลำไส้เล็กส่วนต้น และลดน้ำตาลหลังอาหาร",
-            use : "   เริ่มต้นขนาดน้อยใช้เพียง 25 มก พร้อมอาหาร 3 มื้อให้ปรับยาทุก 4 สัปดาห์ครั้งละ 25 มก โดยเจาะน้ำตาลหลังอาหาร 1 ชั่วโมง และขนาดยาที่ใช้หากน้ำหนักน้อยกว่า 60 กิโลกรัมให้ 50 มก พร้อมอาหารวันละ 3 ครั้ง สำหรับผู้ที่น้ำหนักมากกว่า60 กก ใช้ 100 มก พร้อมอาหารวันละ 3 ครั้ง",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "Repaglinide",
-            namet : "ยาเพิ่มการหลั่งของอินซูลิน",
-            data : "กระตุ้นตับอ่อนให้สร้างอินซูลินทำให้น้ำตาลหลังอาหารลดลง",
-            use : "   สำหรับผู้ที่ไม่เคยรับยามาก่อน HbA1c < 8% ให้เริ่มขนาด 0.5 ก่อนอาหาร 3 มื้อ หากผู้ที่เคยรับยาเบาหวานมาก่อน HbA1c  > 8% ให้เริ่มขนาด 1-2 มก ก่อนอาหาร 3 มื้อ ขนาดเต็มที่ 4 มก ก่อนอาหาร 3 มื้อ",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "Insulin",
-            namet : "ยาปรับระดับน้ำตาลในเลือด",
-            data : "ควบคุมกระบวนการเผาผลาญสารอาหารประเภทคาร์โบไฮเดรตและไขมัน ประกอบกับอินซูลินจะเร่งการดูดซึมของน้ำตาลกลูโคส (Glucose) จากกระแสเลือดเข้าสู่กล้ามเนื้อลาย และเนื้อเยื่อไขมัน",
-            use : "   1.เตรียมยาฉีดอินซูลินให้พร้อมฉีดโดยบรรจุหลอดยาอินซูลินลงในปากกาสำหรับฉีดยาอินซูลิน สวมหัวเข็มและปรับขนาดยาตามวิธีที่ระบุไว้ในคู่มือการใช้งานของบริษัทผู้ผลิตแต่ละราย\n   2.เช็ดผิวหนังบริเวณที่จะฉีดอินซูลินให้สะอาดด้วยสำลีชุบแอลกอฮอล์ระเหยจนแห้งก่อนที่จะฉีดยา\n   3.ถอดปลอกเข็มฉีดยาออก แล้วจับผิวหนังบริเวณที่จะฉีดยาอินซูลินยกขึ้นเล็กน้อยโดยใช้นิ้วโป้งและนิ้วชี้ของมือข้างหนึ่งบีบผิวหนังเข้าหากัน\n   4.จับปากกาด้วยมืออีกข้างหนึ่งโดยใช้นิ้วโป้งแตะไว้ที่ปุ่มสำหรับกดให้ยาและใช้นิ้วมือทั้งสี่ที่เหลือกำด้ามปากกาไว้ จับปากกาให้อยู่ในแนวเดียวกับผิวหนังบริเวณที่จะฉีดยาและแทงหัวเข็มลงสัมผัสกับผิวหนังบริเวณนั้น\n   5.กดปุ่มฉีดยาที่ปลายปากกาจนสุดตัวยาอินซุลินจะถูกฉีดเข้าใต้ผิวหนัง ดึงปากกาขึ้นเพื่อถอนเข็มฉีดยาออกจากผิวหนัง\n   6.สวมปลอกเข็มกลับดังเดิม แล้วตรวจสอบดูว่ายาอินซูลินถูกฉีดตามขนาดที่ต้องการหรือไม่",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "Biguanide",
-            namet : "ยาชะลอการดูดซึมน้ำตาลกลูโคส",
-            data : "รักษาโรคเบาหวานประเภทที่ 2 ไม่ก่อให้เกิดภาวะน้ำตาลในเลือดต่ำ",
-            use : "   สำหรับการรักษาโรคเบาหวานชนิด 2 ขนาดสูงสุดที่ในผู้ใหญ่รับประทานไม่ควรเกิน 2.25 กรัม/วัน\n   ขนาดสูงสุดที่รับประทานในเด็กไม่ควรเกิน 2 กรัม/วัน",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "Sulfonylurea",
-            namet : "ยาควบคุมน้ำตาลในเลือด",
-            data : "กระตุ้นกลไกการทำงานของเบต้าเซลล์ในตับอ่อนให้หลั่งฮอร์โมนอินซูลินออกมา ทำให้ร่างกายสามารถใช้น้ำตาลในเลือดได้อย่างมีสมดุลมากขึ้น และยังพบว่ายากลุ่มนี้ช่วยลดการสร้างน้ำตาลกลูโคส (Glucose) ในตับ",
-            use : "   ยาเม็ดชนิดรับประทาน ขนาด 250 มิลลิกรัม/เม็ด",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "Meglitinides",
-            namet : "ยากระตุ้นการทำงานของตับอ่อน",
-            data : "กระตุ้นตับอ่อนให้ผลิตอินซูลินออกมาอย่างมีความสัมพันธ์กับปริมาณของระดับน้ำตาลในกระแสเลือด",
-            use : "   รับประทานครั้งละ 60 - 120 มิลลิกรัมก่อนมื้ออาหารประมาณ 30 นาที",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "Alpha-glucos inhibitor",
-            namet : "ยาย่อยคาร์โบไฮเดรต",
-            data : "ย่อยคาร์โบไฮเดรตให้กลาย เป็นน้ำตาลโมเลกุลเล็ก (น้ำตาลชนิดสัมพันธ์กับโรคเบาหวาน)",
-            use : "   รับประทาน 50 - 100 มิลลิกรัมวันละ 3 ครั้งก่อนอาหาร",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "ACE Inhibitor",
-            namet : "ยาลดความดันโลหิต",
-            data : "ขยายหลอด ลดอาการเหนื่อยจากหัวใจวาย ลดการกระตุ้น angiotensin II",
-            use : "รับประทานวันละ 1 ครั้ง ตอนเช้า",
-            type : "ความดันโลหิต"
-        },
-        {
-            namee : "Thiazide diuretics",
-            namet : "ยาขับปัสสาวะ",
-            data : "รักษาโรคความดันโลหิตสูง, อาการบวมอันมีสาเหตุมาจาก โรคหัวใจ โรคตับ และโรคไต, ยากลุ่มนี้ช่วยลดความเสี่ยงของการเสียชีวิตเนื่องจากหัวใจขาดเลือด (โรคกล้ามเนื้อหัวใจตาย) อันมีสาเหตุมาจากความดันโลหิตสูง",
-            use : "   รับประทาน 2.5 - 5 มิลลิกรัม/วัน",
-            type : "ความดันโลหิต"
-        },
-        {
-            namee : "BA blockers",
-            namet : "ยาลดการทำงานประสาทซิมพาธีติก",
-            data : "ปิดกั้นตัวรับเบต้า (Beta receptor) ซึ่งมี 3 ชนิด คือ เบต้าวัน (Beta1), เบต้าทู (Beta 2), และเบต้าทรี (Beta 3) ซึ่งตัวรับเหล่านี้อยู่ตามเนื้อเยื่อของ หัวใจ หลอดเลือด หลอดลม และส่งผลให้หัวใจลดการบีบตัวและลดอัตราการเต้นลง พร้อมกับยับยั้งการปลดปล่อยสารเรนิน (Renin, เอนไซม์ที่เกี่ยวข้องกับกระบวนการควบคุมความดันโลหิตของร่างกาย) จากไต ทำให้เพิ่มการขับเกลือโซเดียมและน้ำออกจากร่างกาย เป็นผลให้ลดความดันโลหิต",
-            use : "   ฉีดยาเข้าหลอดเลือดดำโดยตรงขนาด 80 มก. หรือจะใช้ยาขนาด 1 มิลลิกรัม/น้ำ หนักตัว 1 กิโลกรัม การเดินยา/ให้ยาเข้าหลอดเลือดดำให้ใช้เวลา 30 วินาทีขึ้นไป จากนั้นหยดยาเข้าหลอดเลือดดำในอัตรา 0.15 มิลลิกรัม/น้ำหนักตัว 1 กิโลกรัม/นาที หากจำเป็นแพทย์อาจปรับขนาดการให้ยาเป็น 0.30 มิลลิกรัม/น้ำหนักตัว 1 กิโลกรัม/นาทีเพื่อควบคุมอัตราการเต้นของหัวใจและความดันโลหิตไปพร้อมกันเด็กอายุมากกว่า 1 ปีขึ้นไป: หยดยาเข้าหลอดเลือดดำขนาด 0.1 - 0.5 มิลลิกรัม/น้ำหนักตัว 1 กิโลกรัม/นาทีโดยให้ยาเป็นเวลามากกว่า 1 นาที และให้ยาต่อเนื่องเพื่อช่วยควบคุมอาการหัวใจเต้นเร็ว",
-            type : "ความดันโลหิต"
-        },
-        {
-            namee : "Cc blocker",
-            namet : "ยาปิดกั้นช่องประจุแคลเซียม",
-            data : "ลดการนำเข้าของแคลเซียมเข้าในกล้ามเนื้อเรียบที่อยู่ในผนังเซลล์ของหลอดเลือดรวมถึงกล้ามเนื้อของหัวใจ ส่ง ผลให้หลอดเลือดเหล่านั้นขยายตัว ทำให้ความดันโลหิตลดลง",
-            use : "   ผู้ใหญ่รับประทาน 5 – 10 มิลลิกรัม วันละ 1 ครั้ง สามารถรับประทานก่อนหรือหลังอาหารก็ได้",
-            type : "ความดันโลหิต"
-        },
-        {
-            namee : "ydralazine",
-            namet : "ยาขยายหลอดเลือด",
-            data : "ทำให้เกิดการขยายตัวของหลอดเลือด ยานี้จะทำให้การไหลเวียนของเลือดที่ผ่านไต ผ่านสมองเป็นไปอย่างสะดวกขึ้น",
-            use : "   รับประทาน 40 - 50 มิลลิกรัม/วันโดยแบ่งรับประทาน หากจำเป็นแพทย์สามารถปรับขนาดรับประทานเป็น 200 มิลลิกรัม/วัน",
-            type : "ความดันโลหิต"
-        },
-        {
-            namee : "Clonidine",
-            namet : "ยาระบบประสาทส่วนกลาง",
-            data : "ส่งผลให้หลอดเลือดส่วนปลายตามอวัยวะต่างๆเกิดการขยายตัว และทำให้ความดันโลหิตกับอัตราการเต้นของหัวใจลดลง",
-            use : "   ขนาดเริ่มต้นรับประทาน 50 - 100 ไมโครกรัมวันละ 3 ครั้ง ขนาดรับประทานสูงสุดไม่เกิน 2,400 ไมโครกรัม/วัน",
-            type : "ความดันโลหิต"
-        },
-        {
-            namee : "Atorvastatin",
-            namet : "ยาลดระดับไขมันไตรกลีเซอร์ไรด์",
-            data : "ยับยั้งการทำงานของเอนไซม์ที่มีผลต่อการสังเคราะห์คอเลสเตอรอลในตับ อีกทั้งช่วยลดระดับไขมันไตรกลีเซอร์ไรด์ในกระแสเลือด ",
-            use : "   รับประทานครั้งละ 10 - 80 มิลลิกรัม วันละครั้ง สามารถรับประทานยาก่อนหรือหลังอาหารก็ได้ การปรับเปลี่ยนขนาดการรับประทานขึ้นอยู่กับระดับไขมันในเลือดของผู้ป่วย",
-            type : "ไขมัน"
-        },
-        {
-            namee : "Fluvastatin",
-            namet : "ยาชะลอการสร้างไขมันแอลดีแอลคลอเรสเตอรอล",
-            data : "ยับยั้งเอนไซม์ เอนไซม์ที่ทำงานเกี่ยวข้องกับการสร้างไขมันคอเลสเตอรอลในตับ ทำให้เกิดการชะลอการสร้างคอเลสเตอรอล",
-            use : "   รับประทาน 20 - 40 มิลลิกรัมวันละครั้งก่อนนอน",
-            type : "ไขมัน"
-        },
-        {
-            namee : "Lovastatin",
-            namet : "ยาชะลอการสังเคราะห์ไขมัน",
-            data : "รบกวนกระบวนการทำงานของเอนไซม์และก่อให้เกิดผลในการชะลอการสังเคราะห์ไขมันกลุ่มคอเลสเตอรอล",
-            use : "   ขนาดรับประทานเริ่มต้นที่ 20 มิลลิกรัม หลังอาหารเย็น หรืออาจใช้ขนาดรับประทาน 10 - 80 มิลลิกรัม/วัน",
-            type : "ไขมัน"
-        },
-        {
-            namee : "Ezetimibe",
-            namet : "ยายับยั้งการดูดซึมคอเลสเตอรอล",
-            data : "ลดการดูดซึมไขมันคอเลสเตอรอลจากลำ ไส้ส่งผลให้ลดการสะสมไขมันในตับ",
-            use : "   รับประทาน 10 มิลลิกรัมวันละครั้ง",
-            type : "ไขมัน"
-        },
-        {
-            namee : "Cholestyramine",
-            namet : "ลดปริมาณคอเลสเตอรอล",
-            data : "ลดการดูดซึมไขมันเข้าสู่ร่างกาย และลดการระคายเคืองของลำไส้จากน้ำดี",
-            use : "   รับประทานครั้งละ 1 ซองวันละ 3 - 4 ครั้ง",
-            type : "ไขมัน"
-        },
-        {
-            namee : "Colesevelam",
-            namet : "ยาช่วยขจัดกรดน้ำดี",
-            data : "รักษาสมดุลน้ำดีในร่างกาย",
-            use : "   รับประทานยาเม็ดขนาด 1.875 กรัม (3 เม็ด) วันละ 2 ครั้งพร้อมอาหาร",
-            type : "ไขมัน"
-        },
-        {
-            namee : "Gemfibrozil",
-            namet : "ยาลดไขมันไม่ดีในเลือด",
-            data : "ยับยั้งการสะสมไขมันในตับ",
-            use : "   รับประทานครั้งละ 600 มิลลิกรัม วันละ 2 ครั้ง ก่อนอาหารครึ่งชั่วโมงเป็นอย่างต่ำ เช้า - เย็น ขนาดรับประทานสูงสุดไม่เกิน 1.5 กรัม/วัน",
-            type : "ไขมัน"
-        }
-    ] ;
-    
+    dataMidicine = [] ;
+    dataMidicineShow = [] ;
     medicineNumber ;
 
     options = {
@@ -234,15 +80,41 @@ export class medicineSelectComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.medicineSelect = new medicineSelect ;
-        this.medicineSelect.name = "" ;
-        securityService.setMedicineSelect = JSON.stringify(this.medicineSelect);
-        console.log(securityService.getMedicineSelect);
-        this.diseases = new diseases ;
+        // this.medicineSelect = new medicineSelect ;
+        // this.medicineSelect.name = "" ;
+        // securityService.setMedicineSelect = JSON.stringify(this.medicineSelect);
+        // console.log(securityService.getMedicineSelect);
         this.diseases = JSON.parse(securityService.getDiseases);
         console.log(securityService.getDiseases);
         this.dataUser = JSON.parse(securityService.getDataUser);
         this.hospitalnumber = this.dataUser.dataset.hn
+        console.log(this.hospitalnumber);
+        this.medicineService.getDataMedicine(this.hospitalnumber)
+                    .subscribe(
+                        (Response) => {
+                          // console.log(JSON.stringify(Response.dataset));
+                          // console.log(this.diseases.name);
+                          let selectResponse = Response.dataset.find(item => item.visitdate === this.diseases.name);
+                          this.dataMidicine = Response.dataset ;
+                          for(let i = 0;i<this.dataMidicine.length;i++){
+                            if (this.dataMidicine[i].visitdate == this.diseases.name) {
+                                this.dataMidicineShow.push(this.dataMidicine[i]);
+                                console.log(this.dataMidicineShow);
+                            }
+                          }
+                          if (selectResponse) {
+                            console.log("1")
+                          }
+                          else { alert("วันที่ " + this.diseases.name + " ไม่ได้รับยา") ; this.router.navigate(["/medicine"]); }
+
+                          // console.log(this.dataMidicine) ;
+                        },
+                        (error) => {
+                            console.log("data error") ;
+                            alert("กรุณาลองอีกครั้ง");
+                            this.router.navigate(["/medicine"]);
+                        }
+                    )
     }
 
     constructor(
@@ -252,7 +124,7 @@ export class medicineSelectComponent implements OnInit {
         private vcRef: ViewContainerRef,
         private route: ActivatedRoute,
         private router: Router,
-        private loginProfileService: loginProfileService,
+        private medicineService: medicineService,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
                 console.log("url", s);
@@ -260,25 +132,15 @@ export class medicineSelectComponent implements OnInit {
 
 }
 public onItemTap(args) {
-    console.log("------------------------ ItemTapped: " + args.index);
-    this.medicineSelect.name = this.medicine[args.index].namet ;
-    securityService.setMedicineSelect = JSON.stringify(this.medicineSelect);
-    console.log(securityService.getMedicineSelect);
-    this.router.navigate(["/medicineSelectOne"]);
+    // console.log("------------------------ ItemTapped: " + args.index);
+    // this.medicineSelect.name = this.medicine[args.index].namet ;
+    // securityService.setMedicineSelect = JSON.stringify(this.medicineSelect);
+    // console.log(securityService.getMedicineSelect);
+    // this.router.navigate(["/medicineSelectOne"]);
 }
     toBack () {
         console.log("connect");
         this.router.navigate(["/medicine"]);
-    }
-    getMedicine (number) {
-        this.connect = false
-        this.medicineNumber = number ;
-        console.log(this.medicineNumber)
-    }
-    checkType (dataType) {
-        if (dataType == this.diseases.name) {
-            return true ;
-        }
     }
 
  }

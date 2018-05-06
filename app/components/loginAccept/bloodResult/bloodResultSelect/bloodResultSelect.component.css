@@ -200,3 +200,10 @@ titleMargin {
 .right {
     text-align: right;
 }
+.sl {
+    font-size: 20px;
+}
+.sizeLogin {
+    background-color: #004D40;
+    width: 40%;
+}

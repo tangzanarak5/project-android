@@ -22,6 +22,9 @@ import {Input, ChangeDetectionStrategy} from '@angular/core';
 import { selectBlood } from "../../security/model/selectBlood.model"
 import { loginProfileComponent } from "../loginProfile/loginProfile.component";
 import { RouterExtensions } from "nativescript-angular";
+import { bloodResultService } from "./bloodResult.service";
+import { info } from "../../security/model/info.model"
+import { showInfoComponent } from "./bloodResultSelect/showInfo/showInfo.component";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -43,35 +46,64 @@ export class bloodResultComponent implements OnInit {
 
     disease = [
         {
-            namee : "Diabetes Mellitus",
-            namet : "เบาหวาน"
+            namee : "HbA1C",
+            namet : "ระดับน้ำตาลเฉลี่ยในเลือด"
         },
         {
-            namee : "Hypercholesterolemia",
-            namet : "ไขมัน"
+            namee : "Glucose",
+            namet : "ระดับน้ำตาลในเลือด"
         },
         {
-            namee : "Hypertension",
-            namet : "ความดัน"
+            namee : "HDL",
+            namet : "ไขมันดี"
         },
         {
-            namee : "Malignant tumor",
-            namet : "มะเร็ง"
+            namee : "LDL",
+            namet : "ไขมันไม่ดี"
         },
         {
-            namee : "Essential thrombocytosis",
-            namet : "การสร้างเกล็ดเลือดมากผิดปกติ"
+            namee : "Triglycerides",
+            namet : "ไตรกลีเซอไรด์สารอาหารประเภทไขมัน"
         },
         {
-            namee : "Immune thrombocytopenia",
-            namet : "การสร้างเกล็ดเลือดน้อยผิดปกติ"
+            namee : "RBC",
+            namet : "ปริมาณเซลล์เม็ดเลือดแดง"
         },
         {
-            namee : "Other",
-            namet : "อื่นๆ"
+            namee : "Bilirubin",
+            namet : "การสลายตัวของเม็ดเลือดแดง"
+        },
+        {
+            namee : "Hb",
+            namet : "ฮีโมโกลบินโปรตีนภายในเซลล์เม็ดเลือดแดง"
+        },
+        {
+            namee : "Hct",
+            namet : "เฮมาโตคริตความเข้มข้นของเลือด"
+        },
+        {
+            namee : "MCV ",
+            namet : "ปริมาตรของเซลล์เม็ดเลือดแดง"
+        },
+        {
+            namee : "Urobilinogen",
+            namet : "สารในปัสสาวะ"
+        },
+        {
+            namee : "pH",
+            namet : "ความเป็นกรด–ด่าง"
+        },
+        {
+            namee : "Protein",
+            namet : "โปรตีน"
+        },
+        {
+            namee : "Ketone",
+            namet : "สารคีโตนในปัสสาวะ"
         }
     ] ;
-
+    info: info ;
+    dataLab ;
     dataUser ;
     hospitalnumber ;
     loader = new LoadingIndicator();
@@ -105,17 +137,19 @@ export class bloodResultComponent implements OnInit {
     @ViewChild('sidebar') sideBar: sideBarComponent
 
     openDrawer () {
-        this.sideBar.openDrawer();
+        this.sideBar.openDrawer() ;
     }
 
     public onItemTap(args) {
+        this.loader.show(this.options);
         console.log("------------------------ ItemTapped: " + args.index);
-        this.selectBlood.numberIndex = args.index ;
+        this.selectBlood.numberIndex = this.disease[args.index].namee ;
         this.selectBlood.name = this.disease[args.index].namet ;
         securityService.setSelectBlood = JSON.stringify(this.selectBlood);
         // this.selectBlood = JSON.parse(securityService.getSelectBlood);
         console.log(securityService.getSelectBlood);
-        this.router.navigate(["/bloodResultSelect"]);
+        this.router.navigate(["/bloodResultSelect"]) ;
+        this.demoLoader();
     }
 
     ngOnInit(): void {
@@ -125,9 +159,15 @@ export class bloodResultComponent implements OnInit {
         this.selectBlood.name = "" ;
         securityService.setSelectBlood = JSON.stringify(this.selectBlood);
         console.log(securityService.getSelectBlood);
-        // this.selectBlood = JSON.parse(securityService.getSelectBlood);
-        // this.dataUser = JSON.parse(securityService.getDataUser);
-        // this.hospitalnumber = this.dataUser.dataset.hn
+        this.selectBlood = JSON.parse(securityService.getSelectBlood);
+        this.dataUser = JSON.parse(securityService.getDataUser);
+        this.hospitalnumber = this.dataUser.dataset.hn
+        this.info = new info ;
+        this.info.name = "" ;
+        this.info.numberIndex = "" ;
+        securityService.setInfo = JSON.stringify(this.info);
+        console.log(securityService.getInfo) ;
+
     }
 
     constructor(
@@ -137,39 +177,36 @@ export class bloodResultComponent implements OnInit {
         private vcRef: ViewContainerRef,
         private route: ActivatedRoute,
         private router: Router,
-        private loginProfileService: loginProfileService,
+        private bloodResultService: bloodResultService,
         private routerExtensions: RouterExtensions,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
-                console.log("url", s);
+            console.log("url", s) ;
             });
+    }
+    showInfo (i) {
+        console.log(i) ;
+        this.info.numberIndex = i ;
+        this.info.name = this.disease[i].namet
+        securityService.setInfo = JSON.stringify(this.info);
+        console.log(securityService.getInfo);
+        let options = {
+            context: {},
+            fullscreen: false,
+            viewContainerRef: this.vcRef
+        };
+        this.modal.showModal(showInfoComponent, options).then(res => {
+        });
     }
     toBack () {
         this.loader.show(this.options);
-        console.log("connect");
+        console.log("connect") ;
         this.router.navigate(["/loginProfile"]);
         this.demoLoader();
     }
     private demoLoader() {
         setTimeout(() => {
           this.loader.hide();
-        }, 1000);
+        }, 2000);
       }
-    // checkUpDown(i, d, count) {
-    // //     if (i == 0) {
-    // //         if (d < this.medicine3[i+1].dataResult) {
-    // //             return true ;
-    // //         }
-    // //         else return false ;
-    // //     }
-    // //     if (count != 1 && i > 0) {
-    // //     if (i > 0) {
-    // //         if (d < this.medicine3[i+1].dataResult) {
-    // //             return true ;
-    // //         }
-    // //         else return false ;
-    // //     }
-    // // }
-    // // else return true ;
-    // // }
  }

@@ -50,6 +50,7 @@ export class appointmentComponent implements OnInit {
     appoint3 = false;
     appoint4 = false;
     docterWorking  ;
+    docterWorkingShow = [] ;
     docterWorkingTime ;
     docterWorkingDay;
     time1;
@@ -58,23 +59,16 @@ export class appointmentComponent implements OnInit {
     time4;
     timeShow = [];
     timeCheck = [];
+    oneTime ;
+    oneDes ;
+    oneDay ;
+    oneDocName ;
+    oneLocation ;
+    oneDeName ;
+    oneDocId ;
     loader = new LoadingIndicator();
     public myItems: Array<DataItem>;
     private counter: number;
-    medicine = [
-        {
-            namee : "พฤหัสบดี 22 มีนาคม 2561",
-            namet : "เวลา 09.00 น."
-        },
-        {
-            namee : "ศุกร์ 23 มีนาคม 2561",
-            namet : "เวลา 10.40 น."
-        },
-        {
-            namee : "จันทร์ 26 มีนาคม 2561",
-            namet : "เวลา 13.15 น."
-        }
-    ] ;
     times = [
         {
             time : "10.00 น."
@@ -123,7 +117,6 @@ export class appointmentComponent implements OnInit {
       }
 
     ngOnInit(): void {
-        let tns = this ;
         this.dataUser = JSON.parse(securityService.getDataUser);
         console.log(JSON.stringify(this.dataUser.dataset));
         console.log(this.dataUser.dataset.hn)
@@ -141,15 +134,23 @@ export class appointmentComponent implements OnInit {
         .subscribe(
                         (Response) => {
                           //console.log(Response);
-                          let Responsed = Response.find(item => item.hn_id === tns.hospitalnumber);
+                          let Responsed = Response.find(item => item.hn_id === this.hospitalnumber);
                           //console.log(tns.hospitalnumber);
                           if (Responsed.appoint_status == "0") {
-                            tns.appoint = Responsed ;
-                            console.log(JSON.stringify(tns.appoint));
+                            this.appoint = Responsed ;
+                            this.oneDes = this.appoint.appoint_description ;
+                            this.oneDay = this.appoint.appoint_day ;
+                            this.oneTime = this.appoint.appoint_time ;
+                            this.oneDocName = this.appoint.docter_name ;
+                            this.oneLocation = this.appoint.appoint_location ;
+                            this.oneDeName = this.appoint.department_name ;
+                            this.oneDocId = this.appoint.docter_id ;
+                            console.log(JSON.stringify(this.appoint)) ;
                           }
                         },
                         (error) => {
-                            alert("ไม่สามารถเชื่อต่อได้");
+                            alert("กรุณาลองอีกครั้ง");
+                            this.router.navigate(["/loginProfile"]);
                         }
                     )
                     this.appointmentService.getDocterworking()
@@ -157,12 +158,24 @@ export class appointmentComponent implements OnInit {
                         (Response) => {
                         // let ResponseDocterWorking = Response.find(item => item.docter_id === tns.appoint.docter_id);
                         
-                        tns.docterWorking = Response;
-                        //console.log(JSON.stringify(tns.docterWorking));  
-                        
+                        this.docterWorking = Response;
+                        for (let i = 0 ; i < this.docterWorking.length ; i++) {
+                            if (parseInt(this.docterWorking[i].docter_id) == parseInt(this.oneDocId)) {
+                                this.docterWorkingShow.push(this.docterWorking[i]) ;
+                            }
+                            else if (parseInt(this.docterWorking[i].docter_id) == parseInt(this.oneDocId)) {
+                                this.docterWorkingShow.push(this.docterWorking[i]) ;
+                            }
+                            else if (parseInt(this.docterWorking[i].docter_id) == parseInt(this.oneDocId)) {
+                                this.docterWorkingShow.push(this.docterWorking[i]) ;
+                            }
+
+                        }
+                        console.log(JSON.stringify(this.docterWorkingShow)) ;  
                         },
                         (error) => {
-                            alert("ไม่สามารถเชื่อต่อได้");
+                            alert("กรุณาลองอีกครั้ง");
+                            this.router.navigate(["/loginProfile"]) ;
                         }
                     )  
                     //console.log(JSON.stringify(this.appoint));
@@ -184,7 +197,7 @@ export class appointmentComponent implements OnInit {
     toBack () {
         this.loader.show(this.options);
         console.log("connect");
-        this.router.navigate(["/loginProfile"]);
+        this.router.navigate(["/loginProfile"]) ;
         this.demoLoader();
     }
 

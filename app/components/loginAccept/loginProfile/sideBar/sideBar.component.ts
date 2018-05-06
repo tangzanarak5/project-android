@@ -51,7 +51,12 @@ export class sideBarComponent implements AfterViewInit, OnInit {
             color : "lightgray"
         },
         {
-            name : "ผลเลือด",
+            name : "สุขภาพทั่วไป",
+            icon : "favorite",
+            color : "lightgray"
+        },
+        {
+            name : "ผลแลป",
             icon : "favorite",
             color : "lightgray"
         },
@@ -130,8 +135,8 @@ export class sideBarComponent implements AfterViewInit, OnInit {
     private drawer: RadSideDrawer;
 
     onSetupItemView(args: SetupItemViewArgs) {
-        args.view.context.odd = (args.index === 8);
-        args.view.context.even = (args.index !== 8);
+        args.view.context.odd = (args.index === 9);
+        args.view.context.even = (args.index !== 9);
     }
     public onItemTap(args) {
         console.log("ItemTapped: " + args.index);
@@ -150,46 +155,46 @@ export class sideBarComponent implements AfterViewInit, OnInit {
         if (args.index == 2) {
             this.loader.show(this.options);
             this.drawer.closeDrawer();
-            this.router.navigate(["/bloodResult"]);
+            this.router.navigate(["/hyper"]);
             this.loader.hide();
         }
         if (args.index == 3) {
             this.loader.show(this.options);
             this.drawer.closeDrawer();
-            this.router.navigate(["/medicine"]);
+            this.router.navigate(["/bloodResult"]);
             this.loader.hide();
         }
         if (args.index == 4) {
             this.loader.show(this.options);
             this.drawer.closeDrawer();
-            this.router.navigate(["/cost"]);
+            this.router.navigate(["/medicine"]);
             this.loader.hide();
         }
         if (args.index == 5) {
             this.loader.show(this.options);
             this.drawer.closeDrawer();
-            this.router.navigate(["/appointment"]);
+            this.router.navigate(["/cost"]);
             this.loader.hide();
         }
         if (args.index == 6) {
             this.loader.show(this.options);
             this.drawer.closeDrawer();
-            utils.openUrl("https://newsbhu.firebaseapp.com/#/")
+            this.router.navigate(["/appointment"]);
             this.loader.hide();
         }
         if (args.index == 7) {
+            this.loader.show(this.options);
+            this.drawer.closeDrawer();
+            utils.openUrl("https://newsbhu.firebaseapp.com/#/")
+            this.loader.hide();
+        }
+        if (args.index == 8) {
             this.loader.show(this.options);
             this.drawer.closeDrawer();
             utils.openUrl("https://www.cpa.go.th//#/")
             this.loader.hide();
         }
         if (args.index == 9) {
-            this.loader.show(this.options);
-            this.drawer.closeDrawer();
-            this.router.navigate(["/loginProfile"]);
-            this.loader.hide();
-        }
-        if (args.index == 8) {
             this.loader.show(this.options);
             this.drawer.closeDrawer();
             this.logout();
@@ -222,9 +227,9 @@ export class sideBarComponent implements AfterViewInit, OnInit {
         this.mainContentText = "SideDrawer for NativeScript can be easily setup in the HTML definition of your page by defining tkDrawerContent and tkMainContent. The component has a default transition and position and also exposes notifications related to changes in its state. Swipe from left to open side drawer.";
         if (securityService.getDataUser == "") {this.router.navigate(["/security/standbytologin"]);}
         this.dataUser = JSON.parse(securityService.getDataUser);
-        console.log(JSON.stringify(this.dataUser.dataset));
-        console.log(this.dataUser.dataset.hn)
-        this.nameAndsurname = this.dataUser.dataset.fname + " " + this.dataUser.dataset.lname
+        // console.log(JSON.stringify(this.dataUser.dataset));
+        // console.log(this.dataUser.dataset.hn) ;
+        this.nameAndsurname = this.dataUser.dataset.first_name + " " + this.dataUser.dataset.last_name
         this.hospitalnumber = this.dataUser.dataset.hn
         this.barcode = "https://barcode.tec-it.com/barcode.ashx?translate-esc=off&data=" + this.hospitalnumber + "&code=Code39&multiplebarcodes=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0" ;
         this.cid = this.dataUser.dataset.cid

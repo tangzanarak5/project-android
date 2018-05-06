@@ -6,43 +6,57 @@ import { ViewContainerRef } from "@angular/core";
 import { securityService } from "../../security/security.service";
 import { connectionType, getConnectionType } from "connectivity";
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
-import { loginProfileService } from "../loginProfile/loginProfile.service";
-import * as wrapLayoutModule from "tns-core-modules/ui/layouts/wrap-layout";
 import * as dialogs from "ui/dialogs";
-import { ActivityIndicator } from "ui/activity-indicator";
-import * as utils from "utils/utils";
 import { ActionItem } from "ui/action-bar";
 import { Observable } from "data/observable";
-import { sideBarComponent } from "../loginProfile/sideBar/sideBar.component";
 import { TNSFontIconService } from 'nativescript-ng2-fonticon';
 import {LoadingIndicator} from "nativescript-loading-indicator";
+import { ObservableArray } from "tns-core-modules/data/observable-array";
 import {Input, ChangeDetectionStrategy} from '@angular/core';
-import { costSelect } from "../../security/model/costSelect.model"
-import { costService } from "./cost.service";
+import { sideBarComponent } from "../loginProfile/sideBar/sideBar.component";
+import { hyperSelectOne } from "../../security/model/hyperSelectOne.model";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
 }
 
 @Component({
-    selector: "cost",
-    templateUrl: "cost.component.html",
-    styleUrls: ['cost.component.css'],
+    selector: "hyper",
+    templateUrl: "hyper.component.html",
+    styleUrls: ['hyper.component.css'],
     moduleId: module.id
 })
 
 
-export class costComponent implements OnInit {
+export class hyperComponent implements OnInit {
     public myItems: Array<DataItem>;
     private counter: number;
-    costSelect: costSelect ;
+    hyperSelectOne: hyperSelectOne ;
     dataUser ;
-    hospitalnumber ;
-    medicineNumber ;
+    dataHyper ;
+    allData = [
+        {
+            nameEng: "Body Mass",
+            nameThai: "ดัชนีมวลกาย"
+        },
+        {
+            nameEng: "Blood Pressure",
+            nameThai: "ความดันโลหิต"
+        },
+        {
+            nameEng: "Pulse",
+            nameThai: "ชีพจร"
+        },
+        {
+            nameEng: "Weight",
+            nameThai: "น้ำหนัก"
+        },
+        {
+            nameEng: "Height",
+            nameThai: "ส่วนสูง"
+        }
+] ;
     loader = new LoadingIndicator();
-    connect = true ;
-    dataCost ;
-
     options = {
         message: 'Loading...',
         progress: 0.65,
@@ -69,47 +83,18 @@ export class costComponent implements OnInit {
         }
       };
 
-    @ViewChild('sidebar') sideBar: sideBarComponent
+      @ViewChild('sidebar') sideBar: sideBarComponent
 
-    openDrawer () {
-        this.sideBar.openDrawer();
-    }
-
-    public onItemTap(args) {
-        this.loader.show(this.options);
-        console.log("------------------------ ItemTapped: " + args.index);
-        this.costSelect.numberDate = this.dataCost[args.index].id ;
-        this.costSelect.name = this.dataCost[args.index].rightname ;
-        this.costSelect.date2 = this.dataCost[args.index].visitdate ;
-        securityService.setCostSelect = JSON.stringify(this.costSelect) ;
-        console.log(securityService.getCostSelect);
-        this.router.navigate(["/selectCost"]) ;
-        this.demoLoader();
-    }
-
+      openDrawer () {
+          this.sideBar.openDrawer();
+      }
+    
     ngOnInit(): void {
-        this.costSelect = new costSelect ;
-        this.costSelect.name = "" ;
-        this.costSelect.numberDate = "" ;
-        this.costSelect.date2 = "" ;
-        securityService.setCostSelect = JSON.stringify(this.costSelect);
-        console.log(securityService.getCostSelect);
-        this.dataUser = JSON.parse(securityService.getDataUser);
-        this.hospitalnumber = this.dataUser.dataset.hn
-
-        this.costService.getDataFinance(this.hospitalnumber)
-                    .subscribe(
-                        (Response) => {
-                          // console.log(JSON.stringify(Response));
-                          this.dataCost = Response.dataset ;
-                          console.log(this.dataCost) ;
-                        },
-                        (error) => {
-                            console.log("data error") ;
-                            alert("กรุณาลองอีกครั้ง");
-                            this.router.navigate(["/loginProfile"]);
-                        }
-                    )
+        console.log("connect hyper");
+        this.hyperSelectOne = new hyperSelectOne ;
+        this.hyperSelectOne.nameIndex = "" ;
+        securityService.setHyperSelectOne = JSON.stringify(this.hyperSelectOne);
+        console.log(securityService.getHyperSelectOne);
     }
 
     constructor(
@@ -119,23 +104,31 @@ export class costComponent implements OnInit {
         private vcRef: ViewContainerRef,
         private route: ActivatedRoute,
         private router: Router,
-        private costService: costService,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
                 console.log("url", s);
             });
     }
-    toBack () {
+
+    public onItemTap(args) {
         this.loader.show(this.options);
-        console.log("connect");
-        this.router.navigate(["/loginProfile"]);
+        console.log("------------------------ ItemTapped: " + args.index);
+        this.hyperSelectOne.nameIndex = args.index ;
+        securityService.setHyperSelectOne = JSON.stringify(this.hyperSelectOne);
+        console.log(securityService.getHyperSelectOne);
+        this.router.navigate(["/hyperSelect"]);
         this.demoLoader();
     }
-
+   
+    toBack () {
+        console.log("connect");
+        this.router.navigate(["/loginProfile"]);
+    }
+   
     private demoLoader() {
         setTimeout(() => {
           this.loader.hide();
         }, 1000);
       }
-
+  
  }

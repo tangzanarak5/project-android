@@ -83,7 +83,7 @@ export class VerifyHnComponent implements OnInit {
         this.verifyHnService.getDataPatient(hn)
         .subscribe(
             (Response) => {
-                if (Response.dataset.cid == hn) {
+                if (Response.dataset.cid === hn) {
                     if(Response.dataset.status == "approved"){
                     this.loader.hide();
                     console.log('yes');
@@ -109,6 +109,7 @@ export class VerifyHnComponent implements OnInit {
                                 
                                 this.loader.hide();
                                 console.log('yes');
+                                console.log(Response.dataset.hn.toString());
                                 this.hospitalNumberActionDialog(Response.dataset.hn.toString());
                                 this.checkHn.idCard = "";
                                 securityService.setUserData = JSON.stringify(this.checkHn);

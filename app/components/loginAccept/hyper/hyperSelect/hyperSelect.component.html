@@ -1,0 +1,96 @@
+<sidebar #sidebar></sidebar>
+<ActionBar class="bg">
+    <StackLayout>
+            <GridLayout width="100%" height="100%">
+                    <Label horizontalAlignment="right" class="mdi rights" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
+                    <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" (tap) = "toBack()"></Label>
+                    <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]="allData[hyperSelectOne.nameIndex].nameThai"></label>
+            </GridLayout>
+    </StackLayout>
+</ActionBar>
+
+<DockLayout stretchLastChild="false">
+        <StackLayout *ngIf="isChart">
+<StackLayout dock = "top" *ngIf="checkHyper1">
+    <ListView [items]="dataHyper" height="85%">
+        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                <StackLayout [class.odd]="odd" [class.even]="even">
+                        <GridLayout columns="10, 200, *" rows="20, 25, 35" width="100%" height="100%">
+                                <label row="0" col="0" text=""></label>
+                                <Label row="1" col="1" class="Cloud-Light black" [text]='(i+1) + ".  " + item.visitdate'></Label>
+                                <label row="1" col="2" class="Cloud-Light setCenter black" [text]='item.bmi + type'></label>
+                                <Image row="2" col="2" class="setCenter sizePic" *ngIf="checkDataHyper(item.bmi)" [src]="heart"></Image>
+                        </GridLayout>
+                </StackLayout>
+        </ng-template>
+</ListView>
+</StackLayout>
+
+<StackLayout dock = "top" *ngIf="checkHyper2">
+    <ListView [items]="dataHyper" height="85%">
+        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                <StackLayout [class.odd]="odd" [class.even]="even">
+                        <GridLayout columns="10, 200, *" rows="20, 25, 35" width="100%" height="100%">
+                                <label row="0" col="0" text=""></label>
+                                <Label row="1" col="1" class="Cloud-Light black" [text]='(i+1) + ".  " + item.visitdate'></Label>
+                                <label row="1" col="2" class="Cloud-Light setCenter black" [text]='item.bp + type'></label>
+                                <Image row="2" col="2" class="setCenter sizePic" *ngIf="checkDataHyper(item.bp)" [src]="heart"></Image>
+                        </GridLayout>
+                </StackLayout>
+        </ng-template>
+</ListView>
+</StackLayout>
+
+<StackLayout dock = "top" *ngIf="checkHyper3">
+    <ListView [items]="dataHyper" height="85%">
+        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                <StackLayout [class.odd]="odd" [class.even]="even">
+                        <GridLayout columns="10, 200, *" rows="20, 25, 35" width="100%" height="100%">
+                                <label row="0" col="0" text=""></label>
+                                <Label row="1" col="1" class="Cloud-Light black" [text]='(i+1) + ".  " + item.visitdate'></Label>
+                                <label row="1" col="2" class="Cloud-Light setCenter black" [text]='item.pulse + type'></label>
+                                <Image row="2" col="2" class="setCenter sizePic"  *ngIf="checkDataHyper(item.pulse)" [src]="heart"></Image>
+                        </GridLayout>
+                </StackLayout>
+        </ng-template>
+</ListView>
+</StackLayout>
+
+<StackLayout dock = "top" *ngIf="checkHyper4">
+    <ListView [items]="dataHyper" height="85%">
+        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                <StackLayout [class.odd]="odd" [class.even]="even">
+                        <GridLayout columns="10, 200, *" rows="20, 25, 35" width="100%" height="100%">
+                                <label row="0" col="0" text=""></label>
+                                <Label row="1" col="1" class="Cloud-Light black" [text]='(i+1) + ".  " + item.visitdate'></Label>
+                                <label row="1" col="2" class="Cloud-Light setCenter black" [text]='item.weight + type'></label>
+                        </GridLayout>
+                </StackLayout>
+        </ng-template>
+</ListView>
+</StackLayout>
+
+<StackLayout dock = "top" *ngIf="checkHyper5">
+        <ListView [items]="dataHyper" [height]="perSen">
+            <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                    <StackLayout [class.odd]="odd" [class.even]="even">
+                            <GridLayout columns="10, 200, *" rows="20, 25, 35" width="100%" height="100%">
+                                    <label row="0" col="0" text=""></label>
+                                    <Label row="1" col="1" class="Cloud-Light black" [text]='(i+1) + ".  " + item.visitdate'></Label>
+                                    <label row="1" col="2" class="Cloud-Light setCenter black" [text]='item.height + type'></label>
+                                </GridLayout>
+                    </StackLayout>
+            </ng-template>
+    </ListView>
+    </StackLayout>
+
+<StackLayout *ngIf = "checkIndex(hyperSelectOne.nameIndex)" dock = "bottom">
+    <GridLayout columns="10, *, *, 10" rows="10, 50, 35, 35" width="100%" height="100%">
+            <label row="0" col="0" text=""></label>
+            <button *ngIf = "checkStandard" row="1" col="1" class="btn-primary setCenter sl sizeLogin Cloud-Lights" text="เกณฑ์" (tap)="showHyperSelectOne()"></button>
+            <button *ngIf = "checkChart" row="1" col="2" class="btn-primary setCenter sl sizeLogin Cloud-Lights" text="กราฟ" (tap)="toHyperChart(hyperSelectOne.nameIndex)"></button>
+            <label row="0" col="3" text=""></label>
+    </GridLayout>
+</StackLayout>
+</StackLayout>
+</DockLayout>

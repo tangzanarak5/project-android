@@ -118,4 +118,20 @@ export class securityService {
     return getString("meet");
   }
 
+  static set setHyperSelectOne(hyperSelectOneJson: string){
+    setString("hyperSelectOne",hyperSelectOneJson);
+  }
+  
+  static get getHyperSelectOne(): string {
+    return getString("hyperSelectOne");
+  }
+
+  static set setHyperSelectChart(hyperSelectChartJson: string){
+    setString("hyperSelectChart",hyperSelectChartJson);
+  }
+  
+  static get getHyperSelectChart(): string {
+    return getString("hyperSelectChart");
+  }
+
 }

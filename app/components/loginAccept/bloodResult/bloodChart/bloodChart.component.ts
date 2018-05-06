@@ -23,6 +23,7 @@ import { standard } from "../../../security/model/standard.model"
 import { showStandardComponent } from "../bloodResultSelectTotal/showStandard/showStandard.component";
 import { sideBarComponent } from "../../loginProfile/sideBar/sideBar.component";
 import { bloodChartService } from "./bloodChart.service";
+import { selectBlood } from "../../../security/model/selectBlood.model";
 class DataItem {
     constructor(public id: number, public name: string) { }
 }
@@ -36,20 +37,37 @@ class DataItem {
 
 
 export class bloodChartComponent implements OnInit {
-
-    private _categoricalSource: ObservableArray<any>;
+    private _categoricalSource: ObservableArray<any> ;
+    private _categoricalSource2: ObservableArray<any> ;
+    private _categoricalSource3: ObservableArray<any> ;
+    private _categoricalSource4: ObservableArray<any> ;
     selectBloodResult: selectBloodResult ;
-    standard: standard ;
-    public myItems: Array<DataItem>;
-    private counter: number;
+    selectBlood: selectBlood ;
+    public myItems: Array<DataItem> ;
+    private counter: number ;
     bloodResult ;
     resultTotal = [] ;
-    isChart = false;
+    isChart = false ;
     testone = 1 ;
     dataUser ;
     hospitalnumber ;
-    loader = new LoadingIndicator();
+    loader = new LoadingIndicator() ;
     count ;
+    dataGender ;
+    gender ;
+    dataLab0 ;
+    dataLab1 ;
+    dataLab2 ;
+    dataLab3 ;
+    dataLabtest0 = [] ;
+    dataLabtest1 = [] ;
+    dataLabtest2 = [] ;
+    datashow0 = [] ;
+    datashow1 = [] ;
+    datashow2 = [] ;
+    datashow3 = [] ;
+    temp = [] ;
+    temp2 = [] ;
     options = {
         message: 'Loading...',
         progress: 0.65,
@@ -78,40 +96,898 @@ export class bloodChartComponent implements OnInit {
 
       @ViewChild('sidebar') sideBar: sideBarComponent
 
-      ngOnInit(): void {
-        this.loader.hide();
-
+    ngOnInit(): void {
+        this.dataUser = JSON.parse(securityService.getDataUser) ;
+        this.selectBlood = JSON.parse(securityService.getSelectBlood) ;
+        console.log(securityService.getSelectBlood) ;
+        this.hospitalnumber = this.dataUser.dataset.hn ;
+        this.gender = this.dataUser.dataset.gender ;
+        console.log("connect");
+        if (this.selectBlood.numberIndex == "HbA1C") {
+         this.bloodChartService.getDataLab(this.hospitalnumber)
+        .subscribe(
+            (Response) => {
+                this.dataLab0 = Response.dataset ;
+                this.dataLab0.forEach ((element, index) => {
+                    if (element.test == this.selectBlood.numberIndex) {
+                        this.temp = element.datetime.split(" ") ;
+                        element.datetime = this.temp[0]  ;
+                        element.result = parseFloat(element.result) ;
+                        this.datashow1.push(element) ;
+                    }
+                })
+                this._categoricalSource = new ObservableArray(this.datashow1) ;
+            },
+            (error) => {
+                console.log("data error") ;
+                alert("กรุณาลองอีกครั้ง") ;
+                this.router.navigate(["/bloodResultSelect"]) ;
+            }
+        )
+        this.bloodChartService.getDataLab(this.hospitalnumber)
+        .subscribe(
+            (Response) => {
+                this.dataLab2 = Response.dataset ;
+                this.dataLab2.forEach ((element, index) => {
+                    if (element.test == this.selectBlood.numberIndex) {
+                        this.dataLabtest1.push(element);
+                    }
+                })
+                this.dataLabtest1.forEach ((element, index) => {
+                    if (element.test == this.selectBlood.numberIndex) {
+                    if (parseFloat(element.result) >= 5.7 && parseFloat(element.result) <= 6.4) {
+                        this.temp = element.datetime.split(" ") ;
+                        element.datetime = this.temp[0] ;
+                        element.result = parseFloat(element.result) ;
+                        this.datashow2.push(element) ;
+                    }
+                }
+                })
+                this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+            },
+            (error) => {
+                console.log("data error") ;
+                alert("กรุณาลองอีกครั้ง") ;
+                this.router.navigate(["/bloodResultSelect"]) ;
+            }
+        )
+        this.bloodChartService.getDataLab(this.hospitalnumber)
+        .subscribe(
+            (Response) => {
+                this.dataLab3 = Response.dataset ;
+                this.dataLab3.forEach ((element, index) => {
+                    if (element.test == this.selectBlood.numberIndex) {
+                        this.dataLabtest2.push(element) ;
+                    }
+                })
+                this.dataLabtest2.forEach ((element, index) => {
+                    if (parseFloat(element.result) > 6.4) {
+                        this.temp = element.datetime.split(" ") ;
+                        element.datetime = this.temp[0] ;
+                        element.result = parseFloat(element.result) ;
+                        this.datashow3.push(element) ;
+                        }
+                })
+                this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+            },
+            (error) => {
+                console.log("data error") ;
+                alert("กรุณาลองอีกครั้ง") ;
+                this.router.navigate(["/bloodResultSelect"]) ;
+            }
+        )
         setTimeout(() => {
-            this.isChart = true;
-          }, 1000);
+            this.isChart = true ;
+            this.loader.hide() ;
+          }, 8000) ;
+    }
+    else if (this.selectBlood.numberIndex == "Glucose") {
+        this.bloodChartService.getDataLab(this.hospitalnumber)
+       .subscribe(
+           (Response) => {
+               this.dataLab0 = Response.dataset ;
+               this.dataLab0.forEach ((element, index) => {
+                   if (element.test == this.selectBlood.numberIndex) {
+                       this.temp = element.datetime.split(" ") ;
+                       element.datetime = this.temp[0]  ;
+                       element.result = parseFloat(element.result) ;
+                       this.datashow1.push(element) ;
+                   }
+               })
+               this._categoricalSource = new ObservableArray(this.datashow1) ;
+           },
+           (error) => {
+               console.log("data error") ;
+               alert("กรุณาลองอีกครั้ง") ;
+               this.router.navigate(["/bloodResultSelect"]) ;
+           }
+       )
+       this.bloodChartService.getDataLab(this.hospitalnumber)
+        .subscribe(
+            (Response) => {
+                this.dataLab1 = Response.dataset ;
+                this.dataLab1.forEach ((element, index) => {
+                    if (element.test == this.selectBlood.numberIndex) {
+                        this.dataLabtest0.push(element);
+                    }
+                })
+                this.dataLabtest0.forEach ((element, index) => {
+                    if (element.test == this.selectBlood.numberIndex) {
+                    if (parseFloat(element.result) < 70) {
+                        this.temp = element.datetime.split(" ") ;
+                        element.datetime = this.temp[0] ;
+                        element.result = parseFloat(element.result) ;
+                        this.datashow0.push(element)  ;
+                    }
+                }
+                })
+                this._categoricalSource4 = new ObservableArray(this.datashow0) ;
+            },
+            (error) => {
+                console.log("data error") ;
+                alert("กรุณาลองอีกครั้ง") ;
+                this.router.navigate(["/bloodResultSelect"]) ;
+            }
+        )
 
-        this.selectBloodResult = JSON.parse(securityService.getSelectBloodResult);
-        console.log(securityService.getSelectBloodResult);
-        this.standard = new standard ;
-        this.standard.name = this.selectBloodResult.name ;
-        this.standard.numberIndex = this.selectBloodResult.numberIndex ;
-        securityService.setStandard = JSON.stringify(this.standard);
-        console.log(securityService.getStandard);
+       this.bloodChartService.getDataLab(this.hospitalnumber)
+       .subscribe(
+           (Response) => {
+               this.dataLab2 = Response.dataset ;
+               this.dataLab2.forEach ((element, index) => {
+                   if (element.test == this.selectBlood.numberIndex) {
+                       this.dataLabtest1.push(element);
+                   }
+               })
+               this.dataLabtest1.forEach ((element, index) => {
+                   if (element.test == this.selectBlood.numberIndex) {
+                   if (parseFloat(element.result) >= 100 && parseFloat(element.result) <= 125) {
+                       this.temp = element.datetime.split(" ") ;
+                       element.datetime = this.temp[0] ;
+                       element.result = parseFloat(element.result) ;
+                       this.datashow2.push(element) ;
+                   }
+               }
+               })
+               this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           },
+           (error) => {
+               console.log("data error") ;
+               alert("กรุณาลองอีกครั้ง") ;
+               this.router.navigate(["/bloodResultSelect"]) ;
+           }
+       )
+       this.bloodChartService.getDataLab(this.hospitalnumber)
+       .subscribe(
+           (Response) => {
+               this.dataLab3 = Response.dataset ;
+               this.dataLab3.forEach ((element, index) => {
+                   if (element.test == this.selectBlood.numberIndex) {
+                       this.dataLabtest2.push(element) ;
+                   }
+               })
+               this.dataLabtest2.forEach ((element, index) => {
+                   if (parseFloat(element.result) > 125) {
+                       this.temp = element.datetime.split(" ") ;
+                       element.datetime = this.temp[0] ;
+                       element.result = parseFloat(element.result) ;
+                       this.datashow3.push(element) ;
+                       }
+               })
+               this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+           },
+           (error) => {
+               console.log("data error") ;
+               alert("กรุณาลองอีกครั้ง") ;
+               this.router.navigate(["/bloodResultSelect"]) ;
+           }
+       )
+       setTimeout(() => {
+           this.isChart = true ;
+           this.loader.hide() ;
+         }, 8000) ;
+   }
+   else if (this.selectBlood.numberIndex == "HDL") {
 
-        if (this.selectBloodResult.name == "ชีพจร") {
-            this._categoricalSource = new ObservableArray(this.bloodChartService.getP());
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0]  ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element);
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   if (this.gender == "ชาย") {
+    console.log("gender : " + this.gender + "connect") ;
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest1.push(element) ;
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) < 40 || (parseFloat(element.result) > 50 && parseFloat(element.result) < 60)) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab3 = Response.dataset ;
+           this.dataLab3.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest2.push(element) ;
+               }
+           })
+           this.dataLabtest2.forEach ((element, index) => {
+               if (parseFloat(element.result) >= 60) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow3.push(element) ;
+                   }
+           })
+           this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+}
+else if (this.gender == "หญิง") {
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+    .subscribe(
+        (Response) => {
+            this.dataLab2 = Response.dataset ;
+            this.dataLab2.forEach ((element, index) => {
+                if (element.test == this.selectBlood.numberIndex) {
+                    this.dataLabtest1.push(element) ;
+                }
+            })
+            this.dataLabtest1.forEach ((element, index) => {
+                if (element.test == this.selectBlood.numberIndex) {
+                if (parseFloat(element.result) < 50) {
+                    this.temp = element.datetime.split(" ") ;
+                    element.datetime = this.temp[0] ;
+                    element.result = parseFloat(element.result) ;
+                    this.datashow2.push(element) ;
+                }
+            }
+            })
+            this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+        },
+        (error) => {
+            console.log("data error") ;
+            alert("กรุณาลองอีกครั้ง") ;
+            this.router.navigate(["/bloodResultSelect"]) ;
         }
-        if (this.selectBloodResult.name == "ความดันโลหิต") {
-            this._categoricalSource = new ObservableArray(this.bloodChartService.getBP());
+    )
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+    .subscribe(
+        (Response) => {
+            this.dataLab3 = Response.dataset ;
+            this.dataLab3.forEach ((element, index) => {
+                if (element.test == this.selectBlood.numberIndex) {
+                    this.dataLabtest2.push(element) ;
+                }
+            })
+            this.dataLabtest2.forEach ((element, index) => {
+                if (parseFloat(element.result) >= 60) {
+                    this.temp = element.datetime.split(" ") ;
+                    element.datetime = this.temp[0] ;
+                    element.result = parseFloat(element.result) ;
+                    this.datashow3.push(element) ;
+                    }
+            })
+            this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+        },
+        (error) => {
+            console.log("data error") ;
+            alert("กรุณาลองอีกครั้ง") ;
+            this.router.navigate(["/bloodResultSelect"]) ;
         }
-        if (this.selectBloodResult.name == "คอเลสเตอรอลที่ดี") {
-            this._categoricalSource = new ObservableArray(this.bloodChartService.getHDL());
+    )
+ }
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+else if (this.selectBlood.numberIndex == "LDL") {
+
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0]  ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element);
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest1.push(element) ;
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) > 100 && parseFloat(element.result) < 160) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab3 = Response.dataset ;
+           this.dataLab3.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest2.push(element) ;
+               }
+           })
+           this.dataLabtest2.forEach ((element, index) => {
+               if (parseFloat(element.result) >= 160) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow3.push(element) ;
+                   }
+           })
+           this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+else if (this.selectBlood.numberIndex == "Triglycerides") {
+
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0]  ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element);
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest1.push(element) ;
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) >= 150 && parseFloat(element.result) <= 200) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab3 = Response.dataset ;
+           this.dataLab3.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest2.push(element) ;
+               }
+           })
+           this.dataLabtest2.forEach ((element, index) => {
+               if (parseFloat(element.result) > 200) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow3.push(element);
+                   }
+           })
+           this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+else if (this.selectBlood.numberIndex == "RBC") {
+
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   if (parseFloat(element.result) < 10) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element) ;
+                   }
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                if (parseFloat(element.result) < 10) {
+                   this.dataLabtest1.push(element) ;
+                }
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) > 5.4 && parseFloat(element.result) < 4.2) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+else if (this.selectBlood.numberIndex == "Hb") {
+
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0]  ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element);
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   if (this.gender == "ชาย") {
+    console.log("gender : " + this.gender + "connect") ;
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest1.push(element) ;
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) < 14 && parseFloat(element.result) > 18) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+}
+else if (this.gender == "หญิง") {
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+    .subscribe(
+        (Response) => {
+            this.dataLab2 = Response.dataset ;
+            this.dataLab2.forEach ((element, index) => {
+                if (element.test == this.selectBlood.numberIndex) {
+                    this.dataLabtest1.push(element) ;
+                }
+            })
+            this.dataLabtest1.forEach ((element, index) => {
+                if (element.test == this.selectBlood.numberIndex) {
+                if (parseFloat(element.result) < 12 && parseFloat(element.result) > 16) {
+                    this.temp = element.datetime.split(" ") ;
+                    element.datetime = this.temp[0] ;
+                    element.result = parseFloat(element.result) ;
+                    this.datashow2.push(element) ;
+                }
+            }
+            })
+            this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+        },
+        (error) => {
+            console.log("data error") ;
+            alert("กรุณาลองอีกครั้ง") ;
+            this.router.navigate(["/bloodResultSelect"]) ;
         }
-        if (this.selectBloodResult.name == "ไขมันไม่ดี") {
-            this._categoricalSource = new ObservableArray(this.bloodChartService.getLDL());
+    )
+ }
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+else if (this.selectBlood.numberIndex == "Hct") {
+
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0]  ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element);
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   if (this.gender == "ชาย") {
+    console.log("gender : " + this.gender + "connect") ;
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest1.push(element) ;
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) < 42 && parseFloat(element.result) > 52) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+}
+else if (this.gender == "หญิง") {
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+    .subscribe(
+        (Response) => {
+            this.dataLab2 = Response.dataset ;
+            this.dataLab2.forEach ((element, index) => {
+                if (element.test == this.selectBlood.numberIndex) {
+                    this.dataLabtest1.push(element) ;
+                }
+            })
+            this.dataLabtest1.forEach ((element, index) => {
+                if (element.test == this.selectBlood.numberIndex) {
+                if (parseFloat(element.result) < 36 && parseFloat(element.result) > 48) {
+                    this.temp = element.datetime.split(" ") ;
+                    element.datetime = this.temp[0] ;
+                    element.result = parseFloat(element.result) ;
+                    this.datashow2.push(element) ;
+                }
+            }
+            })
+            this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+        },
+        (error) => {
+            console.log("data error") ;
+            alert("กรุณาลองอีกครั้ง") ;
+            this.router.navigate(["/bloodResultSelect"]) ;
         }
-        if (this.selectBloodResult.name == "ระดับน้ำตาลในเลือด") {
-            this._categoricalSource = new ObservableArray(this.bloodChartService.getFBS());
-        }
-        if (this.selectBloodResult.name == "ระดับน้ำตาลเฉลี่ยในเลือด") {
-            this._categoricalSource = new ObservableArray(this.bloodChartService.getHBAONEC());
-        }
-        
+    )
+ }
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+else if (this.selectBlood.numberIndex == "MCV") {
+
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0]  ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element);
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest1.push(element) ;
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) < 78 && parseFloat(element.result) > 98) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+else if (this.selectBlood.numberIndex == "pH") {
+
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0]  ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element);
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest1.push(element) ;
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) < 4.6 && parseFloat(element.result) > 8.0) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+else if (this.selectBlood.numberIndex == "Protein") {
+
+    this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab0 = Response.dataset ;
+           this.dataLab0.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0]  ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow1.push(element);
+               }
+           })
+           this._categoricalSource = new ObservableArray(this.datashow1) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+   this.bloodChartService.getDataLab(this.hospitalnumber)
+   .subscribe(
+       (Response) => {
+           this.dataLab2 = Response.dataset ;
+           this.dataLab2.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+                   this.dataLabtest1.push(element) ;
+               }
+           })
+           this.dataLabtest1.forEach ((element, index) => {
+               if (element.test == this.selectBlood.numberIndex) {
+               if (parseFloat(element.result) < 6.4 && parseFloat(element.result) > 8.3) {
+                   this.temp = element.datetime.split(" ") ;
+                   element.datetime = this.temp[0] ;
+                   element.result = parseFloat(element.result) ;
+                   this.datashow2.push(element) ;
+               }
+           }
+           })
+           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+       },
+       (error) => {
+           console.log("data error") ;
+           alert("กรุณาลองอีกครั้ง") ;
+           this.router.navigate(["/bloodResultSelect"]) ;
+       }
+   )
+ 
+   setTimeout(() => {
+       this.isChart = true ;
+       this.loader.hide() ;
+     }, 8000) ;
+}
+
+    else {this.loader.hide() ; alert("ไม่พบข้อมูล") ; this.router.navigate(["/bloodResultSelect"]) ;}
+
     }
 
     constructor(
@@ -123,23 +999,32 @@ export class bloodChartComponent implements OnInit {
         private router: Router,
         private bloodChartService: bloodChartService,
         page: Page) {
-            this.loader.show(this.options);
+            this.loader.show(this.options) ;
             route.url.subscribe((s:UrlSegment[]) => {
-                console.log("url", s);
+                console.log("url", s) ;
             });
     }
 
     openDrawer () {
-        this.sideBar.openDrawer();
+        this.sideBar.openDrawer() ;
     }
 
     get categoricalSource(): ObservableArray<any> {
-      return this._categoricalSource;
+      return this._categoricalSource ;
+    }
+    get categoricalSource2(): ObservableArray<any> {
+        return this._categoricalSource2 ;
+    }
+    get categoricalSource3(): ObservableArray<any> {
+        return this._categoricalSource3 ;
+    }
+    get categoricalSource4(): ObservableArray<any> {
+        return this._categoricalSource4 ;
     }
 
     toBack () {
-        console.log("connect");
-        this.router.navigate(["/bloodResultSelectTotal"]);
+        console.log("connect") ;
+        this.router.navigate(["/bloodResultSelect"]) ;
     }
   
  }

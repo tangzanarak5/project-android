@@ -3,30 +3,20 @@ import { Router } from "@angular/router";
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Rx";
 import { connectionType, getConnectionType } from "connectivity";
-import { securityService } from "../../../security/security.service";
-import { idp } from "../../../security/model/idp.model"
 
 @Injectable()
-export class bloodChartService {
+export class hyperChartService {
 
-    idp: idp;
     dataUser ;
     token = "a27cf250553d383da99d35260807f4bd2";
 
-    getDataLab (hn): Observable<any> {
+    getDataVitalsign (hn): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/labs/" + hn ;
+        let url = "http://apis.cpa.go.th/patient/" + hn + "/vitalsign" ;
+        console.log(url);
         return this.http.get(url, options).map(response => response.json())
-        .catch(this.handleErrors) ;
-    }
-
-    getDataGender (hn): Observable<any> {
-        let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
-        let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/patient/" + hn ;
-        return this.http.get(url, options).map(response => response.json())
-        .catch(this.handleErrors) ;
+        .catch(this.handleErrors);
     }
   
     constructor(

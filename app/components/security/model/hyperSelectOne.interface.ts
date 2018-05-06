@@ -1,0 +1,5 @@
+interface iHyperSelectOne {
+    
+    nameIndex: string;
+    
+}

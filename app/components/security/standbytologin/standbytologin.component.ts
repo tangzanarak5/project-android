@@ -182,7 +182,7 @@ export class StandByToLoginComponent implements OnInit {
                         (error) => {
                             securityService.setIsLogin = "false";
                             this.loader.hide();
-                            alert("ไม่สามารถเชื่อต่อได้");
+                            alert("ไม่สามารถเชื่อมต่อได้");
                         }
                     )
     

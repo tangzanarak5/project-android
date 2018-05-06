@@ -307,31 +307,6 @@ export class bloodResultSelectTotalComponent implements OnInit {
         this.standard.numberIndex = this.selectBloodResult.numberIndex ;
         securityService.setStandard = JSON.stringify(this.standard);
         console.log(securityService.getStandard);
-
-        if (this.selectBloodResult.name == "ชีพจร") {
-            this.resultTotal = this.bloodChartService.getP();
-            this.unit = " ครั้งต่อนาที" ;
-        }
-        if (this.selectBloodResult.name == "ความดันโลหิต") {
-            this.resultTotal = this.BP ;
-            this.unit = " มม.ปรอท" ;
-        }
-        if (this.selectBloodResult.name == "คอเลสเตอรอลที่ดี") {
-            this.resultTotal = this.bloodChartService.getHDL();
-            this.unit = " mg/dL" ;
-        }
-        if (this.selectBloodResult.name == "ไขมันไม่ดี") {
-            this.resultTotal = this.bloodChartService.getLDL();
-            this.unit = " mg/dL" ;
-        }
-        if (this.selectBloodResult.name == "ระดับน้ำตาลในเลือด") {
-            this.resultTotal = this.bloodChartService.getFBS();
-            this.unit = " mg/dL" ;
-        }
-        if (this.selectBloodResult.name == "ระดับน้ำตาลเฉลี่ยในเลือด") {
-            this.resultTotal = this.bloodChartService.getHBAONEC();
-            this.unit = " mg %" ;
-        }
         
     }
 

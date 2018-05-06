@@ -10,75 +10,16 @@
 </ActionBar>
 
 <StackLayout>
-<ListView [items]="disease" (itemTap)="onItemTap($event)">
+<ListView [items]="dataCost" (itemTap)="onItemTap($event)">
         <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
                 <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
                         <GridLayout columns="20, 200, *" rows="15, 25, 35" width="100%" height="100%">
                                 <label row="0" col="0" text=""></label>
-                                <Label row="1" col="1" class = "Cloud-Light4 black" [text]='(i+1) + ". " + "ยอดชำระ"'></Label>
+                                <Label row="1" col="1" class = "Cloud-Light4 black" [text]='(i+1) + ". " + item.rightname'></Label>
                                 <label row="1" col="2" class = "Cloud-Light2 setCenter" text="รายละเอียด"></label>
-                                <Label row="2" col="1" class = "Cloud-Light4 black" [text]='"วันที่ " + item.date'></Label>
+                                <Label row="2" col="1" class = "Cloud-Light4 black" [text]='"วันที่ " + item.visitdate'></Label>
                         </GridLayout>
                 </StackLayout>
         </ng-template>
 </ListView>                               
 </StackLayout>
-
-<!-- <ScrollView sdkExampleTitle sdkToggleNavButton>
-<StackLayout *ngIf = "!connect">
-        <GridLayout columns="15, 111, *, 15" rows="20, 25, 40, 25, 20 25, 20, 25, 20, 25, 20, 25, 20, 25, 20, 25, 20, 25, 20, 25, 20, 25, 20, 25" width="100%" height="100%">
-                <label row="1" col="1" colSpan="3" class = "Cloud-Light4 black" [text]='"ยอดชำระ " + "โรค" + medicine[medicineNumber].type'></label>
-                <label row="2" col="1" colSpan="3" class = "Cloud-Light4 black" [text]='"วันที่ " + medicine[medicineNumber].date'></label>
-                
-                <label row="3" col="0" text=""></label>
-                <label row="3" col="3" class="bdb" text=""></label>
-                <Label row="3" col="1" class = "black Cloud-Light4 bdb" text="รายการ"></Label>
-                <Label row="3" col="2" class="Cloud-Light right bdb" text="ราคา"></Label>
-                
-                <label row="4" col="0" text=""></label>
-                <label row="5" col="3" class="bdb" text=""></label>
-                <Label row="5" col="1" class = "black Cloud-Light4 bdb" text="ตรวจโรค"></Label>
-                <Label row="5" col="2" class="Cloud-Light right bdb" text="1,500"></Label>
-
-                <label row="6" col="0" text=""></label>
-                <label row="7" col="3" class="bdb" text=""></label>
-                <Label row="7" col="1" class = "black Cloud-Light4 bdb" text="x - ray"></Label>
-                <Label row="7" col="2" class="Cloud-Light right bdb" text="3,000"></Label>
-
-                <label row="8" col="0" text=""></label>
-                <label row="9" col="3" class="bdb" text=""></label>
-                <Label row="9" col="1" class = "black Cloud-Light4 bdb" text="ฉีดยา"></Label>
-                <Label row="9" col="2" class="Cloud-Light right bdb" text="800"></Label>
-
-                <label row="10" col="0" text=""></label>
-                <label row="11" col="3" class="bdb" text=""></label>
-                <Label row="11" col="1" class = "black Cloud-Light4 bdb" text="เจาะเลือด"></Label>
-                <Label row="11" col="2" class="Cloud-Light right bdb" [text]="500"></Label>
-
-                <label row="12" col="0" text=""></label>
-                <label row="13" col="3" class="bdb" text=""></label>
-                <Label row="13" col="1" class = "black Cloud-Light4 bdb" text="บริการ"></Label>
-                <Label row="13" col="2" class="Cloud-Light right bdb" text="300"></Label>
-
-                <label row="14" col="0" text=""></label>
-                <label row="15" col="3" class="bdb" text=""></label>
-                <Label row="15" col="1" class = "black Cloud-Light4 bdb" text="ห้องพัก"></Label>
-                <Label row="15" col="2" class="Cloud-Light right bdb" text="3,000"></Label>
-                
-                <label row="16" col="0" text=""></label>
-                <label row="17" col="3" class="bdb" text=""></label>
-                <Label row="17" col="1" class = "black Cloud-Light4 bdb" text="หมอ"></Label>
-                <Label row="17" col="2" class="Cloud-Light right bdb" text="1,000"></Label>
-
-                <label row="18" col="0" text=""></label>
-                <label row="19" col="3" class="bdb" text=""></label>
-                <Label row="19" col="1" class = "black Cloud-Light4 bdb" text="ยา"></Label>
-                <Label row="19" col="2" class="Cloud-Light right bdb" text="1,000"></Label>
-        
-                <label row="20" col="0" text=""></label>
-                <label row="21" col="3" class="bdb" text=""></label>
-                <Label row="21" col="1" class = "black Cloud-Light4 bdb" text="รวม"></Label>
-                <Label row="21" col="2" class="Cloud-Light right bdb" text="11,100"></Label>
-        </GridLayout>
-</StackLayout>
-</ScrollView> -->

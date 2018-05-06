@@ -3,11 +3,11 @@ import { Router } from "@angular/router";
 import { Headers, Http, Response, RequestOptions } from '@angular/http';
 import { Observable } from "rxjs/Rx";
 import { connectionType, getConnectionType } from "connectivity";
-import { securityService } from "../../../security/security.service";
-import { idp } from "../../../security/model/idp.model"
+import { securityService } from "../../security/security.service";
+import { idp } from "../../security/model/idp.model"
 
 @Injectable()
-export class bloodChartService {
+export class bloodResultService {
 
     idp: idp;
     dataUser ;
@@ -18,7 +18,7 @@ export class bloodChartService {
         let options = new RequestOptions({ headers: headers });
         let url = "http://apis.cpa.go.th/labs/" + hn ;
         return this.http.get(url, options).map(response => response.json())
-        .catch(this.handleErrors) ;
+        .catch(this.handleErrors);
     }
 
     getDataGender (hn): Observable<any> {
@@ -26,7 +26,7 @@ export class bloodChartService {
         let options = new RequestOptions({ headers: headers });
         let url = "http://apis.cpa.go.th/patient/" + hn ;
         return this.http.get(url, options).map(response => response.json())
-        .catch(this.handleErrors) ;
+        .catch(this.handleErrors);
     }
   
     constructor(

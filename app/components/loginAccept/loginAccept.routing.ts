@@ -18,6 +18,10 @@ import { medicineSelectComponent } from "./medicine/medicineSelect/medicineSelec
 import { medicineSelectOneComponent } from "./medicine/medicineSelectOne/medicineSelectOne.component";
 import { selectCostComponent } from "./cost/selectCost/selectCost.component";
 import { bloodChartComponent } from "./bloodResult/bloodChart/bloodChart.component";
+import { hyperComponent } from "./hyper/hyper.component";
+import { hyperSelectComponent } from "./hyper/hyperSelect/hyperSelect.component";
+import { hyperChartComponent } from "./hyper/hyperSelect/hyperChart/hyperChart.component";
+import { hyperModalComponent } from "./hyper/hyperSelect/hyperModal.component";
 
 const routes: Routes = [
     { path: "loginAccept", 
@@ -84,6 +88,22 @@ const routes: Routes = [
     {
         path: 'bloodChart',
         component: bloodChartComponent
+    },
+    {
+        path: 'hyper',
+        component: hyperComponent
+    },
+    {
+        path: 'hyperSelect',
+        component: hyperSelectComponent
+    },
+    {
+        path: 'hyperChart',
+        component: hyperChartComponent
+    },
+    {
+        path: 'hyperModal',
+        component: hyperModalComponent
     }
 
 

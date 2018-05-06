@@ -15,9 +15,9 @@
                 <label row = "0" col = "0" class = "bdb" text = ""></label>
                 <Label row = "1" col = "1" rowSpan="3" class = "mdis setCenter" [text]="'mdi-event-note' | fonticon"></Label>
                 <Label row = "3" col = "1" class = "Cloud-Light setCenter bdb" text="รายละเอียด"></Label>
-                <Label row = "1" col = "2" colSpan="2" class="Cloud-Light black lefts" [text]="appoint.appoint_description"></Label>
-                <Label row = "2" col = "2" class = "Cloud-Light black lefts" [text]='getFormatDate(appoint.appoint_day)'></Label>
-                <Label row = "3" col = "2" class = "Cloud-Light black lefts bdb" [text]='appoint.appoint_time'></Label>
+                <Label row = "1" col = "2" colSpan="2" class="Cloud-Light black lefts" [text]="oneDes"></Label>
+                <Label row = "2" col = "2" class = "Cloud-Light black lefts" [text]='getFormatDate(oneDay)'></Label>
+                <Label row = "3" col = "2" class = "Cloud-Light black lefts bdb" [text]='oneTime'></Label>
                 <label row = "3" col = "3" class = "bdb" text=""></label>
         </GridLayout>
 </StackLayout>
@@ -26,27 +26,27 @@
                 <label row="1" col="0" text=""></label>
                 <label row="1" col="3" class="bdb" text=""></label>
                 <Label row="1" col="1" class = "black Cloud-Light4 bdb" text="แพทย์"></Label>
-                <Label row="1" col="2" class="Cloud-Light right bdb" [text]="appoint.docter_name"></Label>
+                <Label row="1" col="2" class="Cloud-Light right bdb" [text]="oneDocName"></Label>
 
                 <label row="2" col="0" text=""></label>
                 <label row="3" col="3" class="bdb" text=""></label>
                 <Label row="3" col="1" class = "black Cloud-Light4 bdb" text="สถานที่"></Label>
-                <Label row="3" col="2" class="Cloud-Light right bdb" [text]="appoint.appoint_location"></Label>
+                <Label row="3" col="2" class="Cloud-Light right bdb" [text]="oneLocation"></Label>
 
                 <label row="4" col="0" text=""></label>
                 <label row="5" col="3" class="bdb" text=""></label>
                 <Label row="5" col="1" class = "black Cloud-Light4 bdb" text="แผนก"></Label>
-                <Label row="5" col="2" class="Cloud-Light right bdb" [text]="appoint.department_name"></Label>
+                <Label row="5" col="2" class="Cloud-Light right bdb" [text]="oneDeName"></Label>
 
                 <label row="6" col="0" text=""></label>
                 <label row="7" col="3" class="bdb" text=""></label>
                 <Label row="7" col="1" class = "black Cloud-Light4 bdb" text="วัน-เวลา"></Label>
-                <Label row="7" col="2" class="Cloud-Light right bdb" [text]="getFormatDate(appoint.appoint_day)"></Label>
+                <Label row="7" col="2" class="Cloud-Light right bdb" [text]="getFormatDate(oneDay)"></Label>
 
                 <label row="8" col="0" text=""></label>
                 <label row="9" col="3" class="bdb" text=""></label>
                 <Label row="9" col="1" class = "black Cloud-Light4 bdb" text="กิจกรรม"></Label>
-                <Label row="9" col="2" class="Cloud-Light right bdb" [text]="appoint.appoint_description"></Label>
+                <Label row="9" col="2" class="Cloud-Light right bdb" [text]="oneDes"></Label>
 
         </GridLayout>
  
@@ -55,7 +55,7 @@
 </ScrollView>
 
 <StackLayout *ngIf = "appoint3">
-        <ListView [items]="docterWorking" (itemTap)="selectDay($event)">
+        <ListView [items]="docterWorkingShow" (itemTap)="selectDay($event)">
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
                         <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
                                 <GridLayout *ngIf = "checkDocter(item)" columns="20, 225, *" rows="30, 25, 20" width="100%" height="100%">

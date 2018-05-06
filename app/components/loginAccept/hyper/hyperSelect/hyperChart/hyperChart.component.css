@@ -8,6 +8,10 @@
     height: 5%;
     width: 5%;
 }
+.sizeLogin {
+    background-color: #004D40;
+    width: 40%;
+}
 .bgWhite {
     background-color: white;
 }
@@ -15,6 +19,9 @@
     font-family: "Cloud-Light" ;
     font-weight: 800;
     font-size: 14px;
+}
+.sl {
+    font-size: 20px;
 }
 .Cloud-Light {
     font-family: "Cloud-Light" ;
@@ -189,14 +196,12 @@ titleMargin {
 .l {
     text-align: left;
 }
+.r {
+    text-align: right;
+}
 .rights {
     margin-right: 5%
 }
-.right {
-    text-align: right;
-} 
-.mdis {
-    font-family: "Material Icons", "MaterialIcons-Regular";
-    font-size: 24px;
-    color: lightgray;
-  }
+.setLeft {
+    text-align: left ;
+}

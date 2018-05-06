@@ -18,6 +18,7 @@ import { TNSFontIconService } from 'nativescript-ng2-fonticon';
 import {LoadingIndicator} from "nativescript-loading-indicator";
 import {Input, ChangeDetectionStrategy} from '@angular/core';
 import { costSelect } from "../../../security/model/costSelect.model"
+import { costService } from "../cost.service";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -40,50 +41,22 @@ export class selectCostComponent implements OnInit {
     medicineNumber ;
     loader = new LoadingIndicator();
     totalMoney ;
-    costTotal = [
-        {
-            date : "28/03/2561",
-            type : "ความดันโลหิต",
-            name1 : "เจาะเลือด",
-            name2 : "ตรวจ PE",
-            name3 : "ตรวจ HT",
-            name4 : "ยา",
-            name5 : "ตรวจ Tx",
-            data1 : "150", //เจาะเลือด
-            data2 : "3000", //ตรวจไต
-            data3 : "1000", //ค่าตรวจ
-            data4 : "1000", //ค่ายา
-            data5 : "1000" //ค่ายา
-        },
-        {
-            date : "28/06/2560",
-            type : "ไขมัน",
-            name1 : "เจาะเลือด",
-            name2 : "ตรวจ PS",
-            name3 : "ตรวจ DLD",
-            name4 : "ยา",
-            name5 : "ตรวจ Tx",
-            data1 : "150", //เจาะเลือด
-            data2 : "2500", //ตรวจ plant sterols
-            data3 : "1000", //ค่าตรวจ
-            data4 : "1200", //ค่ายา
-            data5 : "1000" //ค่ายา
-        },
-        {
-            date : "28/01/2561",
-            type : "เบาหวาน",
-            name1 : "เจาะเลือด",
-            name2 : "ตรวจปัสสาวะ",
-            name3 : "ตรวจ DM",
-            name4 : "ยา",
-            name5 : "ตรวจ Pe",
-            data1 : "150", //เจาะเลือด
-            data2 : "500", //ตรวจปัสสาวะ
-            data3 : "1000", //ค่าตรวจ
-            data4 : "1500", //ค่ายา
-            data5 : "1000" //ค่ายา
-        },
-    ] ;
+    dataCost ;
+    dataDrug ;
+    dataService ;
+    dataFinance ;
+    payService ;
+    payDrug ;
+    payOperation ;
+    id ;
+    name ;
+    heigthOperation = "20%" ;
+    heigthDrug = "15%" ;
+    heigthService = "15%" ;
+    temp = [] ;
+    drugShow = true ;
+    operationShow = true ;
+    serviceShow = true ;
 
     options = {
         message: 'Loading...',
@@ -119,18 +92,104 @@ export class selectCostComponent implements OnInit {
 
     public onItemTap(args) {
         console.log("------------------------ ItemTapped: " + args.index);
-        // this.costSelect.numberDate = this.disease[args.index].date ;
-        // this.costSelect.name = this.disease[args.index].type ;
-        // securityService.setCostSelect = JSON.stringify(this.costSelect);
-        // console.log(securityService.getCostSelect);
-        //this.router.navigate(["/bloodResultSelect"]);
     }
 
     ngOnInit(): void {
         this.costSelect = JSON.parse(securityService.getCostSelect);
         console.log(securityService.getCostSelect);
         this.dataUser = JSON.parse(securityService.getDataUser);
-        this.hospitalnumber = this.dataUser.dataset.hn
+        this.hospitalnumber = this.dataUser.dataset.hn ;
+        this.id = this.costSelect.numberDate ;
+        this.name = this.costSelect.name ;
+
+        this.costService.getDataOperation(this.hospitalnumber, this.id)
+            .subscribe(
+                (Response) => {
+                    // console.log(JSON.stringify(Response));
+                    this.dataCost = Response.dataset;
+                    //console.log(this.dataCost) ;
+                    console.log(this.dataCost.length);
+
+                    if (this.dataCost.length == this.temp.length) {
+                        console.log("emty operation");
+                        this.operationShow = false ;
+                    }
+                    else if (this.dataCost.length == 1) {
+                        this.heigthOperation = "10%" ;
+                        console.log("opertation one");
+                    }
+                },
+                (error) => {
+                    console.log("data error") ;
+                    alert("กรุณาลองอีกครั้ง");
+                    this.router.navigate(["/cost"]);
+                }
+            )
+        this.costService.getDataDrug(this.hospitalnumber, this.id)
+            .subscribe(
+                (Response) => {
+                    // console.log(JSON.stringify(Response));
+                    this.dataDrug = Response.dataset ;
+                    //console.log(this.dataDrug) ;
+
+                    if (this.dataDrug.length == this.temp.length) {
+                        console.log("emty drug");
+                        this.drugShow = false ;
+                    }
+                    else if (this.dataDrug.length == 1) {
+                        this.heigthDrug = "5%" ;
+                        console.log("drug one");
+                    }
+                },
+                (error) => {
+                    console.log("data error") ;
+                    alert("กรุณาลองอีกครั้ง");
+                    this.router.navigate(["/cost"]);
+                }
+            )
+
+        this.costService.getDataService(this.hospitalnumber, this.id)
+            .subscribe(
+                (Response) => {
+                    // console.log(JSON.stringify(Response));
+                    this.dataService = Response.dataset ;
+                    //console.log(this.dataDrug) ;
+
+                    if (this.dataService.length == this.temp.length) {
+                        console.log("emty service");
+                        this.serviceShow = false ;
+                    }
+                    else if (this.dataService.length == 1) {
+                        this.heigthService = "5%" ;
+                        console.log("service one");
+                    }
+                },
+                (error) => {
+                    console.log("data error") ;
+                    alert("กรุณาลองอีกครั้ง");
+                    this.router.navigate(["/cost"]);
+                }
+            )
+
+        this.costService.getDataFinance(this.hospitalnumber)
+            .subscribe(
+                (Response) => {
+                    // console.log(JSON.stringify(Response));
+                    this.dataFinance = Response.dataset ;
+                    // console.log(this.dataFinance) ;
+                    for (let i = 0 ; i < this.dataFinance.length ; i++) {
+                        if (this.dataFinance[i].visitdate == this.costSelect.date2) {
+                            this.totalMoney = this.dataFinance[i].total_pay ;
+                            console.log(this.totalMoney) ;
+                        }
+                    }
+                },
+                (error) => {
+                    console.log("data error") ;
+                    alert("กรุณาลองอีกครั้ง");
+                    this.router.navigate(["/cost"]);
+                }
+            )
     }
 
     constructor(
@@ -140,7 +199,7 @@ export class selectCostComponent implements OnInit {
         private vcRef: ViewContainerRef,
         private route: ActivatedRoute,
         private router: Router,
-        private loginProfileService: loginProfileService,
+        private costService: costService,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
                 console.log("url", s);
@@ -151,17 +210,6 @@ export class selectCostComponent implements OnInit {
         console.log("connect");
         this.router.navigate(["/cost"]);
         this.demoLoader();
-    }
-
-    total (i1, i2, i3, i4, i5) {
-        this.totalMoney = parseInt(i1) + parseInt(i2) + parseInt(i3) + parseInt(i4) + parseInt(i5) ;
-        return true ;
-    }
-
-    checkDate (date) {
-        if (this.costSelect.numberDate == date) {
-            return true ;
-        }
     }
 
     private demoLoader() {

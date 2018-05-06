@@ -11,6 +11,8 @@ export class verifyHnService {
 
     checkHn: checkHn;
     token = "a27cf250553d383da99d35260807f4bd2";
+    headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
+    options = new RequestOptions({ headers: this.headers });
 
     getDataPatient (hn): Observable<any> {
         console.log(hn);
@@ -21,8 +23,8 @@ export class verifyHnService {
 
     getDataPatientReal (hn): Observable<any> {
         console.log(hn);
-        let url = "http://api.cpa.go.th/patient.php?request=get&cid=" + hn + "&token=" + this.token;
-        return this.http.get(url).map(response => response.json())
+        let url = "http://apis.cpa.go.th/patient/" + hn;
+        return this.http.get(url, this.options).map(response => response.json())
         .catch(this.handleErrors);
     }
 

@@ -4,44 +4,76 @@
             <GridLayout width="100%" height="100%">
                 <Label horizontalAlignment="right" class="mdi rights" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
                 <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" (tap) = "toBack()"></Label>
-                <label horizontalAlignment="center" class="setCenter w Cloud-Lights" text='ยอดชำระ'></label>
+                <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]='"ยอดชำระ " +  + name'></label>
             </GridLayout>
     </StackLayout>
 </ActionBar>
+
 <StackLayout>
+
+<StackLayout *ngIf = "operationShow">
 <StackLayout>
         <label text=""></label>
-        <label class = "Cloud-Light4 black" [text]='"   ยอดชำระวันที่ " + costSelect.numberDate'></label>
+        <label class = "Cloud-Light5 black" text='   ค่ารักษา'></label>
 </StackLayout>
+<StackLayout  width="100%" height="20%">
+        <ListView [items]="dataCost" (itemTap)="onItemTap($event)">
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                        <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
+                                <GridLayout columns="20, 200, *" rows="15, 25, 15">
+                                        <label row="0" col="0" text=""></label>
+                                        <Label row="1" col="1" class = "Cloud-Light4" [text]='(i+1) + ". " + item.name'></Label>
+                                        <label row="1" col="2" class = "Cloud-Light2 setCenter" [text]='item.price + " บาท"'></label>
+                                </GridLayout>
+                        </StackLayout>
+                </ng-template>
+        </ListView> 
+</StackLayout>
+</StackLayout>
+
+<StackLayout *ngIf = "drugShow">
 <StackLayout>
-    <ListView [items]="costTotal" (itemTap)="onItemTap($event)">
-        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-                <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
-                        <GridLayout *ngIf = "checkDate(item.date)" columns="55, *, 170, *" rows="10, 20, 10, 30, 30, 30, 30, 30, 10, 30" width="100%" height="100%">
-                                <label row="0" col="0" text=""></label>
-                                <label row="1" col="0" class = "Cloud-Light right" text=""></label>
-                                <Label row="1" col="1" class = "Cloud-Light2 black bdb" text="รายการ"></Label>
-                                <label row="1" col="2" class = "Cloud-Light right bdb" text="ราคา"></label>
-                                <label row="1" col="3" class = "Cloud-Light right" text=""></label>
-                                <Label row="2" col="1" class = "Cloud-Light2 black" text=""></Label>
-                                <label row="2" col="2" class = "Cloud-Light right" text=""></label>
-                                <Label row="3" col="1" class = "Cloud-Light2 black" [text]="item.name1"></Label>
-                                <label row="3" col="2" class = "Cloud-Light right" [text]="item.data1"></label>
-                                <Label row="4" col="1" class = "Cloud-Light2 black" [text]="item.name2"></Label>
-                                <Label row="4" col="2" class = "Cloud-Light right" [text]='item.data2'></Label>
-                                <Label row="5" col="1" class = "Cloud-Light2 black" [text]="item.name3"></Label>
-                                <Label row="5" col="2" class = "Cloud-Light right" [text]='item.data3'></Label>
-                                <Label row="6" col="1" class = "Cloud-Light2 black" [text]="item.name4"></Label>
-                                <Label row="6" col="2" class = "Cloud-Light right" [text]='item.data4'></Label>
-                                <Label row="7" col="1" class = "Cloud-Light2 black bdb" [text]="item.name5"></Label>
-                                <Label row="7" col="2" class = "Cloud-Light right bdb" [text]='item.data5'></Label>
-                                <Label row="8" col="1" class = "Cloud-Light2 black" text=""></Label>
-                                <Label row="8" col="2" class = "Cloud-Light right" text=''></Label>
-                                <Label row="9" col="1" class = "Cloud-Light2 black" text="รวม"></Label>
-                                <Label row="9" col="2" *ngIf = "total(item.data1, item.data2, item.data3, item.data4, item.data5)" class = "Cloud-Light right" [text]='totalMoney'></Label>
-                        </GridLayout>
-                </StackLayout>
-        </ng-template>
-</ListView>
+        <label text=""></label>
+        <label class = "Cloud-Light5 black" text='   ค่ายา'></label>
 </StackLayout>
+<StackLayout  width="100%" height="25%">
+        <ListView [items]="dataDrug" (itemTap)="onItemTap($event)">
+                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                        <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
+                                <GridLayout columns="20, 200, *" rows="15, 25, 15">
+                                        <label row="0" col="0" text=""></label>
+                                        <Label row="1" col="1" class = "Cloud-Light4" [text]='(i+1) + ". " + item.name'></Label>
+                                        <label row="1" col="2" class = "Cloud-Light2 setCenter" [text]='item.price + " บาท"'></label>
+                                </GridLayout>
+                        </StackLayout>
+                </ng-template>
+        </ListView> 
+</StackLayout>
+</StackLayout>
+
+<StackLayout *ngIf = "serviceShow">
+                <StackLayout>
+                        <label text=""></label>
+                        <label class = "Cloud-Light5 black" text='   ค่าบริการ'></label>
+                </StackLayout>
+                <StackLayout  width="100%" height="20%">
+                        <ListView [items]="dataService" (itemTap)="onItemTap($event)">
+                                <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
+                                        <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
+                                                <GridLayout columns="20, 200, *" rows="15, 25, 15">
+                                                        <label row="0" col="0" text=""></label>
+                                                        <Label row="1" col="1" class = "Cloud-Light4" [text]='(i+1) + ". " + item.name'></Label>
+                                                        <label row="1" col="2" class = "Cloud-Light2 setCenter" [text]='item.price + " บาท"'></label>
+                                                </GridLayout>
+                                        </StackLayout>
+                                </ng-template>
+                        </ListView> 
+                </StackLayout>
+                </StackLayout>
+
+                <StackLayout>
+                        <label text=""></label>
+                        <label class = "Cloud-Light5 black" [text] = '"   รวม " + totalMoney + " บาท"'></label>
+                </StackLayout>
+
 </StackLayout>

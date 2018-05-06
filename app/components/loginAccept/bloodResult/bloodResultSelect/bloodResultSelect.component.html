@@ -4,57 +4,33 @@
                 <GridLayout width="100%" height="100%">
                         <Label horizontalAlignment="right" class="mdi rights" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
                         <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" (tap) = "toBack()"></Label>
-                        <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]="selectBlood.name"></label>
+                        <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]="selectBlood.numberIndex"></label>
                 </GridLayout>
         </StackLayout>
 </ActionBar>
 
-<StackLayout *ngIf = "checkDM">
-<ListView [items]="DM" (itemTap)="onItemTapDM($event)">
+<DockLayout stretchLastChild="false">
+<ListView *ngIf = "isChart" dock = "top" [items]="datashow" height="85%">
         <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-                <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
-                        <GridLayout columns="10, 210, *, *" rows="20, 25, 30" width="100%" height="100%">
+                <StackLayout [class.odd]="odd" [class.even]="even">
+                        <GridLayout columns="10, 200, *" rows="20, 25, 35" width="100%" height="100%">
                                 <label row="0" col="0" text=""></label>
-                                <Label row="1" col="1" class = "Cloud-Light black" [text]='(i+1) + ". " + item.namee'></Label>
-                                <label row="1" col="2" class = "Cloud-Light2 setCenter" text="รายละเอียด"></label>
-                                <Label row="2" col="1" class = "Cloud-Light2 black" [text]='item.namet'></Label>
-                                <label row="1" col="3" class="mdis right rights" [text]="'mdi-info-outline' | fonticon" (tap) = "showInfo(i, item.namet)"></label>
+                                <Label row="1" col="1" class="Cloud-Light black" [text]='(i+1) + ".  " + item.datetime'></Label>
+                                <label row="1" col="2" class="Cloud-Light setCenter black" [text]='item.result + " " + type'></label>
+                                <Image row="2" col="2" class="setCenter sizePic"  *ngIf="checkDataLab(item.result)" [src]="heart"></Image>
                         </GridLayout>
                 </StackLayout>
         </ng-template>
 </ListView>
-</StackLayout>
 
-<StackLayout *ngIf = "checkHPC">                
-<ListView [items]="HPC" (itemTap)="onItemTapHPC($event)">
-        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-                <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
-                        <GridLayout columns="10, 210, *, *" rows="20, 25, 30" width="100%" height="100%">
-                                <label row="0" col="0" text=""></label>
-                                <Label row="1" col="1" class = "Cloud-Light black" [text]='(i+1) + ". " + item.namee'></Label>
-                                <label row="1" col="2" class = "Cloud-Light2 setCenter" text="รายละเอียด"></label>
-                                <Label row="2" col="1" class = "Cloud-Light2 black" [text]='item.namet'></Label>
-                                <label row="1" col="3" class="mdis right rights" [text]="'mdi-info-outline' | fonticon" (tap) = "showInfo(i, item.namet)"></label>
-                        </GridLayout>
-                </StackLayout>
-        </ng-template>
-</ListView>
+<StackLayout *ngIf = "isChart" dock = "bottom">
+        <GridLayout columns="10, *, *, 10" rows="10, 50, 35, 35" width="100%" height="100%">
+                <label row="0" col="0" text=""></label>
+                <button row="1" col="1" class="btn-primary setCenter sl sizeLogin Cloud-Lights" text="เกณฑ์" (tap)="showStandard()"></button>
+                <button row="1" col="2" class="btn-primary setCenter sl sizeLogin Cloud-Lights" text="กราฟ" *ngIf = "showChart" (tap)="toBloodChart()"></button>
+                <label row="0" col="3" text=""></label>
+        </GridLayout>
 </StackLayout>
-
-<StackLayout *ngIf = "checkHPT">                       
-<ListView [items]="HPT" (itemTap)="onItemTapHPT($event)">
-        <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
-                <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
-                        <GridLayout columns="10, 210, *, *" rows="20, 25, 30" width="100%" height="100%">
-                                <label row="0" col="0" text=""></label>
-                                <Label row="1" col="1" class = "Cloud-Light black" [text]='(i+1) + ". " + item.namee'></Label>
-                                <label row="1" col="2" class = "Cloud-Light2 setCenter" text="รายละเอียด"></label>
-                                <Label row="2" col="1" class = "Cloud-Light2 black" [text]='item.namet'></Label>
-                                <label row="1" col="3" class="mdis right rights" [text]="'mdi-info-outline' | fonticon" (tap) = "showInfo(i, item.namet)"></label>
-                        </GridLayout>
-                </StackLayout>
-        </ng-template>
-</ListView>
-</StackLayout>
+</DockLayout>
 
               

@@ -74,8 +74,8 @@ export class loginProfileComponent implements OnInit {
     ngOnInit(): void {
         
         this.dataUser = JSON.parse(securityService.getDataUser);
-        console.log(JSON.stringify(this.dataUser.dataset));
-        console.log(this.dataUser.dataset.hn)
+        // console.log(JSON.stringify(this.dataUser.dataset));
+        // console.log(this.dataUser.dataset.hn)
         this.nameAndsurname = this.dataUser.dataset.fname + " " + this.dataUser.dataset.lname
         this.hospitalnumber = this.dataUser.dataset.hn
         this.cid = this.dataUser.dataset.cid
@@ -101,6 +101,13 @@ export class loginProfileComponent implements OnInit {
         this.loader.show(this.options);
         console.log("connect");
         this.router.navigate(["/appointment"]);
+        this.demoLoader();
+    }
+
+    toHyper () {
+        this.loader.show(this.options);
+        console.log("connect");
+        this.router.navigate(["/hyper"]);
         this.demoLoader();
     }
 

@@ -28,6 +28,17 @@ import { bloodChartComponent } from "./bloodResult/bloodChart/bloodChart.compone
 import { appointmentService } from "./appointment/appointment.service";
 import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
 import { bloodChartService } from "./bloodResult/bloodChart/bloodChart.service";
+import { medicineService } from "../loginAccept/medicine/medicine.service";
+import { hyperComponent } from "../loginAccept/hyper/hyper.component";
+import { hyperSelectService } from "./hyper/hyperSelect/hyperSelect.service";
+import { hyperSelectComponent } from "./hyper/hyperSelect/hyperSelect.component";
+import { hyperChartComponent } from "./hyper/hyperSelect/hyperChart/hyperChart.component";
+import { hyperChartService } from "./hyper/hyperSelect/hyperChart/hyperChart.service";
+import { hyperModalComponent } from "./hyper/hyperSelect/hyperModal.component";
+import { costService } from "./cost/cost.service";
+import { bloodResultService } from "./bloodResult/bloodResult.service";
+
+
 @NgModule({
 
     imports: [
@@ -57,13 +68,22 @@ import { bloodChartService } from "./bloodResult/bloodChart/bloodChart.service";
         bloodResultSelectTotalComponent,
         medicineSelectComponent,
         medicineSelectOneComponent,
-        bloodChartComponent
+        bloodChartComponent,
+        hyperComponent,
+        hyperChartComponent,
+        hyperSelectComponent,
+        hyperModalComponent
     ],
     providers: [
         ModalDialogService,
         loginProfileService,
         appointmentService,
-        bloodChartService
+        bloodChartService,
+        medicineService,
+        hyperSelectService,
+        hyperChartService,
+        costService,
+        bloodResultService
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -4,39 +4,60 @@
         <GridLayout width="100%" height="100%">
             <Label horizontalAlignment="right" class="mdi rights" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
             <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" (tap) = "toBack()"></Label>
-            <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]="selectBloodResult.name"></label>
+            <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]="selectBlood.name"></label>
         </GridLayout>
 </StackLayout>
 </ActionBar>
-<!-- <ScrollView orientation="horizontal" sdkExampleTitle sdkToggleNavButton> -->
-<!-- <StackLayout orientation="horizontal">
-<Image class="setSize" src="https://chart.googleapis.com/chart?chs=280x400&amp;chd=t:10,50,60,80,40,35&amp;chds=0,150&amp;cht=bvs&amp;chxl=0:|14|27|14|27|14|27|1:|ก.พ.|พ.ค.|ก.พ.|พ.ค.|ก.พ.|พ.ค.|2:|2560|2560|2560|2560|2560|2560|&amp;chtt=text&amp;chxt=x,x,x,y&amp;chds=a"></Image>
-</StackLayout> -->
-<!-- <StackLayout orientation="horizontal" *ngIf="isChart">
-    <Image class="setSize" [src]="'https://chart.googleapis.com/chart?chs=280x400&amp;chd=' + this.chd + '&amp;chds=' + this.sizes + '&amp;cht=lc&amp;chxl=' + this.chxl[0] + this.chxl[1] + this.chxl[2] + '&amp;chtt=' + this.selectBloodResult.name + '&amp;chxt=x,x,x,y&amp;chds=a&amp;chm=o,996600,0,-1,6&amp;chco=000000&amp;chf=c,ls,90,FFFFFF,0.47,88BBAA,0.21,F4EFAF,0.17,FF9797,0.15'"></Image>
-</StackLayout> -->
-<!-- >> chart-angular-line-series -->
+
 <StackLayout>
-    <label text=""></label>
+    <StackLayout *ngIf = "isChart">
+        <GridLayout columns="10, 20, *" rows="5, 20, 5, 20, 5, 20, 5">
+            <Label text="" row="0" col="0"></Label>
+            <Label text="" row="1" col="1" backgroundColor="green"></Label>
+            <Label class="Cloud-Light" text="  ปกติ" row="1" col="2"></Label>
+            <Label text="" row="3" col="1" backgroundColor="#FFCC00"></Label>
+            <Label class="Cloud-Light" text="  สูงกว่าปกติ" row="3" col="2"></Label>
+            <Label text="" row="5" col="1" backgroundColor="red"></Label>
+            <Label class="Cloud-Light" text="  สูงมาก" row="5" col="2"></Label>
+            <Label text="" row="6" col="0"></Label>
+        </GridLayout>
+    </StackLayout>
+<StackLayout *ngIf = "isChart">
     <RadCartesianChart tkExampleTitle tkToggleNavButton>
         <CategoricalAxis tkCartesianHorizontalAxis labelFitMode="Rotate" labelRotationAngle="1.2"></CategoricalAxis>
-        <!-- >> chart-line-axis -->
+        
         <LinearAxis tkCartesianVerticalAxis strokeWidth="3" strokeColor="green"></LinearAxis>
-        <!-- << chart-line-axis -->
-        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource" categoryProperty="DateCount" valueProperty="dataResult" selectionMode="Series">
+        
+        <LineSeries tkCartesianSeries showLabels="true"  seriesName="myLine1" [items]="categoricalSource" categoryProperty="datetime" valueProperty="result" selectionMode="Series">
             <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="green" textSize="10" textColor="White"></PointLabelStyle>
         </LineSeries>
-        <!-- <BubbleSeries tkCartesianSeries [items]="categoricalSource" bubbleScale="10" categoryProperty="DateCount" valueProperty="dataResult" [bubbleSizeProperty]="testone"></BubbleSeries> -->
 
-        <Palette tkCartesianPalette seriesName="myLine">
-            <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="green" fillColor="Yellow"></PaletteEntry>
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine2" [items]="categoricalSource2" categoryProperty="datetime" valueProperty="result" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#FFCC00" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine2" [items]="categoricalSource4" categoryProperty="datetime" valueProperty="result" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#FFCC00" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine2" [items]="categoricalSource3" categoryProperty="datetime" valueProperty="result" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="red" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <Palette tkCartesianPalette seriesName="myLine1">
+            <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="black" fillColor="Yellow"></PaletteEntry>
         </Palette>
+        <Palette tkCartesianPalette seriesName="myLine2">
+            <PaletteEntry tkCartesianPaletteEntry strokeWidth="0" strokeColor="white" fillColor="Yellow"></PaletteEntry>
+        </Palette>
+        <Palette tkCartesianPalette seriesName="myLine1">
+            <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="black" fillColor="Yellow"></PaletteEntry>
+        </Palette>
+        
 
         <RadCartesianChartGrid tkCartesianGrid horizontalLinesVisible="true" verticalLinesVisible="false" verticalStripLinesVisible="false"
         horizontalStrokeColor="#e5e5e5" horizontalStripLinesVisible="true" horizontalStripLineColor="#f8f8f8, #00000000"></RadCartesianChartGrid>
         
     </RadCartesianChart>
 </StackLayout>
-
-<!-- << chart-angular-line-series -->
-<!-- </ScrollView> -->
+</StackLayout>

@@ -18,6 +18,7 @@ import { TNSFontIconService } from 'nativescript-ng2-fonticon';
 import {LoadingIndicator} from "nativescript-loading-indicator";
 import {Input, ChangeDetectionStrategy} from '@angular/core';
 import { diseases } from "../../security/model/diseases.model"
+import { medicineService } from "./medicine.service";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -40,65 +41,7 @@ export class medicineComponent implements OnInit {
     hospitalnumber ;
     loader = new LoadingIndicator();
     connect = true ;
-    disease = [
-        {
-            namee : "Diabetes Mellitus",
-            namet : "เบาหวาน"
-        },
-        {
-            namee : "Hypercholesterolemia",
-            namet : "ไขมัน"
-        },
-        {
-            namee : "Hypertension",
-            namet : "ความดันโลหิต"
-        }
-    ] ;
-    medicine = [
-        {
-            namee : "Metformin",
-            namet : "ยาลดน้ำตาลในเลือด",
-            data : "ลดการดูดซึมสารอาหารที่ลำไส้เล็กส่วนต้น และลดน้ำตาลหลังอาหาร",
-            use : "เริ่มต้นขนาดน้อยใช้เพียง 25 มก พร้อมอาหาร 3 มื้อให้ปรับยาทุก 4 สัปดาห์ครั้งละ 25 มก โดยเจาะน้ำตาลหลังอาหาร 1 ชั่วโมง และขนาดยาที่ใช้หากน้ำหนักน้อยกว่า 60 กิโลกรัมให้ 50 มก พร้อมอาหารวันละ 3 ครั้ง สำหรับผู้ที่น้ำหนักมากกว่า60 กก ใช้ 100 มก พร้อมอาหารวันละ 3 ครั้ง",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "ACE Inhibitor",
-            namet : "ยาลดความดันโลหิต",
-            data : "ขยายหลอด ลดอาการเหนื่อยจากหัวใจวาย ลดการกระตุ้น angiotensin II",
-            use : "รับประทานวันละ 1 ครั้ง ตอนเช้า หากต้องรับประทานวันละ 2 ครั้ง ควรรับประทาน ตอนเช้า และกลางวัน",
-            type : "ความดันโลหิต"
-        },
-        {
-            namee : "Repaglinide",
-            namet : "ยาเพิ่มการหลั่งของอินซูลิน",
-            data : "กระตุ้นตับอ่อนให้สร้างอินซูลินทำให้น้ำตาลหลังอาหารลดลง",
-            use : "สำหรับผู้ที่ไม่เคยรับยามาก่อน HbA1c < 8% ให้เริ่มขนาด 0.5 ก่อนอาหาร 3 มื้อ หากผู้ที่เคยรับยาเบาหวานมาก่อน HbA1c  > 8% ให้เริ่มขนาด 1-2 มก ก่อนอาหาร 3 มื้อ ขนาดเต็มที่ 4 มก ก่อนอาหาร 3 มื้อ",
-            type : "เบาหวาน"
-        },
-        {
-            namee : "Vitamin-E",
-            namet : "ยาลดน้ำตาลในเลือด",
-            data : "ลดการเกาะตัวของไขมันในผนังหลอดเลือด",
-            use : "รับประทานทั่วไปคือ 200-1,200 IU ต่อวัน",
-            type : "ไขมัน"
-        },
-        {
-            namee : "Vitamin-C",
-            namet : "วิตามินซี",
-            data : "ลดความดันโลหิต",
-            use : "รับประทานพร้อมอาหาร ผู้ใหญ่ทานวันละ 1 เม็ด",
-            type : "ความดันโลหิต"
-        },
-        {
-            namee : "Vitamin-B3",
-            namet : "วิตามินบี  3",
-            data : "ควบคุมระดับไขมันในร่างกายให้เป็นปกติ ควบคุมไม่ให้ cholesterol สูงเกินปกติ",
-            use : "รับประทาน 1 - 3 เม็ดต่อวัน",
-            type : "ความดันโลหิต"
-        }
-    ] ;
-    
+    dataMidicine ;
     medicineNumber ;
 
     options = {
@@ -136,10 +79,23 @@ export class medicineComponent implements OnInit {
     ngOnInit(): void {
         this.diseases = new diseases ;
         this.diseases.name = "" ;
-        securityService.setDiseases = JSON.stringify(this.diseases);
-        console.log(securityService.getDiseases);
+        this.diseases = JSON.parse(securityService.getDiseases);
         this.dataUser = JSON.parse(securityService.getDataUser);
         this.hospitalnumber = this.dataUser.dataset.hn
+        console.log(this.hospitalnumber) ;
+        this.medicineService.getDataDayMedicine(this.hospitalnumber)
+                    .subscribe(
+                        (Response) => {
+                          // console.log(JSON.stringify(Response));
+                          this.dataMidicine = Response.dataset ;
+                          // console.log(this.dataMidicine) ;
+                        },
+                        (error) => {
+                            console.log("data error") ;
+                            alert("กรุณาลองอีกครั้ง");
+                            this.router.navigate(["/loginProfile"]);
+                        }
+                    )
     }
 
     constructor(
@@ -149,7 +105,7 @@ export class medicineComponent implements OnInit {
         private vcRef: ViewContainerRef,
         private route: ActivatedRoute,
         private router: Router,
-        private loginProfileService: loginProfileService,
+        private medicineService: medicineService,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
                 console.log("url", s);
@@ -157,11 +113,13 @@ export class medicineComponent implements OnInit {
 
 }
 public onItemTap(args) {
-    console.log("------------------------ ItemTapped: " + args.index);
-    this.diseases.name = this.disease[args.index].namet ;
+    this.loader.show(this.options);
+    console.log("------------------------ ItemTapped: " + this.dataMidicine[args.index].visitdate);
+    this.diseases.name = this.dataMidicine[args.index].visitdate ;
     securityService.setDiseases = JSON.stringify(this.diseases);
     console.log(securityService.getDiseases);
     this.router.navigate(["/medicineSelect"]);
+    this.demoLoader();
 }
 toBack () {
     this.loader.show(this.options);

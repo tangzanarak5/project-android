@@ -1,0 +1,182 @@
+<sidebar #sidebar></sidebar>
+<ActionBar class="bg">
+<StackLayout>
+        <GridLayout width="100%" height="100%">
+            <Label horizontalAlignment="right" class="mdi rights" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
+            <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" (tap) = "toBack()"></Label>
+            <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]="allData[hyperSelectOne.nameIndex].nameThai"></label>
+        </GridLayout>
+</StackLayout>
+</ActionBar>
+
+<StackLayout *ngIf = "checkHyper1">
+    <StackLayout *ngIf = "isChart">
+        <GridLayout columns="10, 20, *" rows="5, 20, 5, 20, 5, 20, 5">
+            <Label text="" row="0" col="0"></Label>
+            <Label text="" row="1" col="1" backgroundColor="green"></Label>
+            <Label class="Cloud-Light" text="  ปกติ" row="1" col="2"></Label>
+            <Label text="" row="3" col="1" backgroundColor="#FFCC00"></Label>
+            <Label class="Cloud-Light" text="  สูงกว่าปกติ" row="3" col="2"></Label>
+            <Label text="" row="5" col="1" backgroundColor="red"></Label>
+            <Label class="Cloud-Light" text="  สูงมาก" row="5" col="2"></Label>
+            <Label text="" row="6" col="0"></Label>
+        </GridLayout>
+    </StackLayout>
+    <StackLayout *ngIf = "isChart">
+    <RadCartesianChart tkExampleTitle tkToggleNavButton>
+        <CategoricalAxis tkCartesianHorizontalAxis labelFitMode="Rotate" labelRotationAngle="1.2"></CategoricalAxis>
+
+        <LinearAxis tkCartesianVerticalAxis strokeWidth="3" strokeColor="green"></LinearAxis>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource7" categoryProperty="visitdate" valueProperty="bmi" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="green" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource8" categoryProperty="visitdate" valueProperty="bmi" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#FFCC00" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource9" categoryProperty="visitdate" valueProperty="bmi" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#FFCC00" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource10" categoryProperty="visitdate" valueProperty="bmi" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="red" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <Palette tkCartesianPalette seriesName="myLine">
+            <PaletteEntry tkCartesianPaletteEntry strokeWidth="4" strokeColor="black" fillColor="white"></PaletteEntry>
+        </Palette>
+
+        <RadCartesianChartGrid tkCartesianGrid horizontalLinesVisible="true" verticalLinesVisible="false" verticalStripLinesVisible="false"
+        horizontalStrokeColor="#e5e5e5" horizontalStripLinesVisible="true" horizontalStripLineColor="#f8f8f8, #00000000"></RadCartesianChartGrid>
+
+    </RadCartesianChart>
+</StackLayout>
+</StackLayout>
+
+<StackLayout *ngIf = "checkHyper2">
+        <StackLayout *ngIf = "isChart">
+                <GridLayout columns="10, 20, *" rows="5, 20, 5, 20, 5, 20, 5">
+                    <Label text="" row="0" col="0"></Label>
+                    <Label text="" row="1" col="1" backgroundColor="green"></Label>
+                    <Label class="Cloud-Light" text="  ปกติ" row="1" col="2"></Label>
+                    <Label text="" row="3" col="1" backgroundColor="#FFCC00"></Label>
+                    <Label class="Cloud-Light" text="  สูงกว่าปกติ" row="3" col="2"></Label>
+                    <Label text="" row="5" col="1" backgroundColor="red"></Label>
+                    <Label class="Cloud-Light" text="  สูงมาก" row="5" col="2"></Label>
+                    <Label text="" row="6" col="0"></Label>
+                </GridLayout>
+            </StackLayout>
+<StackLayout *ngIf = "isChart">
+    <RadCartesianChart tkExampleTitle tkToggleNavButton>
+        <CategoricalAxis tkCartesianHorizontalAxis labelFitMode="Rotate" labelRotationAngle="1.2"></CategoricalAxis>
+
+        <LinearAxis tkCartesianVerticalAxis strokeWidth="3" strokeColor="green"></LinearAxis>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource2" categoryProperty="visitdate" valueProperty="bp" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="green" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource3" categoryProperty="visitdate" valueProperty="bp" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="red" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource4" categoryProperty="visitdate" valueProperty="bp" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#FFCC00" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine2" [items]="categoricalSource" categoryProperty="visitdate" valueProperty="bp" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="green" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine2" [items]="categoricalSource5" categoryProperty="visitdate" valueProperty="bp" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#FFCC00" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine2" [items]="categoricalSource6" categoryProperty="visitdate" valueProperty="bp" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="red" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <Palette tkCartesianPalette seriesName="myLine">
+            <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="black" fillColor="Yellow"></PaletteEntry>
+        </Palette>
+
+        <Palette tkCartesianPalette seriesName="myLine2">
+            <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="black" fillColor="Yellow"></PaletteEntry>
+        </Palette>
+
+        <RadCartesianChartGrid tkCartesianGrid horizontalLinesVisible="true" verticalLinesVisible="false" verticalStripLinesVisible="false"
+        horizontalStrokeColor="#e5e5e5" horizontalStripLinesVisible="true" horizontalStripLineColor="#f8f8f8, #00000000"></RadCartesianChartGrid>
+        
+    </RadCartesianChart>
+</StackLayout>
+</StackLayout>
+
+<StackLayout *ngIf = "checkHyper3">
+        <StackLayout *ngIf = "isChart">
+                <GridLayout columns="10, 20, *" rows="5, 20, 5, 20, 5, 20, 5">
+                    <Label text="" row="0" col="0"></Label>
+                    <Label text="" row="1" col="1" backgroundColor="green"></Label>
+                    <Label class="Cloud-Light" text="  ปกติ" row="1" col="2"></Label>
+                    <Label text="" row="3" col="1" backgroundColor="#FFCC00"></Label>
+                    <Label class="Cloud-Light" text="  สูงกว่าปกติ" row="3" col="2"></Label>
+                    <Label text="" row="5" col="1" backgroundColor="red"></Label>
+                    <Label class="Cloud-Light" text="  สูงมาก" row="5" col="2"></Label>
+                    <Label text="" row="6" col="0"></Label>
+                </GridLayout>
+            </StackLayout>
+    <StackLayout *ngIf = "isChart">
+    <RadCartesianChart tkExampleTitle tkToggleNavButton>
+        <CategoricalAxis tkCartesianHorizontalAxis labelFitMode="Rotate" labelRotationAngle="1.2"></CategoricalAxis>
+
+        <LinearAxis tkCartesianVerticalAxis strokeWidth="3" strokeColor="green"></LinearAxis>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource11" categoryProperty="visitdate" valueProperty="pulse" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="green" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource12" categoryProperty="visitdate" valueProperty="pulse" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#FFCC00" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource13" categoryProperty="visitdate" valueProperty="pulse" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="#FFCC00" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource14" categoryProperty="visitdate" valueProperty="pulse" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="red" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <Palette tkCartesianPalette seriesName="myLine">
+            <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="green" fillColor="Yellow"></PaletteEntry>
+        </Palette>
+
+        <RadCartesianChartGrid tkCartesianGrid horizontalLinesVisible="true" verticalLinesVisible="false" verticalStripLinesVisible="false"
+        horizontalStrokeColor="#e5e5e5" horizontalStripLinesVisible="true" horizontalStripLineColor="#f8f8f8, #00000000"></RadCartesianChartGrid>
+        
+    </RadCartesianChart>
+</StackLayout>
+</StackLayout>
+
+<StackLayout *ngIf = "checkHyper4">
+    <StackLayout *ngIf = "isChart">
+    <RadCartesianChart tkExampleTitle tkToggleNavButton>
+        <CategoricalAxis tkCartesianHorizontalAxis labelFitMode="Rotate" labelRotationAngle="1.2"></CategoricalAxis>
+
+        <LinearAxis tkCartesianVerticalAxis strokeWidth="3" strokeColor="green"></LinearAxis>
+
+        <LineSeries tkCartesianSeries showLabels="true" seriesName="myLine" [items]="categoricalSource15" categoryProperty="visitdate" valueProperty="weight" selectionMode="Series">
+            <PointLabelStyle tkLineLabelStyle margin="10" fontStyle="Bold" fillColor="green" textSize="10" textColor="White"></PointLabelStyle>
+        </LineSeries>
+
+        <Palette tkCartesianPalette seriesName="myLine">
+            <PaletteEntry tkCartesianPaletteEntry strokeWidth="5" strokeColor="green" fillColor="Yellow"></PaletteEntry>
+        </Palette>
+
+        <RadCartesianChartGrid tkCartesianGrid horizontalLinesVisible="true" verticalLinesVisible="false" verticalStripLinesVisible="false"
+        horizontalStrokeColor="#e5e5e5" horizontalStripLinesVisible="true" horizontalStripLineColor="#f8f8f8, #00000000"></RadCartesianChartGrid>
+        
+    </RadCartesianChart>
+</StackLayout>
+</StackLayout>
