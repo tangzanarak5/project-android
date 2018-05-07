@@ -17,7 +17,7 @@
                 <StackLayout [class.odd]="odd" [class.even]="even">
                         <GridLayout columns="10, 200, *" rows="20, 25, 35" width="100%" height="100%">
                                 <label row="0" col="0" text=""></label>
-                                <Label row="1" col="1" class="Cloud-Light black" [text]='(i+1) + ".  " + item.visitdate'></Label>
+                                <Label row="1" col="1" class="Cloud-Light black" [text]='"  " + item.visitdate'></Label>
                                 <label row="1" col="2" class="Cloud-Light setCenter black" [text]='item.bmi + type'></label>
                                 <Image row="2" col="2" class="setCenter sizePic" *ngIf="checkDataHyper(item.bmi)" [src]="heart"></Image>
                         </GridLayout>

@@ -91,7 +91,7 @@ export class bloodResultSelectComponent implements OnInit {
       @ViewChild('sidebar') sideBar: sideBarComponent
 
       openDrawer () {
-          this.sideBar.openDrawer();
+          this.sideBar.openDrawer() ;
       }
     
     ngOnInit(): void {
@@ -105,6 +105,11 @@ export class bloodResultSelectComponent implements OnInit {
             (Response) => {
                 this.dataLab = Response.dataset ;
                 // console.log(this.dataLab) ;
+                // this.datashow = this.dataLab.fillter(element => {
+                //     console.log(element) ;
+                //     console.log(this.selectBlood.numberIndex);
+                //     return element.test == this.selectBlood.numberIndex
+                // })
                     for (let i = 0 ; i < this.dataLab.length ; i++) {
                         if (this.dataLab[i].test == this.selectBlood.numberIndex) {
                             this.temp = this.dataLab[i].datetime.split(" ") ;
@@ -112,7 +117,7 @@ export class bloodResultSelectComponent implements OnInit {
                             this.datashow.push(this.dataLab[i]) ;
                         }
                     }
-                    console.log(this.datashow) ;
+                     console.log("datashow : " + this.datashow) ;
                     if (this.datashow.length == this.temp2.length) {
                         alert("ไม่พบประวัติการรักษา") ;
                         this.router.navigate(["/bloodResult"]) ;
@@ -174,7 +179,7 @@ export class bloodResultSelectComponent implements OnInit {
         setTimeout(() => {
             this.isChart = true ;
             this.loader.hide() ;
-          }, 7500) ;
+          }, 8000) ;
 
     }
 

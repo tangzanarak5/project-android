@@ -54,9 +54,9 @@ export class selectCostComponent implements OnInit {
     heigthDrug = "15%" ;
     heigthService = "15%" ;
     temp = [] ;
-    drugShow = true ;
+    drugShow = false ;
     operationShow = true ;
-    serviceShow = true ;
+    serviceShow = false ;
 
     options = {
         message: 'Loading...',
@@ -109,20 +109,11 @@ export class selectCostComponent implements OnInit {
                     this.dataCost = Response.dataset;
                     //console.log(this.dataCost) ;
                     console.log(this.dataCost.length);
-
-                    if (this.dataCost.length == this.temp.length) {
-                        console.log("emty operation");
-                        this.operationShow = false ;
-                    }
-                    else if (this.dataCost.length == 1) {
-                        this.heigthOperation = "10%" ;
-                        console.log("opertation one");
-                    }
                 },
                 (error) => {
                     console.log("data error") ;
                     alert("กรุณาลองอีกครั้ง");
-                    this.router.navigate(["/cost"]);
+                    this.router.navigate(["/cost"]) ;
                 }
             )
         this.costService.getDataDrug(this.hospitalnumber, this.id)
@@ -131,15 +122,6 @@ export class selectCostComponent implements OnInit {
                     // console.log(JSON.stringify(Response));
                     this.dataDrug = Response.dataset ;
                     //console.log(this.dataDrug) ;
-
-                    if (this.dataDrug.length == this.temp.length) {
-                        console.log("emty drug");
-                        this.drugShow = false ;
-                    }
-                    else if (this.dataDrug.length == 1) {
-                        this.heigthDrug = "5%" ;
-                        console.log("drug one");
-                    }
                 },
                 (error) => {
                     console.log("data error") ;
@@ -154,15 +136,6 @@ export class selectCostComponent implements OnInit {
                     // console.log(JSON.stringify(Response));
                     this.dataService = Response.dataset ;
                     //console.log(this.dataDrug) ;
-
-                    if (this.dataService.length == this.temp.length) {
-                        console.log("emty service");
-                        this.serviceShow = false ;
-                    }
-                    else if (this.dataService.length == 1) {
-                        this.heigthService = "5%" ;
-                        console.log("service one");
-                    }
                 },
                 (error) => {
                     console.log("data error") ;
@@ -205,6 +178,43 @@ export class selectCostComponent implements OnInit {
                 console.log("url", s);
             });
     }
+    showStatus (n) {
+        if (n == 1) {
+
+            this.operationShow = true ;
+            this.drugShow = false ;
+            this.serviceShow = false ;
+
+            if (this.dataCost.length == this.temp.length) {
+                console.log("emty operation");
+                alert("ไม่พบข้อมูล");
+            }
+        }
+        else if (n == 2) {
+
+            this.operationShow = false ;
+            this.drugShow = true ;
+            this.serviceShow = false ;
+
+            if (this.dataDrug.length == this.temp.length) {
+                console.log("emty drug");
+                alert("ไม่พบข้อมูล");
+            }
+        }
+        else if (n == 3) {
+
+            this.operationShow = false ;
+            this.drugShow = false ;
+            this.serviceShow = true ;
+
+            if (this.dataService.length == this.temp.length) {
+                console.log("emty service");
+                alert("ไม่พบข้อมูล");
+            }
+        }
+
+    }
+
     toBack () {
         this.loader.show(this.options);
         console.log("connect");

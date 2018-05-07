@@ -11,12 +11,20 @@
 
 <StackLayout>
 
+<StackLayout>
+        <GridLayout columns="*, *, *" rows="50">
+                <button row="0" col="0" class = "btn-primary setCenter sl sizeLogin Cloud-Lights" text="ค่ารักษา" (tap) = "showStatus(1)"></button>
+                <button row="0" col="1" class = "btn-primary setCenter sl sizeLogin Cloud-Lights" text="ค่ายา" (tap) = "showStatus(2)"></button>
+                <button row="0" col="2" class = "btn-primary setCenter sl sizeLogin Cloud-Lights" text="ค่าบริการ" (tap) = "showStatus(3)"></button>
+        </GridLayout>
+</StackLayout>
+
 <StackLayout *ngIf = "operationShow">
 <StackLayout>
         <label text=""></label>
         <label class = "Cloud-Light5 black" text='   ค่ารักษา'></label>
 </StackLayout>
-<StackLayout  width="100%" height="20%">
+<StackLayout  width="100%" height="80%">
         <ListView [items]="dataCost" (itemTap)="onItemTap($event)">
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
                         <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
@@ -36,7 +44,7 @@
         <label text=""></label>
         <label class = "Cloud-Light5 black" text='   ค่ายา'></label>
 </StackLayout>
-<StackLayout  width="100%" height="25%">
+<StackLayout  width="100%" height="80%">
         <ListView [items]="dataDrug" (itemTap)="onItemTap($event)">
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
                         <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
@@ -56,7 +64,7 @@
                         <label text=""></label>
                         <label class = "Cloud-Light5 black" text='   ค่าบริการ'></label>
                 </StackLayout>
-                <StackLayout  width="100%" height="20%">
+                <StackLayout  width="100%" height="80%">
                         <ListView [items]="dataService" (itemTap)="onItemTap($event)">
                                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
                                         <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
@@ -72,7 +80,6 @@
                 </StackLayout>
 
                 <StackLayout>
-                        <label text=""></label>
                         <label class = "Cloud-Light5 black" [text] = '"   รวม " + totalMoney + " บาท"'></label>
                 </StackLayout>
 

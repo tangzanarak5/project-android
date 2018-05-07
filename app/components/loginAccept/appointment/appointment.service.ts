@@ -15,14 +15,20 @@ export class appointmentService {
         appoint_time: ""
     }]
     getAppointment (): Observable<any> {
+        let url415 = "http://10.41.160.207:8080/appointment" ;
         let url = "http://192.168.1.4:8080/appointment";
-        return this.http.get(url).map(response => response.json())
+        // return this.http.get(url).map(response => response.json())
+        // .catch(this.handleErrors);
+        return this.http.get(url415).map(response => response.json())
         .catch(this.handleErrors);
     }
     
     getDocterworking (): Observable<any> {
+        let url415 = "http://10.41.160.207:8080/docterworking" ;
         let url = "http://192.168.1.4:8080/docterworking";
-        return this.http.get(url).map(response => response.json())
+        // return this.http.get(url).map(response => response.json())
+        // .catch(this.handleErrors);
+        return this.http.get(url415).map(response => response.json())
         .catch(this.handleErrors);
     }
 
@@ -34,11 +40,21 @@ export class appointmentService {
         this.dataPost[0].docterWorkingDay = docterWorkingDay
         this.dataPost[0].appoint_day = appoint_day
         this.dataPost[0].appoint_time = appoint_time
-        let url = "http://192.168.1.4:8080/postAppoint";
+        let url = "http://192.168.1.4:8080/postAppoint" ;
+        let url415 = "http://10.41.160.207:8080/postAppoint" ;
         let headers = new Headers({ "Content-Type": "application/json" });
         let options = new RequestOptions({ headers: headers });  
         
-        return this.http.post(url,this.dataPost[0], options)      
+        // return this.http.post(url,this.dataPost[0], options)      
+        // .subscribe(result => 
+        //     {
+        //        console.log("response : " + result);
+        //     }, error => 
+        //     {
+        //     console.dir(error);
+        //     });
+
+        return this.http.post(url415,this.dataPost[0], options)      
         .subscribe(result => 
             {
                console.log("response : " + result);
