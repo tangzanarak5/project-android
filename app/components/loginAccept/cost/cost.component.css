@@ -199,3 +199,9 @@ titleMargin {
 .rights {
     margin-right: 5%
 }
+.odd {
+    color: #3366FF;
+}
+.even{
+    color: black;
+}

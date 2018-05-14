@@ -15,10 +15,11 @@ import { ActionItem } from "ui/action-bar";
 import { Observable } from "data/observable";
 import { sideBarComponent } from "../loginProfile/sideBar/sideBar.component";
 import { TNSFontIconService } from 'nativescript-ng2-fonticon';
-import {LoadingIndicator} from "nativescript-loading-indicator";
+import {LoadingIndicator} from "nativescript-loading-indicator" ;
 import {Input, ChangeDetectionStrategy} from '@angular/core';
 import { diseases } from "../../security/model/diseases.model"
 import { medicineService } from "./medicine.service";
+import { SetupItemViewArgs } from "nativescript-angular/directives";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -38,6 +39,8 @@ export class medicineComponent implements OnInit {
     private counter: number;
     diseases: diseases ;
     dataUser ;
+    dataMedicineShow = [] ;
+    temp = [] ;
     hospitalnumber ;
     loader = new LoadingIndicator();
     connect = true ;
@@ -76,11 +79,16 @@ export class medicineComponent implements OnInit {
         this.sideBar.openDrawer();
     }
 
+    onSetupItemView(args: SetupItemViewArgs) {
+        args.view.context.odd = (args.index === 0) ;
+        args.view.context.even = (args.index !== 0) ;
+    }
+
     ngOnInit(): void {
         this.diseases = new diseases ;
         this.diseases.name = "" ;
-        this.diseases = JSON.parse(securityService.getDiseases);
-        this.dataUser = JSON.parse(securityService.getDataUser);
+        // this.diseases = JSON.parse(securityService.getDiseases);
+        this.dataUser = JSON.parse(securityService.getDataUser) ;
         this.hospitalnumber = this.dataUser.dataset.hn
         console.log(this.hospitalnumber) ;
         this.medicineService.getDataDayMedicine(this.hospitalnumber)
@@ -88,7 +96,12 @@ export class medicineComponent implements OnInit {
                         (Response) => {
                           // console.log(JSON.stringify(Response));
                           this.dataMidicine = Response.dataset ;
-                          // console.log(this.dataMidicine) ;
+                          this.dataMidicine.forEach ((element, index) => {
+                            if (element.drug_pay != "0") {
+                                this.dataMedicineShow.push(element);
+                            }
+                        })
+                          // console.log(this.dataMedicineShow) ;
                         },
                         (error) => {
                             console.log("data error") ;
@@ -114,8 +127,8 @@ export class medicineComponent implements OnInit {
 }
 public onItemTap(args) {
     this.loader.show(this.options);
-    console.log("------------------------ ItemTapped: " + this.dataMidicine[args.index].visitdate);
-    this.diseases.name = this.dataMidicine[args.index].visitdate ;
+    console.log("------------------------ ItemTapped: " + this.dataMedicineShow[args.index].visitdate);
+    this.diseases.name = this.dataMedicineShow[args.index].visitdate ;
     securityService.setDiseases = JSON.stringify(this.diseases);
     console.log(securityService.getDiseases);
     this.router.navigate(["/medicineSelect"]);
@@ -133,10 +146,5 @@ private demoLoader() {
       this.loader.hide();
     }, 2000);
   }
-    getMedicine (number) {
-        this.connect = false
-        this.medicineNumber = number ;
-        console.log(this.medicineNumber)
-    }
 
  }

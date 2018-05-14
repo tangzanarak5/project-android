@@ -10,14 +10,13 @@
 </ActionBar>
 
 <StackLayout>
-        <ListView [items]="dataMidicine" (itemTap)="onItemTap($event)">
+        <ListView [items]="dataMedicineShow" (setupItemView)="onSetupItemView($event)" (itemTap)="onItemTap($event)">
                 <ng-template let-item="item" let-index="index" let-odd="odd" let-even="even">
                         <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
                                 <GridLayout columns="10, 220, *" rows="20, 25, 20" width="100%" height="100%">
                                         <label row="0" col="0" text=""></label>
-                                        <Label row="1" col="1" class = "Cloud-Light black" [text]='" " + item.visitdate' ></Label>
+                                        <Label row="1" col="1" class = "Cloud-Light" [text]='" " + item.visitdate' ></Label>
                                         <label row="1" col="3" class = "Cloud-Light2 setCenter" text="รายละเอียด"></label>
-                                        <Label row="2" col="1" class = "Cloud-Light2 black" [text]='item.namet'></Label>
                                 </GridLayout>
                         </StackLayout>
                 </ng-template>

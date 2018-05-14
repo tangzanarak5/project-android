@@ -19,6 +19,7 @@ import {LoadingIndicator} from "nativescript-loading-indicator";
 import {Input, ChangeDetectionStrategy} from '@angular/core';
 import { costSelect } from "../../security/model/costSelect.model"
 import { costService } from "./cost.service";
+import { SetupItemViewArgs } from "nativescript-angular/directives";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -87,12 +88,17 @@ export class costComponent implements OnInit {
         this.demoLoader();
     }
 
+    onSetupItemView(args: SetupItemViewArgs) {
+        args.view.context.odd = (args.index === 0) ;
+        args.view.context.even = (args.index !== 0) ;
+    }
+
     ngOnInit(): void {
         this.costSelect = new costSelect ;
         this.costSelect.name = "" ;
         this.costSelect.numberDate = "" ;
         this.costSelect.date2 = "" ;
-        securityService.setCostSelect = JSON.stringify(this.costSelect);
+        securityService.setCostSelect = JSON.stringify(this.costSelect) ;
         console.log(securityService.getCostSelect);
         this.dataUser = JSON.parse(securityService.getDataUser);
         this.hospitalnumber = this.dataUser.dataset.hn

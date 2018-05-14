@@ -57,7 +57,9 @@ export class selectCostComponent implements OnInit {
     drugShow = false ;
     operationShow = true ;
     serviceShow = false ;
-
+    color1 = "#195e53" ;
+    color2 = "#004D40" ;
+    color3 = "#004D40" ;
     options = {
         message: 'Loading...',
         progress: 0.65,
@@ -185,6 +187,10 @@ export class selectCostComponent implements OnInit {
             this.drugShow = false ;
             this.serviceShow = false ;
 
+            this.color1 = "#195e53" ;
+            this.color2 = "#004D40" ;
+            this.color3 = "#004D40" ;
+
             if (this.dataCost.length == this.temp.length) {
                 console.log("emty operation");
                 alert("ไม่พบข้อมูล");
@@ -196,6 +202,10 @@ export class selectCostComponent implements OnInit {
             this.drugShow = true ;
             this.serviceShow = false ;
 
+            this.color1 = "#004D40" ;
+            this.color2 = "#195e53" ;
+            this.color3 = "#004D40" ;
+
             if (this.dataDrug.length == this.temp.length) {
                 console.log("emty drug");
                 alert("ไม่พบข้อมูล");
@@ -206,6 +216,10 @@ export class selectCostComponent implements OnInit {
             this.operationShow = false ;
             this.drugShow = false ;
             this.serviceShow = true ;
+
+            this.color1 = "#004D40" ;
+            this.color2 = "#004D40" ;
+            this.color3 = "#195e53" ;
 
             if (this.dataService.length == this.temp.length) {
                 console.log("emty service");

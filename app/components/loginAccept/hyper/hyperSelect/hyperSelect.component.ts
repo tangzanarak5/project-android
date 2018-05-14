@@ -18,6 +18,7 @@ import { hyperSelectOne } from "../../../security/model/hyperSelectOne.model";
 import { hyperSelectChart } from "../../../security/model/hyperSelectChart.model";
 import { hyperSelectService } from "./hyperSelect.service";
 import { hyperModalComponent } from "./hyperModal.component";
+import {SetupItemViewArgs} from "nativescript-angular/directives";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -59,8 +60,8 @@ export class hyperSelectComponent implements OnInit {
             nameThai: "ความดันโลหิต"
         },
         {
-            nameEng: "Respiration",
-            nameThai: "ระดับการหายใจ"
+            nameEng: "Pulse",
+            nameThai: "ชีพจร"
         },
         {
             nameEng: "Weight",
@@ -103,6 +104,11 @@ export class hyperSelectComponent implements OnInit {
       openDrawer () {
           this.sideBar.openDrawer();
       }
+
+      onSetupItemView(args: SetupItemViewArgs) {
+        args.view.context.odd = (args.index === 0) ;
+        args.view.context.even = (args.index !== 0) ;
+    }
     
     ngOnInit(): void {
         console.log("connect hyperSelect");

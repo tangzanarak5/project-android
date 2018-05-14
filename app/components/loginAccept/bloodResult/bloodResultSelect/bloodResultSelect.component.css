@@ -61,6 +61,12 @@
 .labelCenter{
     text-align: center;
 }
+.odd {
+    color: #3366FF;
+}
+.even{
+    color: black;
+}
 .setIcon{
     border-radius: 50%;
     width: 60%;

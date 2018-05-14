@@ -26,6 +26,7 @@ import * as datePickerModule from "tns-core-modules/ui/date-picker";
 import { sideBarComponent } from "../../loginProfile/sideBar/sideBar.component";
 import { bloodResultService } from "../bloodResult.service";
 import { showStandardComponent } from "../bloodResultSelectTotal/showStandard/showStandard.component";
+import { SetupItemViewArgs } from "nativescript-angular/directives";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -93,6 +94,11 @@ export class bloodResultSelectComponent implements OnInit {
       openDrawer () {
           this.sideBar.openDrawer() ;
       }
+
+      onSetupItemView(args: SetupItemViewArgs) {
+        args.view.context.odd = (args.index === 0) ;
+        args.view.context.even = (args.index !== 0) ;
+    }
     
     ngOnInit(): void {
         this.dataUser = JSON.parse(securityService.getDataUser);
@@ -110,7 +116,7 @@ export class bloodResultSelectComponent implements OnInit {
                 //     console.log(this.selectBlood.numberIndex);
                 //     return element.test == this.selectBlood.numberIndex
                 // })
-                    for (let i = 0 ; i < this.dataLab.length ; i++) {
+                    for (let i = this.dataLab.length - 1 ; i >= 0 ; i--) {
                         if (this.dataLab[i].test == this.selectBlood.numberIndex) {
                             this.temp = this.dataLab[i].datetime.split(" ") ;
                             this.dataLab[i].datetime = this.temp[0] ;

@@ -116,7 +116,7 @@ export class bloodChartComponent implements OnInit {
                         this.datashow1.push(element) ;
                     }
                 })
-                this._categoricalSource = new ObservableArray(this.datashow1) ;
+                this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
             },
             (error) => {
                 console.log("data error") ;
@@ -143,7 +143,7 @@ export class bloodChartComponent implements OnInit {
                     }
                 }
                 })
-                this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+                this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
             },
             (error) => {
                 console.log("data error") ;
@@ -168,7 +168,7 @@ export class bloodChartComponent implements OnInit {
                         this.datashow3.push(element) ;
                         }
                 })
-                this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+                this._categoricalSource3 = new ObservableArray(this.datashow3.reverse()) ;
             },
             (error) => {
                 console.log("data error") ;
@@ -194,7 +194,7 @@ export class bloodChartComponent implements OnInit {
                        this.datashow1.push(element) ;
                    }
                })
-               this._categoricalSource = new ObservableArray(this.datashow1) ;
+               this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
            },
            (error) => {
                console.log("data error") ;
@@ -221,7 +221,7 @@ export class bloodChartComponent implements OnInit {
                     }
                 }
                 })
-                this._categoricalSource4 = new ObservableArray(this.datashow0) ;
+                this._categoricalSource4 = new ObservableArray(this.datashow0.reverse()) ;
             },
             (error) => {
                 console.log("data error") ;
@@ -249,7 +249,7 @@ export class bloodChartComponent implements OnInit {
                    }
                }
                })
-               this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+               this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
            },
            (error) => {
                console.log("data error") ;
@@ -274,7 +274,7 @@ export class bloodChartComponent implements OnInit {
                        this.datashow3.push(element) ;
                        }
                })
-               this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+               this._categoricalSource3 = new ObservableArray(this.datashow3.reverse()) ;
            },
            (error) => {
                console.log("data error") ;
@@ -301,7 +301,7 @@ export class bloodChartComponent implements OnInit {
                    this.datashow1.push(element);
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -330,7 +330,7 @@ export class bloodChartComponent implements OnInit {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -355,7 +355,7 @@ export class bloodChartComponent implements OnInit {
                    this.datashow3.push(element) ;
                    }
            })
-           this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+           this._categoricalSource3 = new ObservableArray(this.datashow3.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -384,7 +384,7 @@ else if (this.gender == "หญิง") {
                 }
             }
             })
-            this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+            this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
         },
         (error) => {
             console.log("data error") ;
@@ -409,7 +409,7 @@ else if (this.gender == "หญิง") {
                     this.datashow3.push(element) ;
                     }
             })
-            this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+            this._categoricalSource3 = new ObservableArray(this.datashow3.reverse()) ;
         },
         (error) => {
             console.log("data error") ;
@@ -438,7 +438,7 @@ else if (this.selectBlood.numberIndex == "LDL") {
                    this.datashow1.push(element);
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -466,7 +466,7 @@ else if (this.selectBlood.numberIndex == "LDL") {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -491,7 +491,7 @@ else if (this.selectBlood.numberIndex == "LDL") {
                    this.datashow3.push(element) ;
                    }
            })
-           this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+           this._categoricalSource3 = new ObservableArray(this.datashow3.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -519,7 +519,7 @@ else if (this.selectBlood.numberIndex == "Triglycerides") {
                    this.datashow1.push(element);
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -547,7 +547,7 @@ else if (this.selectBlood.numberIndex == "Triglycerides") {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -572,7 +572,7 @@ else if (this.selectBlood.numberIndex == "Triglycerides") {
                    this.datashow3.push(element);
                    }
            })
-           this._categoricalSource3 = new ObservableArray(this.datashow3) ;
+           this._categoricalSource3 = new ObservableArray(this.datashow3.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -602,7 +602,7 @@ else if (this.selectBlood.numberIndex == "RBC") {
                    }
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -632,7 +632,7 @@ else if (this.selectBlood.numberIndex == "RBC") {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -660,7 +660,7 @@ else if (this.selectBlood.numberIndex == "Hb") {
                    this.datashow1.push(element);
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -689,7 +689,7 @@ else if (this.selectBlood.numberIndex == "Hb") {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -718,7 +718,7 @@ else if (this.gender == "หญิง") {
                 }
             }
             })
-            this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+            this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
         },
         (error) => {
             console.log("data error") ;
@@ -747,7 +747,7 @@ else if (this.selectBlood.numberIndex == "Hct") {
                    this.datashow1.push(element);
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -776,7 +776,7 @@ else if (this.selectBlood.numberIndex == "Hct") {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -805,7 +805,7 @@ else if (this.gender == "หญิง") {
                 }
             }
             })
-            this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+            this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
         },
         (error) => {
             console.log("data error") ;
@@ -834,7 +834,7 @@ else if (this.selectBlood.numberIndex == "MCV") {
                    this.datashow1.push(element);
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -861,7 +861,7 @@ else if (this.selectBlood.numberIndex == "MCV") {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -889,7 +889,7 @@ else if (this.selectBlood.numberIndex == "pH") {
                    this.datashow1.push(element);
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -916,7 +916,7 @@ else if (this.selectBlood.numberIndex == "pH") {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -944,7 +944,7 @@ else if (this.selectBlood.numberIndex == "Protein") {
                    this.datashow1.push(element);
                }
            })
-           this._categoricalSource = new ObservableArray(this.datashow1) ;
+           this._categoricalSource = new ObservableArray(this.datashow1.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -971,7 +971,7 @@ else if (this.selectBlood.numberIndex == "Protein") {
                }
            }
            })
-           this._categoricalSource2 = new ObservableArray(this.datashow2) ;
+           this._categoricalSource2 = new ObservableArray(this.datashow2.reverse()) ;
        },
        (error) => {
            console.log("data error") ;
@@ -986,7 +986,7 @@ else if (this.selectBlood.numberIndex == "Protein") {
      }, 8000) ;
 }
 
-    else {this.loader.hide() ; alert("ไม่พบข้อมูล") ; this.router.navigate(["/bloodResultSelect"]) ;}
+    else {this.loader.hide() ; alert("ไม่พบข้อมูล") ; this.router.navigate(["/bloodResultSelect"]);}
 
     }
 
