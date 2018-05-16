@@ -42,6 +42,14 @@ export class securityService {
     return getString("dataUser");
   }
 
+  static set setDatatest(dataTestJson: string){
+    setString("dataTest",dataTestJson);
+  }
+  
+  static get getDatatest(): string {
+    return getString("dataTest");
+  }
+
   static set setIsLogin(isLoginJson: string){
     setString("isLogin",isLoginJson);
   }
@@ -132,6 +140,14 @@ export class securityService {
   
   static get getHyperSelectChart(): string {
     return getString("hyperSelectChart");
+  }
+
+  static set setDayVisit(dayVisitJson: string){
+    setString("dayVisit",dayVisitJson);
+  }
+  
+  static get getDayVisit(): string {
+    return getString("dayVisit");
   }
 
 }

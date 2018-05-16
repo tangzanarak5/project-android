@@ -36,9 +36,12 @@ export class loginProfileComponent implements OnInit {
     gender ;
     dob ;
     blood ;
+    datatest ;
     test = "2https://firebasestorage.googleapis.com/v0/b/fir-appproject14.appspot.com/o/uploads%2Fimages%2F1600100651243?alt=media&token=af313a20-2763-4563-9a36-51a20af355302" ;
     loader = new LoadingIndicator();
-
+    dataLab ;
+    temp = [] ;
+    datashow = [] ;
      options = {
         message: 'Loading...',
         progress: 0.65,
@@ -72,10 +75,7 @@ export class loginProfileComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        
         this.dataUser = JSON.parse(securityService.getDataUser);
-        // console.log(JSON.stringify(this.dataUser.dataset));
-        // console.log(this.dataUser.dataset.hn)
         this.nameAndsurname = this.dataUser.dataset.fname + " " + this.dataUser.dataset.lname
         this.hospitalnumber = this.dataUser.dataset.hn
         this.cid = this.dataUser.dataset.cid
@@ -112,9 +112,9 @@ export class loginProfileComponent implements OnInit {
     }
 
     toBlood () {
-        this.loader.show(this.options);
+        this.loader.show(this.options) ;
         console.log("connect");
-        this.router.navigate(["/bloodResult"]);
+        this.router.navigate(["/bloodResult"]) ;
         this.demoLoader();
     }
 

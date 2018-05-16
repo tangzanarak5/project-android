@@ -46,7 +46,6 @@ export class medicineComponent implements OnInit {
     connect = true ;
     dataMidicine ;
     medicineNumber ;
-
     options = {
         message: 'Loading...',
         progress: 0.65,
@@ -109,6 +108,9 @@ export class medicineComponent implements OnInit {
                             this.router.navigate(["/loginProfile"]);
                         }
                     )
+                    setTimeout(() => {
+                        this.loader.hide() ;
+                      }, 1000) ;
     }
 
     constructor(
@@ -121,6 +123,7 @@ export class medicineComponent implements OnInit {
         private medicineService: medicineService,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
+                this.loader.show(this.options);
                 console.log("url", s);
             });
 

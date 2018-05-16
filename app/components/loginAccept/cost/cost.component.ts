@@ -116,6 +116,9 @@ export class costComponent implements OnInit {
                             this.router.navigate(["/loginProfile"]);
                         }
                     )
+                    setTimeout(() => {
+                        this.loader.hide() ;
+                      }, 1000) ;
     }
 
     constructor(
@@ -128,6 +131,7 @@ export class costComponent implements OnInit {
         private costService: costService,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
+                this.loader.show(this.options);
                 console.log("url", s);
             });
     }

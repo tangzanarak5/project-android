@@ -28,6 +28,14 @@ export class bloodResultService {
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
     }
+
+    getDataDayLab (hn): Observable<any> {
+        let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
+        let options = new RequestOptions({ headers: headers });
+        let url = "http://apis.cpa.go.th/finance/" + hn ;
+        return this.http.get(url, options).map(response => response.json())
+        .catch(this.handleErrors);
+    }
   
     constructor(
         private router: Router,

@@ -95,6 +95,9 @@ export class hyperComponent implements OnInit {
         this.hyperSelectOne.nameIndex = "" ;
         securityService.setHyperSelectOne = JSON.stringify(this.hyperSelectOne);
         console.log(securityService.getHyperSelectOne);
+        setTimeout(() => {
+            this.loader.hide() ;
+          }, 1000) ;
     }
 
     constructor(
@@ -106,6 +109,7 @@ export class hyperComponent implements OnInit {
         private router: Router,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
+                this.loader.show(this.options);
                 console.log("url", s);
             });
     }

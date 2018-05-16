@@ -177,7 +177,10 @@ export class appointmentComponent implements OnInit {
                             alert("กรุณาลองอีกครั้ง");
                             this.router.navigate(["/loginProfile"]) ;
                         }
-                    )  
+                    )
+                    setTimeout(() => {
+                        this.loader.hide() ;
+                      }, 1000) ;
                     //console.log(JSON.stringify(this.appoint));
     }
 
@@ -190,6 +193,7 @@ export class appointmentComponent implements OnInit {
         private router: Router,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
+                this.loader.show(this.options);
                 console.log("url", s);
             });
     }

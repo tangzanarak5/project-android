@@ -197,6 +197,12 @@ titleMargin {
 } 
 .mdis {
     font-family: "Material Icons", "MaterialIcons-Regular";
-    font-size: 24px;
+    font-size: 12px;
     color: lightgray;
   }
+  .odd {
+    color: #3366FF;
+}
+.even{
+    color: black;
+}

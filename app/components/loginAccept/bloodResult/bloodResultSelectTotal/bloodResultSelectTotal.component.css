@@ -38,6 +38,11 @@
     font-weight: 800;
     font-size: 16px;
 }
+.mdis {
+    font-family: "Material Icons", "MaterialIcons-Regular";
+    font-size: 24px;
+    color: lightgray;
+  }
 .setLabel {
     margin-left: 35%;
 }

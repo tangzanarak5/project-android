@@ -24,6 +24,12 @@ import { showStandardComponent } from "./showStandard/showStandard.component";
 import * as dockModule from "tns-core-modules/ui/layouts/dock-layout";
 import { sideBarComponent } from "../../loginProfile/sideBar/sideBar.component";
 import { bloodChartService } from "../bloodChart/bloodChart.service";
+import { selectBlood } from "../../../security/model/selectBlood.model"
+import { bloodResultService } from "../bloodResult.service";
+import { showInfoComponent } from "../bloodResultSelect/showInfo/showInfo.component";
+import { info } from "../../../security/model/info.model";
+import { SetupItemViewArgs } from "nativescript-angular/directives";
+import { RouterExtensions } from "nativescript-angular/router/router-extensions";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -38,235 +44,60 @@ class DataItem {
 
 
 export class bloodResultSelectTotalComponent implements OnInit {
-    selectBloodResult: selectBloodResult ;
+    selectBlood: selectBlood ;
     standard: standard ;
     public myItems: Array<DataItem>;
     private counter: number;
-    bloodResult ;
+    bloodResult;
     resultTotal = [] ;
     unit = "" ;
-    resultFBS = [
-        {
-            date : "28/01/2561",
-            dataResult : "100",
-            count : "7"
-        },
-        {
-            date : "20/011/2560",
-            dataResult : "110",
-            count : "6"
-        },
-        {
-            date : "18/09/2560",
-            dataResult : "115",
-            count : "5"
-        },
-        {
-            date : "05/07/2560",
-            dataResult : "120",
-            count : "4"
-        },
-        {
-            date : "26/05/2560",
-            dataResult : "125",
-            count : "3"
-        },
-        {
-            date : "02/03/2560",
-            dataResult : "135",
-            count : "2"
-        },
-        {
-            date : "14/01/2560",
-            dataResult : "140",
-            count : "1"
-        }
-    ] ;
-
-    HBAONEC = [
-        {
-            date : "28/05/2561",
-            dataResult : "5",
-            count : "7"
-        },
-        {
-            date : "28/04/2561",
-            dataResult : "5.5",
-            count : "6"
-        },
-        {
-            date : "28/03/2561",
-            dataResult : "5.7",
-            count : "5"
-        },
-        {
-            date : "05/03/2561",
-            dataResult : "6",
-            count : "4"
-        },
-        {
-            date : "26/02/2561",
-            dataResult : "6.5",
-            count : "3"
-        },
-        {
-            date : "02/12/2560",
-            dataResult : "7",
-            count : "2"
-        },
-        {
-            date : "14/05/2560",
-            dataResult : "8",
-            count : "1"
-        }
-    ] ;
-
-    HDL = [
-        {
-            date : "28/06/2561",
-            dataResult : "50",
-            count : "8"
-        },
-        {
-            date : "28/05/2561",
-            dataResult : "56",
-            count : "7"
-        },
-        {
-            date : "28/04/2561",
-            dataResult : "45",
-            count : "6"
-        },
-        {
-            date : "28/03/2561",
-            dataResult : "50",
-            count : "5"
-        },
-        {
-            date : "05/03/2561",
-            dataResult : "60",
-            count : "4"
-        },
-        {
-            date : "26/02/2561",
-            dataResult : "70",
-            count : "3"
-        },
-        {
-            date : "2/12/2560",
-            dataResult : "80",
-            count : "2"
-        },
-        {
-            date : "14/05/2560",
-            dataResult : "80",
-            count : "1"
-        }
-    ] ;
-
-    LDL = [
-        {
-            date : "28/06/2561",
-            dataResult : "95",
-            count : "8"
-        },
-        {
-            date : "28/05/2561",
-            dataResult : "90",
-            count : "7"
-        },
-        {
-            date : "28/04/2561",
-            dataResult : "95",
-            count : "6"
-        },
-        {
-            date : "28/03/2561",
-            dataResult : "100",
-            count : "5"
-        },
-        {
-            date : "05/03/2561",
-            dataResult : "110",
-            count : "4"
-        },
-        {
-            date : "26/02/2561",
-            dataResult : "120",
-            count : "3"
-        },
-        {
-            date : "2/12/2560",
-            dataResult : "160",
-            count : "2"
-        },
-        {
-            date : "14/05/2560",
-            dataResult : "190",
-            count : "1"
-        }
-    ] ;
-
-    BP = [
-        {
-            date : "28/03/2561",
-            dataResult : "90 / 60",
-            count : "5"
-        },
-        {
-            date : "05/03/2561",
-            dataResult : "120 / 80",
-            count : "4"
-        },
-        {
-            date : "26/02/2561",
-            dataResult : "140 / 90",
-            count : "3"
-        },
-        {
-            date : "2/12/2560",
-            dataResult : "160 / 100",
-            count : "2"
-        },
-        {
-            date : "14/05/2560",
-            dataResult : "160 / 100",
-            count : "1"
-        }
-    ] ;
-
-    P = [
-        {
-            date : "28/03/2561",
-            dataResult : "80",
-            count : "5"
-        },
-        {
-            date : "05/03/2561",
-            dataResult : "90",
-            count : "4"
-        },
-        {
-            date : "26/02/2561",
-            dataResult : "105",
-            count : "3"
-        },
-        {
-            date : "2/12/2560",
-            dataResult : "120",
-            count : "2"
-        },
-        {
-            date : "14/05/2560",
-            dataResult : "145",
-            count : "1"
-        }
-    ] ;
-
     dataUser ;
+    dayVisit ;
     hospitalnumber ;
     loader = new LoadingIndicator();
     count ;
+    dataTotal = [] ;
+    dataLab ;
+    temp= [] ;
+    dataTotalShow = [] ;
+    heart ;
+    gender ;
+    disease = [
+        {
+            namee : "HbA1C",
+            namet : "ระดับน้ำตาลเฉลี่ยในเลือด"
+        },
+        {
+            namee : "Glucose",
+            namet : "ระดับน้ำตาลในเลือด"
+        },
+        {
+            namee : "HDL",
+            namet : "ไขมันดี"
+        },
+        {
+            namee : "LDL",
+            namet : "ไขมันไม่ดี"
+        },
+        {
+            namee : "Triglycerides",
+            namet : "ไตรกลีเซอไรด์สารอาหารประเภทไขมัน"
+        },
+        {
+            namee : "BUN",
+            namet : "ไนโตรเจนในกระแสเลือด"
+        },
+        {
+            namee : "Cholesterol",
+            namet : "คอเลสเตอรอลในเลือด"
+        },
+        {
+            namee : "Creatinine",
+            namet : "ของเสียจากกล้ามเนื้อ"
+        }
+    ] ;
+    info: info ;
+    isChart = false ;
     options = {
         message: 'Loading...',
         progress: 0.65,
@@ -296,18 +127,108 @@ export class bloodResultSelectTotalComponent implements OnInit {
       @ViewChild('sidebar') sideBar: sideBarComponent
 
       openDrawer () {
-          this.sideBar.openDrawer();
+          this.sideBar.openDrawer() ;
       }
+
+      public onItemTap(args) {
+        this.loader.show(this.options) ;
+        console.log("------------------------ ItemTapped: " + this.dataTotalShow[args.index].namee) ;
+        console.log("------------------------ ItemTapped: " + this.dataTotalShow[args.index].namet) ;
+        this.selectBlood.numberIndex = this.dataTotalShow[args.index].namee ;
+        this.selectBlood.name = this.dataTotalShow[args.index].namet ;
+        securityService.setSelectBlood = JSON.stringify(this.selectBlood) ;
+        this.selectBlood = JSON.parse(securityService.getSelectBlood);
+        console.log(securityService.getSelectBlood);
+        this.router.navigate(["/bloodResultSelect"]) ;
+        this.demoLoader() ;
+    }
    
     ngOnInit(): void {
-        this.selectBloodResult = JSON.parse(securityService.getSelectBloodResult);
-        console.log(securityService.getSelectBloodResult);
-        this.standard = new standard ;
-        this.standard.name = this.selectBloodResult.name ;
-        this.standard.numberIndex = this.selectBloodResult.numberIndex ;
-        securityService.setStandard = JSON.stringify(this.standard);
-        console.log(securityService.getStandard);
-        
+        this.selectBlood = new selectBlood ;
+        this.selectBlood.numberIndex = "" ;
+        this.selectBlood.name = "" ;
+        securityService.setSelectBlood = JSON.stringify(this.selectBlood);
+        console.log(securityService.getSelectBlood);
+        this.selectBlood = JSON.parse(securityService.getSelectBlood);
+        this.dataUser = JSON.parse(securityService.getDataUser) ;
+        this.hospitalnumber = this.dataUser.dataset.hn ;
+        this.gender = this.dataUser.dataset.gender ;
+        console.log(this.hospitalnumber) ;
+        this.dayVisit = JSON.parse(securityService.getDayVisit) ;
+        console.log(this.dayVisit) ;
+        this.info = new info ;
+        this.info.name = "" ;
+        this.info.numberIndex = "" ;
+        securityService.setInfo = JSON.stringify(this.info) ;
+
+        this.bloodResultService.getDataLab(this.hospitalnumber)
+                    .subscribe(
+                        (Response) => {
+                            this.dataLab = Response.dataset ;
+                            for (let i = 0 ; i < this.dataLab.length ; i++) {
+                                this.temp = this.dataLab[i].datetime.split(" ") ;
+                                this.dataLab[i].datetime = this.temp[0] ;
+
+                                if (this.dayVisit.dayDate == this.dataLab[i].datetime) {
+                                    this.dataTotal.push(this.dataLab[i]) ;
+                                }
+                            }
+                        // console.log(this.dataTotal) ;
+                            for (let i = 0 ; i < this.dataTotal.length ; i++) {
+                                if (this.dataTotal[i].test == "HDL" || this.dataTotal[i].test == "BUN" || this.dataTotal[i].test == "LDL" || 
+                                this.dataTotal[i].test == "HbA1C" || this.dataTotal[i].test == "Glucose" || this.dataTotal[i].test == "Triglycerides" || 
+                                this.dataTotal[i].test == "Cholesterol" || this.dataTotal[i].test == "Creatinine") {
+                                    let test = {
+                                        namee: "",
+                                        namet: "",
+                                        result: "",
+                                        type: ""
+                                    }
+                                    test.namee = this.dataTotal[i].test ;
+                                    test.result = this.dataTotal[i].result ;
+                                    if (test.namee == "HbA1C") {
+                                        test.type = "mg%" ;
+                                        test.namet = "ระดับน้ำตาลเฉลี่ยในเลือด" ;
+                                    }
+                                    else {test.type = "mg/dl" ;}
+
+                                    if (test.namee == "HDL") {
+                                        test.namet = "ไขมันดี" ;
+                                    }
+                                    else if (test.namee == "LDL") {
+                                        test.namet = "ไขมันไม่ดี" ;
+                                    }
+                                    else if (test.namee == "Glucose") {
+                                        test.namet = "ระดับน้ำตาลในเลือด" ;
+                                    }
+                                    else if (test.namee == "Triglycerides") {
+                                        test.namet = "สารอาหารประเภทไขมัน" ;
+                                    }
+                                    else if (test.namee == "BUN") {
+                                        test.namet = "ไนโตรเจนในกระแสเลือด" ;
+                                    }
+                                    else if (test.namee == "Cholesterol") {
+                                        test.namet = "คอเลสเตอรอลในเลือด" ;
+                                    }
+                                    else if (test.namee == "Creatinine") {
+                                        test.namet = "ของเสียจากกล้ามเนื้อ" ;
+                                    }
+                                    
+                                    this.dataTotalShow.push(test) ;
+                                }
+                            }
+                        console.log(this.dataTotalShow) ;
+                        },
+                        (error) => {
+                            console.log("data error") ;
+                            alert("กรุณาลองอีกครั้ง") ;
+                            this.router.navigate(["/bloodResult"]) ;
+                        }
+                    )
+                    setTimeout(() => {
+                        this.isChart = true ;
+                        this.loader.hide() ;
+                      }, 8000) ;
     }
 
     constructor(
@@ -317,134 +238,311 @@ export class bloodResultSelectTotalComponent implements OnInit {
         private vcRef: ViewContainerRef,
         private route: ActivatedRoute,
         private router: Router,
-        private loginProfileService: loginProfileService,
-        private bloodChartService: bloodChartService,
+        private bloodResultService: bloodResultService,
+        private routerExtensions: RouterExtensions,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
-                console.log("url", s);
+                this.loader.show(this.options) ;
+                console.log("url", s) ;
             });
     }
     toBack () {
-        console.log("connect");
-        this.router.navigate(["/bloodResultSelect"]);
+        console.log("connect") ;
+        this.router.navigate(["/bloodResult"]) ;
     }
-    showStandard () {
-        console.log("ok");
+
+    private demoLoader() {
+        setTimeout(() => {
+          this.loader.hide() ;
+        }, 2000);
+      }
+
+      showInfo (i) {
+        console.log(i) ;
+        this.info.numberIndex = i ;
+        this.info.name = i
+        securityService.setInfo = JSON.stringify(this.info);
+        console.log(securityService.getInfo) ;
         let options = {
             context: {},
             fullscreen: false,
             viewContainerRef: this.vcRef
         };
-        this.modal.showModal(showStandardComponent, options).then(res => {
+        this.modal.showModal(showInfoComponent, options).then(res => {
         });
     }
-    toBloodChart () {
-        console.log("connect");
-        this.router.navigate(["/bloodChart"]);
-    }
-    checkBloodResult (i) {
-// ***********************************************************************************************************
-        if (this.selectBloodResult.name == "ชีพจร") {
-            if (i > 140 || i < 30) {
-                this.bloodResult = "~/images/rh.png" ;
+
+      checkDataLab (i, name) {
+
+        if (name == "HbA1C") {
+            if (parseFloat(i) < 5.7) {
+                this.heart = "~/images/gh.png" ;
                 return true ;
             }
-            else if (i > 100 && i > 60) {
-                this.bloodResult = "~/images/yh.png" ;
+            else if (parseFloat(i) >= 5.7 && parseFloat(i) <= 6.4) {
+                this.heart = "~/images/yh.png" ;
                 return true ;
             }
-            else if (i >= 60 && i <= 100) {
-                this.bloodResult = "~/images/gh.png" ;
+            else if (parseFloat(i) > 6.4) {
+                this.heart = "~/images/rh.png" ;
                 return true ;
             }
         }
-// ********************************************************************************************************
-        if (this.selectBloodResult.name == "ความดันโลหิต") {
-            if (i.substring(2,3) == " ") {
-                    if (i.substring(4,5) == " ") {
-                        if (parseInt(i.substring(0,2)) <= 99 && parseInt(i.substring(5,7)) <= 79) {
-                            this.bloodResult = "~/images/gh.png" ;
-                            return true ;
-                    }
-                }
-            }
-            if (i.substring(3,4) == " ") {
-                if (i.substring(5,6) == " ") {
-                    if (parseInt(i.substring(0,3)) <= 120 && parseInt(i.substring(5,7)) <= 79) {
-                        this.bloodResult = "~/images/gh.png" ;
-                        return true ;
-                    }
-                    if (parseInt(i.substring(0,3)) <= 160 && parseInt(i.substring(5,8)) <= 100) {
-                        this.bloodResult = "~/images/yh.png" ;
-                        return true ;
-                    }
-                    if (parseInt(i.substring(0,3)) >= 180 && parseInt(i.substring(5,8)) >= 110) {
-                        this.bloodResult = "~/images/rh.png" ;
-                        return true ;
-                    }
-                }
-            }  
-        }
-// *************************************************************************************************************
-        if (this.selectBloodResult.name == "คอเลสเตอรอลที่ดี") {
-            if (i < 40 || i > 60) {
-                this.bloodResult = "~/images/rh.png" ;
+        else if (name == "Glucose") {
+            if (parseInt(i) >= 70 && parseInt(i) <= 100) {
+                this.heart = "~/images/gh.png" ;
                 return true ;
             }
-            if (i >= 45 && i <= 55) {
-                this.bloodResult = "~/images/gh.png" ;
+            else if (parseInt(i) < 70) {
+                this.heart = "~/images/yh.png" ;
                 return true ;
             }
-            if (i > 45 && i > 55) {
-                this.bloodResult = "~/images/yh.png" ;
+            else if (parseInt(i) > 100 && parseInt(i) <= 125) {
+                this.heart = "~/images/yh.png" ;
+                return true ;
+            }
+            else if (parseInt(i) > 125) {
+                this.heart = "~/images/rh.png" ;
                 return true ;
             }
         }
- // ****************************************************************************************************
-        if (this.selectBloodResult.name == "ไขมันไม่ดี") {
+        else if (name == "HDL") {
+            if (this.gender == "ชาย") {
+            if (i >= 60) {
+                this.heart = "~/images/rh.png" ;
+                return true ;
+            }
+            if (i >= 40 && i <= 50) {
+                this.heart = "~/images/gh.png" ;
+                return true ;
+            }
+            if (i < 40 || (i > 50 && i < 60)) {
+                this.heart = "~/images/yh.png" ;
+                return true ;
+            }
+        }
+        else if (this.gender == "หญิง") {
+            if (i >= 60) {
+                this.heart = "~/images/rh.png" ;
+                return true ;
+            }
+            if (i >= 50 && i <= 59) {
+                this.heart = "~/images/gh.png" ;
+                return true ;
+            }
+            if (i < 50) {
+                this.heart = "~/images/yh.png" ;
+                return true ;
+            }
+        }
+        }
+        else if (name == "LDL") {
             if (i <= 100) {
-                this.bloodResult = "~/images/gh.png" ;
+                this.heart = "~/images/gh.png" ;
                 return true ;
             }
             if (i > 100 && i < 160) {
-                this.bloodResult = "~/images/yh.png" ;
+                this.heart = "~/images/yh.png" ;
                 return true ;
             }
             if (i >= 160) {
-                this.bloodResult = "~/images/rh.png" ;
+                this.heart = "~/images/rh.png" ;
                 return true ;
             }
         }
-// **************************************************************************************************
-        if (this.selectBloodResult.name == "ระดับน้ำตาลในเลือด") {
-            if (i <= 100 && i >= 70) {
-                this.bloodResult = "~/images/gh.png" ;
+        else if (name == "Triglycerides") {
+            if (i < 150) {
+                this.heart = "~/images/gh.png" ;
                 return true ;
             }
-            if (i > 100 && i <= 125) {
-                this.bloodResult = "~/images/yh.png" ;
+            if (i >= 150 && i <= 200) {
+                this.heart = "~/images/yh.png" ;
                 return true ;
             }
-            if (i > 125) {
-                this.bloodResult = "~/images/rh.png" ;
-                return true ;
-            }
-        }
-    // ***********************************************************************************************
-        if (this.selectBloodResult.name == "ระดับน้ำตาลเฉลี่ยในเลือด") {
-            if (parseFloat(i) < 5.7) {
-                this.bloodResult = "~/images/gh.png" ;
-                return true ;
-            }
-            if (parseFloat(i) >= 5.7 && parseFloat(i) <= 6.4) {
-                this.bloodResult = "~/images/yh.png" ;
-                return true ;
-            }
-            if (parseFloat(i) > 6.4) {
-                this.bloodResult = "~/images/rh.png" ;
+            if (i > 200) {
+                this.heart = "~/images/rh.png" ;
                 return true ;
             }
         }
+        else if (name == "BUN") {
+            if (i >= 5 && i <= 20) {
+                this.heart = "~/images/gh.png" ;
+                return true ;
+            }
+            if (i < 5 || i > 20){
+                this.heart = "~/images/yh.png" ;
+                return true ;
+            }
+
+        }
+        else if (name == "Cholesterol") {
+            if (i <= 200) {
+                this.heart = "~/images/gh.png" ;
+                return true ;
+            }
+            else if (i >= 201 && i <= 240) {
+                this.heart = "~/images/yh.png" ;
+                return true ;
+            }
+            else if (i > 240) {
+                this.heart = "~/images/rh.png" ;
+                return true ;
+            }
+        }
+        else if (name == "Creatinine") {
+            if (parseFloat(i) >= 0.7 && parseFloat(i) <= 1.3) {
+                this.heart = "~/images/gh.png" ;
+                return true ;
+            }
+            else if (parseFloat(i) < 0.7 || parseFloat(i) > 1.3) {
+                this.heart = "~/images/yh.png" ;
+                return true ;
+            }
+        }
+        // else if (this.selectBlood.numberIndex == "RBC") {
+        //     if (parseFloat(i) < 4.2) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) >= 4.2 && parseFloat(i) <= 5.4) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) > 5.4) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Hb") {
+        //     if (this.gender == "ชาย") {
+        //         if (parseFloat(i) < 14) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //         if (parseFloat(i) >= 14 && parseFloat(i) <= 18) {
+        //             this.heart = "~/images/gh.png" ;
+        //             return true ;
+        //         }
+        //         if (parseFloat(i) > 18) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //     }
+        //     if (this.gender == "หญิง") {
+        //         if (parseFloat(i) < 12) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //         if (parseFloat(i) >= 12 && parseFloat(i) <= 16) {
+        //             this.heart = "~/images/gh.png" ;
+        //             return true ;
+        //         }
+        //         if (parseFloat(i) > 16) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Hct") {
+        //     if (this.gender == "ชาย") {
+        //         if (i < 42) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //         if (i >= 42 && parseFloat(i) <= 52) {
+        //             this.heart = "~/images/gh.png" ;
+        //             return true ;
+        //         }
+        //         if (i > 52) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //     }
+        //     else if (this.gender == "หญิง") {
+        //         if (i < 36) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //         if (i >= 36 && parseFloat(i) <= 48) {
+        //             this.heart = "~/images/gh.png" ;
+        //             return true ;
+        //         }
+        //         if (i > 48) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "MCV") {
+        //     if (i < 78) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (i >= 78 && parseFloat(i) <= 98) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (i > 98) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Urobilinogen") {
+        //     if (parseFloat(i) < 0.3) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) >= 0.3 && parseFloat(i) <= 1.0) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) > 1.0) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "pH") {
+        //     if (parseFloat(i) < 4.6) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) >= 4.6 && parseFloat(i) <= 8.0) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) > 8.0) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Protein") {
+        //     if (parseFloat(i) < 6.4) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) >= 6.4 && parseFloat(i) <= 8.3) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) > 8.3) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Ketone") {
+        //     if (i < 3) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (i >= 3 && parseFloat(i) <= 3) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (i > 15) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
     }
   
  }

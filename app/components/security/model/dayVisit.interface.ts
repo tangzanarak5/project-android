@@ -1,0 +1,5 @@
+interface iDayVisit {
+    
+    dayDate: string;
+    
+}

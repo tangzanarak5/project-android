@@ -137,50 +137,51 @@ export class bloodResultSelectComponent implements OnInit {
         )
 
         if (this.selectBlood.numberIndex == "HbA1C") {
-            this.type = " mg %"
+            this.type = " mg %" ;
         }
-        else if (this.selectBlood.numberIndex == "Glucose") {
-            this.type = " mg/dL"
-        }
-        else if (this.selectBlood.numberIndex == "HDL") {
-            this.type = " mg/dL"
-        }
-        else if (this.selectBlood.numberIndex == "LDL") {
-            this.type = " mg/dL"
-        }
-        else if (this.selectBlood.numberIndex == "Triglycerides") {
-            this.type = " mg/dL"
-        }
-        else if (this.selectBlood.numberIndex == "RBC") {
-            this.type = " M/µL"
-        }
-        else if (this.selectBlood.numberIndex == "Bilirubin") {
-            this.type = ""
-            this.showChart = false ;
-        }
-        else if (this.selectBlood.numberIndex == "Hb") {
-            this.type = " g/dL"
-        }
-        else if (this.selectBlood.numberIndex == "Hct") {
-            this.type = " %"
-        }
-        else if (this.selectBlood.numberIndex == "MCV") {
-            this.type = " fl"
-        }
-        else if (this.selectBlood.numberIndex == "Urobilinogen") {
-            this.type = ""
-            this.showChart = false ;
-        }
-        else if (this.selectBlood.numberIndex == "pH") {
-            this.type = " pH"
-        }
-        else if (this.selectBlood.numberIndex == "Protein") {
-            this.type = " gm/dL"
-        }
-        else if (this.selectBlood.numberIndex == "Ketone") {
-            this.type = ""
-            this.showChart = false ;
-        }
+        else { this.type = " mg/dL" ;}
+        // else if (this.selectBlood.numberIndex == "Glucose") {
+        //     this.type = " mg/dL"
+        // }
+        // else if (this.selectBlood.numberIndex == "HDL") {
+        //     this.type = " mg/dL"
+        // }
+        // else if (this.selectBlood.numberIndex == "LDL") {
+        //     this.type = " mg/dL"
+        // }
+        // else if (this.selectBlood.numberIndex == "Triglycerides") {
+        //     this.type = " mg/dL"
+        // }
+        // else if (this.selectBlood.numberIndex == "RBC") {
+        //     this.type = " M/µL"
+        // }
+        // else if (this.selectBlood.numberIndex == "Bilirubin") {
+        //     this.type = ""
+        //     this.showChart = false ;
+        // }
+        // else if (this.selectBlood.numberIndex == "Hb") {
+        //     this.type = " g/dL"
+        // }
+        // else if (this.selectBlood.numberIndex == "Hct") {
+        //     this.type = " %"
+        // }
+        // else if (this.selectBlood.numberIndex == "MCV") {
+        //     this.type = " fl"
+        // }
+        // else if (this.selectBlood.numberIndex == "Urobilinogen") {
+        //     this.type = ""
+        //     this.showChart = false ;
+        // }
+        // else if (this.selectBlood.numberIndex == "pH") {
+        //     this.type = " pH"
+        // }
+        // else if (this.selectBlood.numberIndex == "Protein") {
+        //     this.type = " gm/dL"
+        // }
+        // else if (this.selectBlood.numberIndex == "Ketone") {
+        //     this.type = ""
+        //     this.showChart = false ;
+        // }
 
         setTimeout(() => {
             this.isChart = true ;
@@ -295,155 +296,190 @@ export class bloodResultSelectComponent implements OnInit {
                 return true ;
             }
         }
-        else if (this.selectBlood.numberIndex == "RBC") {
-            if (parseFloat(i) < 4.2) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-            if (parseFloat(i) >= 4.2 && parseFloat(i) <= 5.4) {
+        else if (this.selectBlood.numberIndex == "BUN") {
+            if (i >= 5 && i <= 20) {
                 this.heart = "~/images/gh.png" ;
                 return true ;
             }
-            if (parseFloat(i) > 5.4) {
+            if (i < 5 || i > 20){
                 this.heart = "~/images/yh.png" ;
                 return true ;
             }
+
         }
-        else if (this.selectBlood.numberIndex == "Hb") {
-            if (this.gender == "ชาย") {
-                if (parseFloat(i) < 14) {
-                    this.heart = "~/images/yh.png" ;
-                    return true ;
-                }
-                if (parseFloat(i) >= 14 && parseFloat(i) <= 18) {
-                    this.heart = "~/images/gh.png" ;
-                    return true ;
-                }
-                if (parseFloat(i) > 18) {
-                    this.heart = "~/images/yh.png" ;
-                    return true ;
-                }
-            }
-            if (this.gender == "หญิง") {
-                if (parseFloat(i) < 12) {
-                    this.heart = "~/images/yh.png" ;
-                    return true ;
-                }
-                if (parseFloat(i) >= 12 && parseFloat(i) <= 16) {
-                    this.heart = "~/images/gh.png" ;
-                    return true ;
-                }
-                if (parseFloat(i) > 16) {
-                    this.heart = "~/images/yh.png" ;
-                    return true ;
-                }
-            }
-        }
-        else if (this.selectBlood.numberIndex == "Hct") {
-            if (this.gender == "ชาย") {
-                if (i < 42) {
-                    this.heart = "~/images/yh.png" ;
-                    return true ;
-                }
-                if (i >= 42 && parseFloat(i) <= 52) {
-                    this.heart = "~/images/gh.png" ;
-                    return true ;
-                }
-                if (i > 52) {
-                    this.heart = "~/images/yh.png" ;
-                    return true ;
-                }
-            }
-            else if (this.gender == "หญิง") {
-                if (i < 36) {
-                    this.heart = "~/images/yh.png" ;
-                    return true ;
-                }
-                if (i >= 36 && parseFloat(i) <= 48) {
-                    this.heart = "~/images/gh.png" ;
-                    return true ;
-                }
-                if (i > 48) {
-                    this.heart = "~/images/yh.png" ;
-                    return true ;
-                }
-            }
-        }
-        else if (this.selectBlood.numberIndex == "MCV") {
-            if (i < 78) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-            if (i >= 78 && parseFloat(i) <= 98) {
+        else if (this.selectBlood.numberIndex == "Cholesterol") {
+            if (i <= 200) {
                 this.heart = "~/images/gh.png" ;
                 return true ;
             }
-            if (i > 98) {
+            else if (i >= 201 && i <= 240) {
                 this.heart = "~/images/yh.png" ;
+                return true ;
+            }
+            else if (i > 240) {
+                this.heart = "~/images/rh.png" ;
                 return true ;
             }
         }
-        else if (this.selectBlood.numberIndex == "Urobilinogen") {
-            if (parseFloat(i) < 0.3) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-            if (parseFloat(i) >= 0.3 && parseFloat(i) <= 1.0) {
+        else if (this.selectBlood.numberIndex == "Creatinine") {
+            if (parseFloat(i) >= 0.7 && parseFloat(i) <= 1.3) {
                 this.heart = "~/images/gh.png" ;
                 return true ;
             }
-            if (parseFloat(i) > 1.0) {
+            else if (parseFloat(i) < 0.7 || parseFloat(i) > 1.3) {
                 this.heart = "~/images/yh.png" ;
                 return true ;
             }
         }
-        else if (this.selectBlood.numberIndex == "pH") {
-            if (parseFloat(i) < 4.6) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-            if (parseFloat(i) >= 4.6 && parseFloat(i) <= 8.0) {
-                this.heart = "~/images/gh.png" ;
-                return true ;
-            }
-            if (parseFloat(i) > 8.0) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-        }
-        else if (this.selectBlood.numberIndex == "Protein") {
-            if (parseFloat(i) < 6.4) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-            if (parseFloat(i) >= 6.4 && parseFloat(i) <= 8.3) {
-                this.heart = "~/images/gh.png" ;
-                return true ;
-            }
-            if (parseFloat(i) > 8.3) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-        }
-        else if (this.selectBlood.numberIndex == "Ketone") {
-            if (i < 3) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-            if (i >= 3 && parseFloat(i) <= 3) {
-                this.heart = "~/images/gh.png" ;
-                return true ;
-            }
-            if (i > 15) {
-                this.heart = "~/images/yh.png" ;
-                return true ;
-            }
-        }
+        // else if (this.selectBlood.numberIndex == "RBC") {
+        //     if (parseFloat(i) < 4.2) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) >= 4.2 && parseFloat(i) <= 5.4) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) > 5.4) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Hb") {
+        //     if (this.gender == "ชาย") {
+        //         if (parseFloat(i) < 14) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //         if (parseFloat(i) >= 14 && parseFloat(i) <= 18) {
+        //             this.heart = "~/images/gh.png" ;
+        //             return true ;
+        //         }
+        //         if (parseFloat(i) > 18) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //     }
+        //     if (this.gender == "หญิง") {
+        //         if (parseFloat(i) < 12) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //         if (parseFloat(i) >= 12 && parseFloat(i) <= 16) {
+        //             this.heart = "~/images/gh.png" ;
+        //             return true ;
+        //         }
+        //         if (parseFloat(i) > 16) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Hct") {
+        //     if (this.gender == "ชาย") {
+        //         if (i < 42) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //         if (i >= 42 && parseFloat(i) <= 52) {
+        //             this.heart = "~/images/gh.png" ;
+        //             return true ;
+        //         }
+        //         if (i > 52) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //     }
+        //     else if (this.gender == "หญิง") {
+        //         if (i < 36) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //         if (i >= 36 && parseFloat(i) <= 48) {
+        //             this.heart = "~/images/gh.png" ;
+        //             return true ;
+        //         }
+        //         if (i > 48) {
+        //             this.heart = "~/images/yh.png" ;
+        //             return true ;
+        //         }
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "MCV") {
+        //     if (i < 78) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (i >= 78 && parseFloat(i) <= 98) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (i > 98) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Urobilinogen") {
+        //     if (parseFloat(i) < 0.3) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) >= 0.3 && parseFloat(i) <= 1.0) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) > 1.0) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "pH") {
+        //     if (parseFloat(i) < 4.6) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) >= 4.6 && parseFloat(i) <= 8.0) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) > 8.0) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Protein") {
+        //     if (parseFloat(i) < 6.4) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) >= 6.4 && parseFloat(i) <= 8.3) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (parseFloat(i) > 8.3) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
+        // else if (this.selectBlood.numberIndex == "Ketone") {
+        //     if (i < 3) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        //     if (i >= 3 && parseFloat(i) <= 3) {
+        //         this.heart = "~/images/gh.png" ;
+        //         return true ;
+        //     }
+        //     if (i > 15) {
+        //         this.heart = "~/images/yh.png" ;
+        //         return true ;
+        //     }
+        // }
     }
 
     toBack () {
         console.log("connect") ;
-        this.router.navigate(["/bloodResult"])  ;
+        this.router.navigate(["/bloodResultSelectTotal"])  ;
     }
     toBloodChart () {
         console.log("connect");
@@ -462,7 +498,7 @@ export class bloodResultSelectComponent implements OnInit {
     private demoLoader() {
         setTimeout(() => {
           this.loader.hide() ;
-        }, 1000);
+        }, 1000) ;
       }
   
  }

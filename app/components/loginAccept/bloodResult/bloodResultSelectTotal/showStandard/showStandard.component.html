@@ -1,14 +1,15 @@
 <StackLayout>
         <label class = "Cloud-LightTitle black" [text] = '" เกณฑ์" + standardName'></label>
-        <GridLayout columns="30, 50, 25, 50, 65, 50, 50" rows="20, 25" width="100%" height="150px">
+        <GridLayout columns="10, 50, 30, 50, 70, 50, 50" rows="20, 25, 10" width="100%">
             <label row="0" col="0" text=""></label>
             <label row="1" col="0" text=""></label>
-            <Image row="1" col="1" class = "setCenter" src="~/images/green.png"></Image>
+            <Image row="1" col="1" class = "" src="~/images/green.png"></Image>
             <label class="l Cloud-Light2" row="1" col="2" text="ปกติ"></label>
-            <Image row="1" col="3" class = "setCenter" src="~/images/yellow.png"></Image>
+            <Image row="1" col="3" class = "" src="~/images/yellow.png"></Image>
             <label class="l Cloud-Light2" row="1" col="4" text="สูงกว่าปกติ"></label>
-            <Image row="1" col="5" class = "setCenter" src="~/images/red.png"></Image>
+            <Image row="1" col="5" class = "" src="~/images/red.png"></Image>
             <label class="l Cloud-Light2" row="1" col="6" text="สูงมาก"></label>
+            <label row="2" col="0" text="ggg"></label>
         </GridLayout>
         <TextView class = "Cloud-LightTin" [text] = "dataStandard[i].dataText" editable= "false"></TextView>
     </StackLayout>

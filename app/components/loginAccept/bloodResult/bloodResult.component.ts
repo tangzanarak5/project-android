@@ -21,10 +21,11 @@ import * as frameModule from "tns-core-modules/ui/frame";
 import {Input, ChangeDetectionStrategy} from '@angular/core';
 import { selectBlood } from "../../security/model/selectBlood.model"
 import { loginProfileComponent } from "../loginProfile/loginProfile.component";
-import { RouterExtensions } from "nativescript-angular";
+import { RouterExtensions, SetupItemViewArgs } from "nativescript-angular";
 import { bloodResultService } from "./bloodResult.service";
 import { info } from "../../security/model/info.model"
 import { showInfoComponent } from "./bloodResultSelect/showInfo/showInfo.component";
+import { dayVisit } from "../../security/model/dayVisit.model";
 
 class DataItem {
     constructor(public id: number, public name: string) { }
@@ -40,6 +41,7 @@ class DataItem {
 
 export class bloodResultComponent implements OnInit {
     selectBlood: selectBlood ;
+    dayVisit: dayVisit ;
     public myItems: Array<DataItem>;
     private counter: number;
     bloodResult ;
@@ -108,6 +110,7 @@ export class bloodResultComponent implements OnInit {
     hospitalnumber ;
     loader = new LoadingIndicator();
     count ;
+    dataTotal ;
     options = {
         message: 'Loading...',
         progress: 0.65,
@@ -142,31 +145,48 @@ export class bloodResultComponent implements OnInit {
 
     public onItemTap(args) {
         this.loader.show(this.options);
-        console.log("------------------------ ItemTapped: " + args.index);
-        this.selectBlood.numberIndex = this.disease[args.index].namee ;
-        this.selectBlood.name = this.disease[args.index].namet ;
-        securityService.setSelectBlood = JSON.stringify(this.selectBlood);
-        // this.selectBlood = JSON.parse(securityService.getSelectBlood);
-        console.log(securityService.getSelectBlood);
-        this.router.navigate(["/bloodResultSelect"]) ;
-        this.demoLoader();
+        console.log(this.dataTotal[args.index].visitdate) ;
+        this.dayVisit.dayDate = this.dataTotal[args.index].visitdate
+        securityService.setDayVisit = JSON.stringify(this.dayVisit);
+        this.dayVisit = JSON.parse(securityService.getDayVisit);
+        console.log(securityService.getDayVisit);
+        this.router.navigate(["/bloodResultSelectTotal"]) ;
+        this.demoLoader() ;
     }
 
     ngOnInit(): void {
+        this.dataUser = JSON.parse(securityService.getDataUser) ;
+        this.hospitalnumber = this.dataUser.dataset.hn ;
+        console.log(this.hospitalnumber) ;
+        this.dayVisit = new dayVisit ;
+        this.dayVisit.dayDate = "" ;
+        securityService.setDayVisit = JSON.stringify(this.dayVisit);
+        console.log(securityService.getDayVisit);
+        this.dayVisit = JSON.parse(securityService.getDayVisit);
+
+        this.bloodResultService.getDataDayLab(this.hospitalnumber)
+                    .subscribe(
+                        (Response) => {
+                          this.dataTotal = Response.dataset ;
+                          // console.log(this.dataTotal) ;
+                        },
+                        (error) => {
+                            console.log("data error") ;
+                            alert("กรุณาลองอีกครั้ง");
+                            this.router.navigate(["/loginProfile"]) ;
+                        }
+                    )
+                    setTimeout(() => {
+                        this.loader.hide() ;
+                      }, 1000) ;
         
-        this.selectBlood = new selectBlood ;
-        this.selectBlood.numberIndex = "" ;
-        this.selectBlood.name = "" ;
-        securityService.setSelectBlood = JSON.stringify(this.selectBlood);
-        console.log(securityService.getSelectBlood);
-        this.selectBlood = JSON.parse(securityService.getSelectBlood);
-        this.dataUser = JSON.parse(securityService.getDataUser);
-        this.hospitalnumber = this.dataUser.dataset.hn
-        this.info = new info ;
-        this.info.name = "" ;
-        this.info.numberIndex = "" ;
-        securityService.setInfo = JSON.stringify(this.info);
-        console.log(securityService.getInfo) ;
+        // this.dataUser = JSON.parse(securityService.getDataUser);
+        // this.hospitalnumber = this.dataUser.dataset.hn
+        // this.info = new info ;
+        // this.info.name = "" ;
+        // this.info.numberIndex = "" ;
+        // securityService.setInfo = JSON.stringify(this.info);
+        // console.log(securityService.getInfo) ;
 
     }
 
@@ -181,6 +201,7 @@ export class bloodResultComponent implements OnInit {
         private routerExtensions: RouterExtensions,
         page: Page) {
             route.url.subscribe((s:UrlSegment[]) => {
+            this.loader.show(this.options);
             console.log("url", s) ;
             });
     }
@@ -199,7 +220,8 @@ export class bloodResultComponent implements OnInit {
         });
     }
     toBack () {
-        this.loader.show(this.options);
+        // this.routerExtensions.backToPreviousPage();
+        this.loader.show(this.options) ;
         console.log("connect") ;
         this.router.navigate(["/loginProfile"]);
         this.demoLoader();
@@ -209,4 +231,8 @@ export class bloodResultComponent implements OnInit {
           this.loader.hide();
         }, 2000);
       }
+      onSetupItemView(args: SetupItemViewArgs) {
+        args.view.context.odd = (args.index === 0) ;
+        args.view.context.even = (args.index !== 0) ;
+    }
  }
