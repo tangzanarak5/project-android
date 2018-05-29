@@ -111,6 +111,7 @@ export class bloodResultComponent implements OnInit {
     loader = new LoadingIndicator();
     count ;
     dataTotal ;
+    dataTotalShow = []
     options = {
         message: 'Loading...',
         progress: 0.65,
@@ -162,17 +163,22 @@ export class bloodResultComponent implements OnInit {
         this.dayVisit.dayDate = "" ;
         securityService.setDayVisit = JSON.stringify(this.dayVisit);
         console.log(securityService.getDayVisit);
-        this.dayVisit = JSON.parse(securityService.getDayVisit);
+        this.dayVisit = JSON.parse(securityService.getDayVisit) ;
 
         this.bloodResultService.getDataDayLab(this.hospitalnumber)
                     .subscribe(
                         (Response) => {
-                          this.dataTotal = Response.dataset ;
-                          // console.log(this.dataTotal) ;
+                            this.dataTotal = Response.dataset ;
+                            for (let i = 0 ; i < this.dataTotal.length ; i++) {
+                            if(this.dataTotal[i].operation_pay != "0") {
+                                this.dataTotalShow.push(this.dataTotal[i]) ;
+                                console.log(this.dataTotalShow) ;
+                            }
+                        }
                         },
                         (error) => {
                             console.log("data error") ;
-                            alert("กรุณาลองอีกครั้ง");
+                            alert("กรุณาลองอีกครั้ง") ;
                             this.router.navigate(["/loginProfile"]) ;
                         }
                     )
@@ -180,7 +186,7 @@ export class bloodResultComponent implements OnInit {
                         this.loader.hide() ;
                       }, 1000) ;
         
-        // this.dataUser = JSON.parse(securityService.getDataUser);
+        // this.dataUser = JSON.parse(securityService.getDataUser) ;
         // this.hospitalnumber = this.dataUser.dataset.hn
         // this.info = new info ;
         // this.info.name = "" ;

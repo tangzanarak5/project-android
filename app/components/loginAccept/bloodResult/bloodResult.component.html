@@ -9,7 +9,7 @@
         </StackLayout>
 </ActionBar>
 
-        <ListView [items]="dataTotal" height="100%" (setupItemView)="onSetupItemView($event)" (itemTap)="onItemTap($event)">
+        <ListView [items]="dataTotalShow" height="100%" (setupItemView)="onSetupItemView($event)" (itemTap)="onItemTap($event)">
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
                         <StackLayout [class.odd]="odd" [class.even]="even">
                                 <GridLayout columns="10, 220, *" rows="20, 25, 20" width="100%" height="100%">

@@ -179,7 +179,7 @@ export class bloodChartComponent implements OnInit {
         setTimeout(() => {
             this.isChart = true ;
             this.loader.hide() ;
-          }, 8000) ;
+          }, 5000) ;
     }
     else if (this.selectBlood.numberIndex == "Glucose") {
         this.bloodChartService.getDataLab(this.hospitalnumber)
@@ -285,7 +285,7 @@ export class bloodChartComponent implements OnInit {
        setTimeout(() => {
            this.isChart = true ;
            this.loader.hide() ;
-         }, 8000) ;
+         }, 5000) ;
    }
    else if (this.selectBlood.numberIndex == "HDL") {
 
@@ -422,7 +422,7 @@ else if (this.gender == "หญิง") {
    setTimeout(() => {
        this.isChart = true ;
        this.loader.hide() ;
-     }, 8000) ;
+     }, 5000) ;
 }
 else if (this.selectBlood.numberIndex == "LDL") {
 
@@ -503,7 +503,7 @@ else if (this.selectBlood.numberIndex == "LDL") {
    setTimeout(() => {
        this.isChart = true ;
        this.loader.hide() ;
-     }, 8000) ;
+     }, 5000) ;
 }
 else if (this.selectBlood.numberIndex == "Triglycerides") {
 
@@ -584,7 +584,7 @@ else if (this.selectBlood.numberIndex == "Triglycerides") {
    setTimeout(() => {
        this.isChart = true ;
        this.loader.hide() ;
-     }, 8000) ;
+     }, 5000) ;
 }
 else if (this.selectBlood.numberIndex == "BUN") {
     this.bloodChartService.getDataLab(this.hospitalnumber)
@@ -639,7 +639,7 @@ else if (this.selectBlood.numberIndex == "BUN") {
    setTimeout(() => {
        this.isChart = true ;
        this.loader.hide() ;
-     }, 8000) ;
+     }, 5000) ;
 }
 else if (this.selectBlood.numberIndex == "Cholesterol") {
     this.bloodChartService.getDataLab(this.hospitalnumber)
@@ -719,7 +719,7 @@ else if (this.selectBlood.numberIndex == "Cholesterol") {
    setTimeout(() => {
        this.isChart = true ;
        this.loader.hide() ;
-     }, 8000) ;
+     }, 5000) ;
 }
 else if (this.selectBlood.numberIndex == "Creatinine") {
     this.bloodChartService.getDataLab(this.hospitalnumber)
@@ -774,7 +774,7 @@ else if (this.selectBlood.numberIndex == "Creatinine") {
    setTimeout(() => {
        this.isChart = true ;
        this.loader.hide() ;
-     }, 8000) ;
+     }, 5000) ;
 }
 // else if (this.selectBlood.numberIndex == "RBC") {
 

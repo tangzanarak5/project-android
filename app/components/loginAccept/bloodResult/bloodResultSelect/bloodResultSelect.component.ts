@@ -186,7 +186,7 @@ export class bloodResultSelectComponent implements OnInit {
         setTimeout(() => {
             this.isChart = true ;
             this.loader.hide() ;
-          }, 8000) ;
+          }, 5000) ;
 
     }
 
