@@ -6,49 +6,40 @@
                 </GridLayout>
         </StackLayout>
 </ActionBar>
-    <ScrollView sdkExampleTitle sdkToggleNavButton>
-            <StackLayout class="StackBgColor">
-  <StackLayout class="Cloud-Light">
 
-        <StackLayout class="StackBgColor">
+<ScrollView sdkExampleTitle sdkToggleNavButton>
+    <StackLayout class="StackBgColor">
+        <StackLayout class="Cloud-Light">
+            <StackLayout class="StackBgColor">
                 <Image class = "sizePicture" src="~/images/logo app.png"></Image>
                 <Label class = "title" style = "color:white" text = "แบบฟอร์มเวชระเบียนออนไลน์"></Label>
                 <label text=""></label>
-                    <Label class ="titleLabel" style = "color:white" text = "Step 3/4"></Label>
-                    <label text=""></label>
-        </StackLayout>>
+                <Label class ="titleLabel" style = "color:white" text = "Step 3/4"></Label>
+                <label text=""></label>
+            </StackLayout>>
 
-    <StackLayout class="StackBg">
-
-        <StackLayout class="boxBg">
-            <TextField class = "allAroundTextField inputColor bottomlast" editable= "false" [(ngModel)] = "user.medicalEligibilityVerification"  hint="สิทธิการรักษา" (tap)="rightToTreatmentActionDialog()" ></TextField>
-        </StackLayout>
-        <Label text = ""></Label>
-
-
-        <StackLayout class="boxBg">
-                <TextView style="height:500px;" class = "allAroundTextField inputColor bottomSick"  [hint]="symptom" [(ngModel)] = "user.symptom"  ></TextView>
-        </StackLayout>
-        <Label text = ""></Label>
-
+        <StackLayout class="StackBg">
             <StackLayout class="boxBg">
-        <TextField class = "allAroundTextField inputColor"  hint="* ชื่อ...ญาติผู้ป่วย" [(ngModel)] = "user.nameRelative"  ></TextField>
-
-        <TextField class = "allAroundTextField inputColor" hint="* นามสกุล...ญาติผู้ป่วย" [(ngModel)] = "user.surnameRelative" ></TextField>
-        <TextField class = "allAroundTextField inputColor" hint="* เกี่ยวข้องเป็น..." [(ngModel)] = "user.contact" ></TextField>
-        <TextField keyboardType = "number" class = "allAroundTextField inputColor bottomlast"   hint="* โทรศัพท์" [(ngModel)] = "user.telephoneRelative" maxLength="10"></TextField>
-
-    </StackLayout>
-    <Label text = ""></Label>
-
+                <TextField class = "allAroundTextField inputColor bottomlast" editable= "false" [(ngModel)] = "user.medicalEligibilityVerification"  hint="สิทธิการรักษา" (tap)="rightToTreatmentActionDialog()" ></TextField>
+            </StackLayout>
+            <Label text = ""></Label>
+            <StackLayout class="boxBg">
+                <TextView style="height:500px;" class = "allAroundTextField inputColor bottomSick"  [hint]="symptom" [(ngModel)] = "user.symptom"  ></TextView>
+            </StackLayout>
+            <Label text = ""></Label>
+            <StackLayout class="boxBg">
+                <TextField class = "allAroundTextField inputColor"  hint="* ชื่อ...ญาติผู้ป่วย" [(ngModel)] = "user.nameRelative"  ></TextField>
+                <TextField class = "allAroundTextField inputColor" hint="* นามสกุล...ญาติผู้ป่วย" [(ngModel)] = "user.surnameRelative" ></TextField>
+                <TextField class = "allAroundTextField inputColor" hint="* เกี่ยวข้องเป็น..." [(ngModel)] = "user.contact" ></TextField>
+                <TextField keyboardType = "number" class = "allAroundTextField inputColor bottomlast"   hint="* โทรศัพท์" [(ngModel)] = "user.telephoneRelative" maxLength="10"></TextField>
+            </StackLayout>
+            <Label text = ""></Label>
         </StackLayout>
             <StackLayout class="StackBgColor">
                     <StackLayout class=""> 
                         <Button class="btn btn-primary Button Cloud-Light" text = "ต่อไป" (tap) = "nextTomedicalEligibilityVerification()"></Button>
                     </StackLayout>
             </StackLayout>
-            </StackLayout>
         </StackLayout>
-    </ScrollView>
-
-
+    </StackLayout>
+</ScrollView>

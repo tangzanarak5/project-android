@@ -6,49 +6,40 @@
                 </GridLayout>
         </StackLayout>
 </ActionBar>
-        <ScrollView sdkExampleTitle sdkToggleNavButton>
-                <StackLayout class="StackBgColor">
-      <StackLayout class="Cloud-Light">
-    
-            <StackLayout class="StackBgColor">
-                    <Image class = "sizePicture" src="~/images/logo app.png"></Image>
-                    <Label class = "title" style = "color:white" text = "แบบฟอร์มเวชระเบียนออนไลน์"></Label>
-                    <label text=""></label>
-                        <Label class ="titleLabel" style = "color:white" text = "Step 2/4"></Label>
-                        <label text=""></label>
-            </StackLayout>>
-    
-        <StackLayout class="StackBg">
-            
-                <StackLayout class="boxBg">
-            <TextField class = "allAroundTextField inputColor"  hint="* บ้านเลขที่" [(ngModel)] = "houseNumber"  ></TextField>
-    
-            <TextField class = "allAroundTextField inputColor" hint="ตรอก/ซอย" [(ngModel)] = "alley" ></TextField>
-            <TextField class = "allAroundTextField inputColor" hint="ถนน" [(ngModel)] = "street" ></TextField>
-            <TextField keyboardType = "number" class = "allAroundTextField inputColor"   hint="หมู่ที่" [(ngModel)] = "swine"  ></TextField>        
-            <TextField class = "allAroundTextField inputColor"   hint="* ตำบล" [(ngModel)] = "locality"  ></TextField>
-          
-            <TextField class = "allAroundTextField inputColor"   hint="* อำเภอ"  [(ngModel)] = "district"  ></TextField>
-        
-            <TextField class = "allAroundTextField inputColor" editable = "false" [(ngModel)] = "county"  hint="* จังหวัด" (tap)="countyActionDialog()" ></TextField>
-    
-            <TextField keyboardType = "number" class = "allAroundTextField inputColor"   hint="* รหัสไปรษณีย์" [(ngModel)] = "postcode" ></TextField>
-           
-            <TextField keyboardType = "number" class = "allAroundTextField inputColor bottomlast"   hint="* โทรศัพท์" [(ngModel)] = "user.telephone" maxLength="10"></TextField>
-     
-    
-        </StackLayout>
-        <Label text = ""></Label>
-                </StackLayout>
 
-                <StackLayout class="StackBgColor">
-                        <StackLayout class="">
-                    <Button class="btn btn-primary Button Cloud-Light" text = "ต่อไป" (tap)="nextToReletion()" ></Button>
+<ScrollView sdkExampleTitle sdkToggleNavButton>
+        <StackLayout class="StackBgColor">
+                <StackLayout class="Cloud-Light">
+                        <StackLayout class="StackBgColor">
+                                <Image class = "sizePicture" src="~/images/logo app.png"></Image>
+                                <Label class = "title" style = "color:white" text = "แบบฟอร์มเวชระเบียนออนไลน์"></Label>
+                                <label text=""></label>
+                                <Label class ="titleLabel" style = "color:white" text = "Step 2/4"></Label>
+                                <label text=""></label>
+                        </StackLayout>>
+    
+                        <StackLayout class="StackBg">
+                                <StackLayout class="boxBg">
+                                        <TextField class = "allAroundTextField inputColor"  hint="* บ้านเลขที่" [(ngModel)] = "houseNumber"  ></TextField>
+                                        <TextField class = "allAroundTextField inputColor" hint="ตรอก/ซอย" [(ngModel)] = "alley" ></TextField>
+                                        <TextField class = "allAroundTextField inputColor" hint="ถนน" [(ngModel)] = "street" ></TextField>
+                                        <TextField keyboardType = "number" class = "allAroundTextField inputColor"   hint="หมู่ที่" [(ngModel)] = "swine"  ></TextField>        
+                                        <TextField class = "allAroundTextField inputColor"   hint="* ตำบล" [(ngModel)] = "locality"  ></TextField>
+                                        <TextField class = "allAroundTextField inputColor"   hint="* อำเภอ"  [(ngModel)] = "district"  ></TextField>
+                                        <TextField class = "allAroundTextField inputColor" editable = "false" [(ngModel)] = "county"  hint="* จังหวัด" (tap)="countyActionDialog()" ></TextField>
+                                        <TextField keyboardType = "number" class = "allAroundTextField inputColor"   hint="* รหัสไปรษณีย์" [(ngModel)] = "postcode" ></TextField>
+                                        <TextField keyboardType = "number" class = "allAroundTextField inputColor bottomlast"   hint="* โทรศัพท์" [(ngModel)] = "user.telephone" maxLength="10"></TextField>
+                                </StackLayout>
+                                <Label text = ""></Label>
                         </StackLayout>
-                    </StackLayout>
-            </StackLayout>
+                        <StackLayout class="StackBgColor">
+                                <StackLayout class="">
+                                        <Button class="btn btn-primary Button Cloud-Light" text = "ต่อไป" (tap)="nextToReletion()" ></Button>
+                                </StackLayout>
+                        </StackLayout>
+                </StackLayout>
         </StackLayout>
-        </ScrollView>
+</ScrollView>
 
     
     

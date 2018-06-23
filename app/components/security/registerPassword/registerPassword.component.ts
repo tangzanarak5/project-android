@@ -18,17 +18,14 @@ import { TNSFontIconService } from 'nativescript-ng2-fonticon';
 })
 
 export class registerPasswordComponent implements OnInit {
-
     public firebase = require("nativescript-plugin-firebase");
-
     checkRegister: checkRegister;
     password = "";
     samePassword = "" ;
     splitPassword;
     sumPassword ="";
     loader = new LoadingIndicator();
-
-     options = {
+    options = {
         message: 'Loading...',
         progress: 0.65,
         android: {
@@ -75,12 +72,11 @@ ngOnInit(): void {
 
 checkPassword () {
     this.loader.show(this.options);
-     this.splitPassword = this.password.split("");
-   
-     for(let i=0;i<this.splitPassword.length;i++){
-         if (this.splitPassword[i] == "a"){
-             this.sumPassword = this.sumPassword + this.splitPassword[i]
-         }
+    this.splitPassword = this.password.split("");   
+    for(let i=0;i<this.splitPassword.length;i++){
+        if (this.splitPassword[i] == "a"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
         else if (this.splitPassword[i] == "b"){
             this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
@@ -159,133 +155,128 @@ checkPassword () {
         else if (this.splitPassword[i] == "A"){
             this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
-       else if (this.splitPassword[i] == "B"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "C"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "D"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "E"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "F"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "G"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "H"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "I"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "J"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "K"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "L"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "M"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "N"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "O"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "P"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "Q"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "R"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "S"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "T"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "U"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "V"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "W"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "X"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "Y"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "Z"){
-           this.sumPassword = this.sumPassword + this.splitPassword[i]
-       }
-       else if (this.splitPassword[i] == "0"){
-        this.sumPassword = this.sumPassword + this.splitPassword[i]
+        else if (this.splitPassword[i] == "B"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "C"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "D"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "E"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "F"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "G"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "H"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "I"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "J"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "K"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "L"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "M"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "N"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "O"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "P"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "Q"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "R"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "S"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "T"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "U"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "V"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "W"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "X"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "Y"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "Z"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
+        }
+        else if (this.splitPassword[i] == "0"){
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "1"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "2"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "3"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "4"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "5"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "6"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "7"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "8"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
         else if (this.splitPassword[i] == "9"){
-         this.sumPassword = this.sumPassword + this.splitPassword[i]
+            this.sumPassword = this.sumPassword + this.splitPassword[i]
         }
-         else {
-             i = this.splitPassword.length;
-             this.splitPassword = "";
-             this.sumPassword = "ไม่สามารถใส่อักษรพิเศษได้";
-         }
-     }
-       
-
+        else {
+            i = this.splitPassword.length;
+            this.splitPassword = "";
+            this.sumPassword = "ไม่สามารถใส่อักษรพิเศษได้";
+        }
+    }
     if (this.password != "" && this.samePassword != ""){
-
         if (this.password == this.samePassword) {
-                console.log(this.sumPassword);
-            if (this.sumPassword == "ไม่สามารถใส่อักษรพิเศษได้") {
-                alert(this.sumPassword)
-                console.log(this.sumPassword);
-                this.sumPassword = "";
-                this.loader.hide();
-            }
-            
-            else{
-                if(this.sumPassword.length >= 6){
-
+            console.log(this.sumPassword);
+        if (this.sumPassword == "ไม่สามารถใส่อักษรพิเศษได้") {
+            alert(this.sumPassword)
+            console.log(this.sumPassword);
+            this.sumPassword = "";
+            this.loader.hide();
+        }
+        else{
+            if(this.sumPassword.length >= 6){
                 console.log(this.sumPassword);
                 this.firebase.push(
                     '/registerUsers',
@@ -296,7 +287,7 @@ checkPassword () {
                     }
                 ).then(
                     function (result) {
-                      console.log("created key: " + result.key);
+                    console.log("created key: " + result.key);
                     }
                 );
                 this.checkRegister.idCard = ""
@@ -331,5 +322,4 @@ checkPassword () {
         }
     }
 }
-
 }

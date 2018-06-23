@@ -16,7 +16,7 @@ export class medicineService {
     getDataDayMedicine (hn): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/finance/" + hn ;
+        let url = "https://apis.cpa.go.th/finance/" + hn ;
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
     }
@@ -24,7 +24,7 @@ export class medicineService {
     getDataMedicine (hn): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/drug/" + hn ;
+        let url = "https://apis.cpa.go.th/drug/" + hn ;
         console.log(url);
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);

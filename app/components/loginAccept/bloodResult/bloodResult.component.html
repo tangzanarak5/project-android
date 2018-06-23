@@ -14,7 +14,7 @@
                         <StackLayout [class.odd]="odd" [class.even]="even">
                                 <GridLayout columns="10, 220, *" rows="20, 25, 20" width="100%" height="100%">
                                         <label row="0" col="0" text=""></label>
-                                        <Label row="1" col="1" class = "Cloud-Light" [text]='" " + item.visitdate' ></Label>
+                                        <Label row="1" col="1" class = "Cloud-Light" [text]='" " + getFormatDate(item.visitdate)' ></Label>
                                         <label row="1" col="3" class = "Cloud-Light2 setCenter" text="รายละเอียด"></label>
                                 </GridLayout>
                         </StackLayout>

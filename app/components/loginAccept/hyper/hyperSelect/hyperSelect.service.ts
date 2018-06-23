@@ -13,7 +13,7 @@ export class hyperSelectService {
     getDataVitalsign (hn): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/patient/" + hn + "/vitalsign" ;
+        let url = "https://apis.cpa.go.th/patient/" + hn + "/vitalsign" ;
         console.log(url);
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);

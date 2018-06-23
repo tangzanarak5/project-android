@@ -23,7 +23,7 @@ export class verifyHnService {
 
     getDataPatientReal (hn): Observable<any> {
         console.log(hn);
-        let url = "http://apis.cpa.go.th/patient/" + hn;
+        let url = "https://apis.cpa.go.th/patient/" + hn;
         return this.http.get(url, this.options).map(response => response.json())
         .catch(this.handleErrors);
     }

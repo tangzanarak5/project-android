@@ -19,7 +19,7 @@ export class verifyidcardService {
         console.log(securityService.getUserData);
         this.user = JSON.parse(securityService.getUserData);
         console.log(this.user.idCard);
-        let url = "http://apis.cpa.go.th/patient/" + this.user.idCard ;
+        let url = "https://apis.cpa.go.th/patient/" + this.user.idCard ;
         return this.http.get(url, this.options).map(response => response.json())
         .catch(this.handleErrors);
     }

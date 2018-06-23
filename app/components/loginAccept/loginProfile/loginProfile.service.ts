@@ -21,6 +21,18 @@ export class loginProfileService {
         console.log(this.dataUser.hn);
         let url = "http://api.cpa.go.th/patient.php?request=get&cid=" + this.dataUser.hn + "&token=" + this.token;
         return this.http.get(url).map(response => response.json())
+        .catch(this.handleErrors) ;
+    }
+
+    getAppointment (): Observable<any> {
+        let url415 = "http://10.41.160.207:8080/appointment" ;
+        let url = "http://192.168.1.4:8080/appointment";
+        let urlGot = "http://192.168.43.8:8080/appointment" ;
+        // return this.http.get(url).map(response => response.json())
+        // .catch(this.handleErrors);
+        // return this.http.get(url415).map(response => response.json())
+        // .catch(this.handleErrors);
+        return this.http.get(urlGot).map(response => response.json())
         .catch(this.handleErrors);
     }
   

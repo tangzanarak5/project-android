@@ -55,7 +55,7 @@
 </ScrollView>
 
 <StackLayout *ngIf = "appoint3">
-        <ListView [items]="docterWorkingShow" (itemTap)="selectDay($event)">
+        <!-- <ListView [items]="docterWorkingShow" (itemTap)="selectDay($event)">
                 <ng-template let-item="item" let-i="index" let-odd="odd" let-even="even">
                         <StackLayout class="mtop" [class.odd]="odd" [class.even]="even">
                                 <GridLayout *ngIf = "checkDocter(item)" columns="20, 225, *" rows="30, 25, 20" width="100%" height="100%">
@@ -66,7 +66,8 @@
                                 </GridLayout>
                         </StackLayout>
                 </ng-template>
-        </ListView>
+        </ListView> -->
+        <RadCalendar  (dateSelected)="onDateSelected($event)" ></RadCalendar>
 </StackLayout>
 
 <StackLayout *ngIf = "appoint4">

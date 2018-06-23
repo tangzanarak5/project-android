@@ -15,7 +15,7 @@
                 <StackLayout [class.odd]="odd" [class.even]="even">
                         <GridLayout columns="10, 200, *" rows="20, 25, 35" width="100%" height="100%">
                                 <label row="0" col="0" text=""></label>
-                                <Label row="1" col="1" class="Cloud-Light" [text]='item.datetime'></Label>
+                                <Label row="1" col="1" class="Cloud-Light" [text]='getFormatDate(item.datetime)'></Label>
                                 <label row="1" col="2" class="Cloud-Light setCenter" [text]='"  " + item.result + " " + type'></label>
                                 <Image row="2" col="2" class="setCenter sizePic"  *ngIf="checkDataLab(item.result)" [src]="heart"></Image>
                         </GridLayout>

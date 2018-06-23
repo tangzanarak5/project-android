@@ -135,6 +135,50 @@ export class costComponent implements OnInit {
                 console.log("url", s);
             });
     }
+    getFormatDate (dateStr) {
+        let date = new Date(dateStr)
+        let month
+        if(date.getMonth() == 0){
+            month = "มกราคม"
+        }
+        else if(date.getMonth() == 1){
+            month = "กุมภาพันธ์"
+        }
+        else if(date.getMonth() == 2){
+            month = "มีนาคม"
+        }
+        else if(date.getMonth() == 3){
+            month = "เมษายน"
+        }
+        else if(date.getMonth() == 4){
+            month = "พฤษภาคม"
+        }
+        else if(date.getMonth() == 5){
+            month = "มิถุนายน"
+        }
+        else if(date.getMonth() == 6){
+            month = "กรกฎาคม"
+        }
+        else if(date.getMonth() == 7){
+            month = "สิงหาคม"
+        }
+        else if(date.getMonth() == 8){
+            month = "กันยายน"
+        }
+        else if(date.getMonth() == 9){
+            month = "ตุลาคม"
+        }
+        else if(date.getMonth() == 10){
+            month = "พฤษจิกายน"
+        }
+        else if(date.getMonth() == 11){
+            month = "ธันวาคม"
+        }
+    
+        let str = date.getDate() + " " + month + " " + (date.getFullYear() + 543)
+        // console.log("eieiei", date.getDate)
+        return str
+    }
     toBack () {
         this.loader.show(this.options);
         console.log("connect");

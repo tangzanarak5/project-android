@@ -4,7 +4,7 @@
             <GridLayout width="100%" height="100%">
                 <Label horizontalAlignment="right" class="mdi rights" [text]="'mdi-menu' | fonticon" (tap) = "openDrawer()"></Label>
                 <Label horizontalAlignment="left" class="mdi" [text]="'mdi-arrow-back' | fonticon" (tap) = "toBack()"></Label>
-                <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]='"ยอดชำระ " +  + name'></label>
+                <label horizontalAlignment="center" class="setCenter w Cloud-Lights" [text]='"ยอดชำระ " +  getFormatDate(day2)'></label>
             </GridLayout>
     </StackLayout>
 </ActionBar>

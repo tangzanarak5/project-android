@@ -15,10 +15,8 @@ import {LoadingIndicator} from "nativescript-loading-indicator";
 })
 
 export class registerSuccessComponent implements OnInit {
-
     loader = new LoadingIndicator();
-
-     options = {
+    options = {
         message: 'Loading...',
         progress: 0.65,
         android: {
@@ -44,18 +42,15 @@ export class registerSuccessComponent implements OnInit {
         }
       };
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        page: Page
-    ) {}
-
-    ngOnInit(): void {
-        
-    }
-    back () {
-        this.loader.show(this.options);
-        this.router.navigate(["/security/standbytologin"]);
-        this.loader.hide();
-    }
+constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    page: Page
+) {}
+ngOnInit(): void {}
+back () {
+    this.loader.show(this.options);
+    this.router.navigate(["/security/standbytologin"]);
+    this.loader.hide();
+}
 }

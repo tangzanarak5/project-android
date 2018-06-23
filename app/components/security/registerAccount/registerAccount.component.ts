@@ -22,14 +22,12 @@ import { TNSFontIconService } from 'nativescript-ng2-fonticon';
 export class registerAccountComponent implements OnInit {
 
     public firebase = require("nativescript-plugin-firebase");
-
     checkRegister: checkRegister;
     res
     idCard = "";
     hn;
     dataUser ;
     loader = new LoadingIndicator();
-
     options = {
        message: 'Loading...',
        progress: 0.65,
@@ -56,86 +54,70 @@ export class registerAccountComponent implements OnInit {
        }
      };
 
-    ngOnInit(): void {
-        this.checkRegister = new checkRegister();
-        this.checkRegister.hn = "" ;
-        this.checkRegister.idCard = "" ;
-        securityService.setCheckRegister = JSON.stringify(this.checkRegister);
-        console.log(securityService.getCheckRegister);
-        this.checkRegister = JSON.parse(securityService.getCheckRegister);
-        console.log(this.checkRegister.idCard);
+ngOnInit(): void {
+    this.checkRegister = new checkRegister();
+    this.checkRegister.hn = "" ;
+    this.checkRegister.idCard = "" ;
+    securityService.setCheckRegister = JSON.stringify(this.checkRegister);
+    console.log(securityService.getCheckRegister);
+    this.checkRegister = JSON.parse(securityService.getCheckRegister);
+    console.log(this.checkRegister.idCard);
+    this.firebase.init({
+        storageBucket: "gs://fir-appproject14.appspot.com"
+    }).then(
+        instance => {
+            console.log("firebase.init done")
+        },
+        error => {
+            console.log(`firebase.init error: ${error}`);
+        }
+    )
+    var tns = this;
+    var onQueryEvent = function(result) {
+        if (!result.error) {
+            console.log("Event type: " + result.type);
+            console.log("Key: " + result.key);
+            console.log("Value: " + JSON.stringify(result.value));
+            tns.dataUser = result.value;
+        }
+    };
+    this.firebase.query(
+        onQueryEvent,
+        "/registerUsers",
+            {
+                singleEvent: true,
+                orderBy: {
+                    type: this.firebase.QueryOrderByType.CHILD,
+                    value: 'since'
+                }
+            }
+    );
+}
 
-        this.firebase.init({
-            storageBucket: "gs://fir-appproject14.appspot.com"
-              // Optionally pass in properties for database, authentication and cloud messaging,
-              // see their respective docs.
-            }).then(
-              instance => {
-                console.log("firebase.init done")
-              },
-              error => {
-                console.log(`firebase.init error: ${error}`);
-              }
-            )
-  
-            var tns = this;
-            
-                  var onQueryEvent = function(result) {
-                    // note that the query returns 1 match at a time
-                    // in the order specified in the query
-                    if (!result.error) {
-                        console.log("Event type: " + result.type);
-                        console.log("Key: " + result.key);
-                        console.log("Value: " + JSON.stringify(result.value));
-                        tns.dataUser = result.value;
-                    }
-                };
-            
-                this.firebase.query(
-                    onQueryEvent,
-                    "/registerUsers",
-                    {
-                        // set this to true if you want to check if the value exists or just want the event to fire once
-                        // default false, so it listens continuously.
-                        // Only when true, this function will return the data in the promise as well!
-                        singleEvent: true,
-                        // order by company.country
-                        orderBy: {
-                            type: this.firebase.QueryOrderByType.CHILD,
-                            value: 'since' // mandatory when type is 'child'
-                        }
-                    }
-                );
-  
-    }
-
-    getDataPeople () {
-        let tns = this ;
-        this.registerAccountService.getDataPatient()
-        .subscribe(
-            (Response) => {
-                if (Response.dataset.cid == tns.checkRegister.idCard && Response.dataset.hn == tns.checkRegister.hn) {
-                
-                        var results = Object.keys(this.dataUser).map(function(key) {
-                            return tns.dataUser[key];
-                          });
-                          
-                             console.log(JSON.stringify(results)); 
-                             console.log(JSON.stringify(Response.dataset.hn.toString()));          
-                          let resultUserUsername = results.find(item => item.hn === Response.dataset.hn.toString());
-
-                          if(resultUserUsername){
-                            alert("ไม่สามารถทำการลงทะเบียนได้\nหมายเลขประจำตัวผู้ป่วยนี้มีอยู่ในระบบแล้ว");
-                            this.loader.hide();
-                          }
-                          else {
-                                this.router.navigate(["/security/registerPassword"]);
-                                this.loader.hide();
-                            }
+getDataPeople () {
+    let tns = this ;
+    this.registerAccountService.getDataPatient()
+    .subscribe(
+        (Response) => {
+            if (Response.dataset.cid == tns.checkRegister.idCard && Response.dataset.hn == tns.checkRegister.hn) {    
+                var results = Object.keys(this.dataUser).map(function(key) {
+                    return tns.dataUser[key];
+                });          
+                console.log(JSON.stringify(results)); 
+                console.log(JSON.stringify(Response.dataset.hn.toString()));          
+                let resultUserUsername = results.find(item => item.hn === Response.dataset.hn.toString());
+                if(resultUserUsername){
+                    alert("ไม่สามารถทำการลงทะเบียนได้\nหมายเลขประจำตัวผู้ป่วยนี้มีอยู่ในระบบแล้ว");
+                    this.loader.hide();
                 }
                 else {
-                    alert('กรุณาใส่หมายเลขบัตรประชาชนและหมายเลข HN ให้ถูกต้อง');
+                    this.router.navigate(["/security/registerPassword"]);
                     this.loader.hide();
+                }
+            }
+            else {
+                alert('กรุณาใส่หมายเลขบัตรประชาชนและหมายเลข HN ให้ถูกต้อง');
+                this.loader.hide();
                 }
             },
             (error) => {
@@ -143,9 +125,8 @@ export class registerAccountComponent implements OnInit {
                 this.loader.hide();
             }
         )
-        
     } 
- constructor(
+constructor(
     page: Page,
     private router: Router,
     private route: ActivatedRoute,
@@ -158,15 +139,14 @@ export class registerAccountComponent implements OnInit {
 }
 
 checkIdCardAndHn () {
-        this.loader.show(this.options);
-       
-        let test = this.checkRegister.idCard.length
-        if (this.checkRegister.idCard != "" && this.checkRegister.hn != ""){
-        if (test != 13) {
-            alert("กรุณากรอกหมายเลขบัตรประชาชนให้ครบ 13 หลัก");
-            this.loader.hide();
-        }
-        if (test == 13) {
+    this.loader.show(this.options);
+    let test = this.checkRegister.idCard.length
+    if (this.checkRegister.idCard != "" && this.checkRegister.hn != ""){
+    if (test != 13) {
+        alert("กรุณากรอกหมายเลขบัตรประชาชนให้ครบ 13 หลัก");
+        this.loader.hide();
+    }
+    else if (test == 13) {
         this.res = this.checkRegister.idCard.split("");
         console.log(this.res);
         let r = 13;
@@ -176,7 +156,7 @@ checkIdCardAndHn () {
         let CheckDigit=0;
         let SumDigit=0;
         for(let i = 0;i<12;i++){
-           result[i] = this.res[i] * r;
+            result[i] = this.res[i] * r;
             r--;
             total = total + result[i];
             console.log(result[i] + "\n");
@@ -192,8 +172,7 @@ checkIdCardAndHn () {
            if(SumDigit == this.res[12]){
                 console.log("หมายเลขบัตรประชาชนถูกต้อง");
                 securityService.setCheckRegister = JSON.stringify(this.checkRegister);
-                this.getDataPeople();
-                
+                this.getDataPeople();     
            }
            else{
                 console.log("หมายเลขบัตรประชาชนไม่ถูกต้อง");
@@ -201,7 +180,7 @@ checkIdCardAndHn () {
                 this.loader.hide();
            }
         }
-        if(CheckDigit < 10){
+        else if(CheckDigit < 10){
             if(CheckDigit == this.res[12]){
                 console.log("หมายเลขบัตรประชาชนถูกต้อง");
                 securityService.setCheckRegister = JSON.stringify(this.checkRegister);

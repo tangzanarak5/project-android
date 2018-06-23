@@ -17,7 +17,8 @@ import { sideBarComponent } from "../loginProfile/sideBar/sideBar.component";
 import { TNSFontIconService } from 'nativescript-ng2-fonticon';
 import {LoadingIndicator} from "nativescript-loading-indicator";
 import { barCodeComponent } from "../loginProfile/barCode.component";
-import * as datePickerModule from "tns-core-modules/ui/date-picker";
+import * as datePickerModule from "tns-core-modules/ui/date-picker" ;
+import * as LocalNotifications from "nativescript-local-notifications";
 
 @Component({
     selector: "loginProfile",
@@ -28,8 +29,9 @@ import * as datePickerModule from "tns-core-modules/ui/date-picker";
 
 
 export class loginProfileComponent implements OnInit {
-
+    public firebase = require("nativescript-plugin-firebase");
     dataUser ;
+    count ;
     cid ;
     nameAndsurname ;
     hospitalnumber ;
@@ -37,10 +39,14 @@ export class loginProfileComponent implements OnInit {
     dob ;
     blood ;
     datatest ;
+    location ;
+    dName ;
+    description ;
     test = "2https://firebasestorage.googleapis.com/v0/b/fir-appproject14.appspot.com/o/uploads%2Fimages%2F1600100651243?alt=media&token=af313a20-2763-4563-9a36-51a20af355302" ;
     loader = new LoadingIndicator();
-    dataLab ;
-    temp = [] ;
+    dataApp ;
+    temp;
+    timeApp ;
     datashow = [] ;
      options = {
         message: 'Loading...',
@@ -71,16 +77,67 @@ export class loginProfileComponent implements OnInit {
     @ViewChild('sidebar') sideBar: sideBarComponent
 
     openDrawer () {
-        this.sideBar.openDrawer();
+        this.sideBar.openDrawer() ;
     }
 
     ngOnInit(): void {
         this.dataUser = JSON.parse(securityService.getDataUser);
+        if (securityService.getCountApp == undefined || securityService.getCountApp == null) {
+            securityService.setCountApp = "0" ;
+        }
+        this.count = securityService.getCountApp ;
+        console.log("Count : " + this.count) ;
         this.nameAndsurname = this.dataUser.dataset.fname + " " + this.dataUser.dataset.lname
         this.hospitalnumber = this.dataUser.dataset.hn
         this.cid = this.dataUser.dataset.cid
         this.gender = "เพศ " + this.dataUser.dataset.gender
         this.dob = "วันเกิด " + this.dataUser.dataset.dob
+
+        this.loginProfileService.getAppointment()
+                    .subscribe(
+                        (Response) => {
+                            this.dataApp = Response ;
+                            for (let i = 0 ; i < this.dataApp.length ; i++) {
+                            if (this.dataApp[i].hn_id == this.hospitalnumber) {
+                                this.datashow.push(this.dataApp[i]) ;
+                                this.temp = this.dataApp[i].appoint_status;
+                                this.description = this.dataApp[i].appoint_description ;
+                                this.location = this.dataApp[i].appoint_location ;
+                                this.timeApp = this.dataApp[i].appoint_time + " " + this.dataApp[i].appoint_day ;
+                                this.dName = "แพทย์ " + this.dataApp[i].docter_name
+                            }
+                        }
+                        console.log("Temp : " + this.temp) ;
+                        if (this.temp == 1) {
+                        if (this.count == "0") {
+                          LocalNotifications.schedule([{ 
+                            id: 1,
+                            title: 'ยกเลิกหมายนัด',
+                            body: this.description,
+                            groupedMessages:[this.description, this.dName, this.timeApp, this.location], //android only
+                        }]).then(
+                              function() {
+                                console.log("Notification scheduled");
+                                securityService.setCountApp = "1";
+                              },
+                              function(error) {
+                                console.log("scheduling error: " + error);
+                              }
+                          )
+                        }
+                    }
+                    else if (this.temp == 0) {
+                        securityService.setCountApp = "0" ;
+                        this.count = securityService.getCountApp;
+                        console.log("else Count : " + this.count) ;
+                    }
+                        },
+                        (error) => {
+                            console.log("data error") ;
+                            alert("กรุณาลองอีกครั้ง") ;
+                        }
+                    )
+
     }
 
     constructor(
@@ -90,7 +147,8 @@ export class loginProfileComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private loginProfileService: loginProfileService,
-        page: Page) {
+        page: Page
+    ) {
             
             route.url.subscribe((s:UrlSegment[]) => {
                 console.log("url", s);

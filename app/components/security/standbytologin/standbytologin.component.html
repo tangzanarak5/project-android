@@ -1,30 +1,29 @@
 <Page>
     <ScrollView sdkExampleTitle sdkToggleNavButton>
-    <StackLayout class="Cloud-Light">
 
-        <StackLayout class="StackBg">
+        <StackLayout class="Cloud-Light">
+
+            <StackLayout class="StackBg">
                 <WrapLayout orientation="horizontal">
-                        <WrapLayout orientation="horizontal" width="70%" class="bg">
-                               
-                        </WrapLayout>
-                        <WrapLayout orientation="horizontal" width="30%" class="bg">
-                                <Label text = "+ สร้างบัญชี" style="color :white" class="marginTop sizeFontR" [nsRouterLink]="['../registerAccount']"></Label>
-                        </WrapLayout>
-                        
+                    <WrapLayout orientation="horizontal" width="70%" class="bg">         
+                    </WrapLayout>
+                    <WrapLayout orientation="horizontal" width="30%" class="bg">
+                        <Label text = "+ สร้างบัญชี" style="color :white" class="marginTop sizeFontR" [nsRouterLink]="['../registerAccount']"></Label>
+                    </WrapLayout>     
                 </WrapLayout>
-        </StackLayout>
-    <StackLayout class="StackBg">
-        <Image class = "sizePicture" src="~/images/newbaner.png"></Image>
-    </StackLayout>
-    
-    <StackLayout class="Cloud-Light">
-        <TextField keyboardType = "number" [(ngModel)]="idp.username" hint="หมายเลข HN" class = "sizeInput marginTop"></TextField>
-        <TextField secure = "true" [(ngModel)]="idp.password" hint="รหัสผ่าน" class = "sizeInput"></TextField>
-        <Button class="btn btn-primary sizeLogin Cloud-Light" text = "เข้าสู่ระบบ" (tap) = "checkLogin()"></Button>
-        <Label text = "ผู้ป่วยใหม่?" class="marginMiddle sizeFont" style="color: rgb(48, 97, 150);" [nsRouterLink]="['../newPatient']"></Label>
-    </StackLayout>
+            </StackLayout>
 
-</StackLayout>
+            <StackLayout class="StackBg">
+                <Image class = "sizePicture" src="~/images/newbaner.png"></Image>
+            </StackLayout>
+
+            <StackLayout class="Cloud-Light">
+                <TextField keyboardType = "number" [(ngModel)]="idp.username" hint="หมายเลข HN" class = "sizeInput marginTop"></TextField>
+                <TextField secure = "true" [(ngModel)]="idp.password" hint="รหัสผ่าน" class = "sizeInput"></TextField>
+                <Button class="btn btn-primary sizeLogin Cloud-Light" text = "เข้าสู่ระบบ" (tap) = "checkLogin()"></Button>
+                <Label text = "ผู้ป่วยใหม่?" class="marginMiddle sizeFont" style="color: rgb(48, 97, 150);" [nsRouterLink]="['../newPatient']"></Label>
+            </StackLayout>
+        </StackLayout>
     </ScrollView>
 </Page>
 

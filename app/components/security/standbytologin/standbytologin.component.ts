@@ -25,17 +25,13 @@ import { isAndroid } from "platform";
 
 export class StandByToLoginComponent implements OnInit {
 
-    
-
-    public firebase = require("nativescript-plugin-firebase");
-
-    idp: idp ;
-    connect = false ;
-    dataUser ;
-    datasUser ;
-    loader = new LoadingIndicator();
-
-     options = {
+public firebase = require("nativescript-plugin-firebase");
+idp: idp ;
+connect = false ;
+dataUser ;
+datasUser ;
+loader = new LoadingIndicator();
+options = {
         message: 'Loading...',
         progress: 0.65,
         android: {
@@ -61,142 +57,108 @@ export class StandByToLoginComponent implements OnInit {
         }
       };
 
-    constructor(
-        private modal: ModalDialogService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private standbytologinService: standbytologinService,
-        page: Page,
-        private androidapplication:AndroidApplication
-    ) {
-        page.actionBarHidden = true;
-        this.androidapplication.on("activityBackPressed",()=>{
-            console.log("back pressed");
 
-        })
-        
+constructor(
+  private modal: ModalDialogService,
+  private route: ActivatedRoute,
+  private router: Router,
+  private standbytologinService: standbytologinService,
+  page: Page
+) {
+  page.actionBarHidden = true;     
+}
+
+ngOnInit(): void {
+  this.firebase.init({
+  storageBucket: "gs://fir-appproject14.appspot.com"
+  }).then(
+    instance => {
+      console.log("firebase.init done")
+    },
+    error => {
+      console.log(`firebase.init error: ${error}`);
     }
-    ngOnInit(): void {
-
-        if (!isAndroid) {
-            return;
-          }
-          application.android.on(AndroidApplication.activityBackPressedEvent, (data: AndroidActivityBackPressedEventData) => {
-            if (this.router.isActive("/articles", false)) {
-              data.cancel = true; // prevents default back button behavior
-              console.log("logout");
-            }
-          });
-        
-        this.firebase.init({
-          storageBucket: "gs://fir-appproject14.appspot.com"
-            // Optionally pass in properties for database, authentication and cloud messaging,
-            // see their respective docs.
-          }).then(
-            instance => {
-              console.log("firebase.init done")
-            },
-            error => {
-              console.log(`firebase.init error: ${error}`);
-            }
-          )
-
-          var tns = this;
-          
-                var onQueryEvent = function(result) {
-                  // note that the query returns 1 match at a time
-                  // in the order specified in the query
-                  if (!result.error) {
-                      console.log("Event type: " + result.type);
-                      console.log("Key: " + result.key);
-                      console.log("Value: " + JSON.stringify(result.value));
-                      tns.dataUser = result.value;
-                  }
-              };
-          
-              this.firebase.query(
-                  onQueryEvent,
-                  "/registerUsers",
-                  {
-                      // set this to true if you want to check if the value exists or just want the event to fire once
-                      // default false, so it listens continuously.
-                      // Only when true, this function will return the data in the promise as well!
-                      singleEvent: true,
-                      // order by company.country
-                      orderBy: {
-                          type: this.firebase.QueryOrderByType.CHILD,
-                          value: 'since' // mandatory when type is 'child'
-                      }
-                  }
-              );
-
-          this.idp = new idp() ;
-          this.idp.username = "" ;
-          this.idp.password = "" ;
-          securityService.setIdp = JSON.stringify(this.idp);
-          console.log(securityService.getIdp);
-          this.idp = JSON.parse(securityService.getIdp);
-          console.log(JSON.stringify(this.idp));
-        //   console.log(securityService.isLoggedIn());
-        //   console.log(securityService.getIsLogin);
-
+  )
+  var tns = this;
+  var onQueryEvent = function(result) {
+    if (!result.error) {
+      console.log("Event type: " + result.type);
+      console.log("Key: " + result.key);
+      console.log("Value: " + JSON.stringify(result.value));
+      tns.dataUser = result.value;
     }
-
-    private demoLoader() {
-        setTimeout(() => {
-          this.loader.hide();
-        }, 3000);
-      }
-
-    checkLogin () { 
-            
-            var tns = this;
-             var results = Object.keys(this.dataUser).map(function(key) {
-               return tns.dataUser[key];
-             });
-             
-                console.log(JSON.stringify(results)); 
-                console.log(JSON.stringify(tns.idp));            
-             let resultUserUsername = results.find(item => item.hn === tns.idp.username);
-             console.log(resultUserUsername);
-                if (resultUserUsername) {
-                    console.log("username connect");
-                    let resultUserPassword = results.find(item => item.pass === tns.idp.password);
-               if (resultUserPassword) {
-                    this.loader.show(this.options);
-                    this.idp.isLogin = true ;
-                    console.log("password connect");
-                    securityService.setIdp = JSON.stringify(tns.idp);
-
-                    tns.standbytologinService.getDataPatient()
-                    .subscribe(
-                        (Response) => {
-                          securityService.setIsLogin = "true";
-                          console.log(JSON.stringify(Response) + "user login");
-                          securityService.setDataUser = JSON.stringify(Response);
-                          tns.datasUser = JSON.parse(securityService.getDataUser);
-                          console.log(JSON.stringify(tns.dataUser));
-                          tns.router.navigate(["/loginAccept"]);
-                          this.demoLoader();
-                        },
-                        (error) => {
-                            securityService.setIsLogin = "false";
-                            this.loader.hide();
-                            alert("ไม่สามารถเชื่อมต่อได้");
-                        }
-                    )
-    
-               }
-               else {
-                   console.log("password fail");
-                    alert("กรุณาใส่หมายเลข HN และ รหัสผ่าน ให้ถูกต้อง");
-            }
-             }
-             else {
-                 console.log("username fail");
-                 alert("กรุณาใส่หมายเลข HN และ รหัสผ่าน ให้ถูกต้อง");
-                }
-
+  };
+          
+  this.firebase.query(
+    onQueryEvent,
+    "/registerUsers",
+      {
+        singleEvent: true,
+        orderBy: {
+          type: this.firebase.QueryOrderByType.CHILD,
+          value: 'since'
         }
+      }
+  );
 
- }
+  this.idp = new idp() ;
+  this.idp.username = "" ;
+  this.idp.password = "" ;
+  securityService.setIdp = JSON.stringify(this.idp);
+  console.log(securityService.getIdp);
+  this.idp = JSON.parse(securityService.getIdp);
+  console.log(JSON.stringify(this.idp));
+}
+
+private demoLoader() {
+  setTimeout(() => {
+    this.loader.hide();
+  }, 3000);
+}
+
+checkLogin () { 
+  var tns = this;
+  var results = Object.keys(this.dataUser).map(function(key) {
+    return tns.dataUser[key];
+  });
+  console.log(JSON.stringify(results)); 
+  console.log(JSON.stringify(tns.idp));            
+  let resultUserUsername = results.find(item => item.hn === tns.idp.username);
+  console.log(resultUserUsername);
+  if (resultUserUsername) {
+    console.log("username connect");
+    let resultUserPassword = results.find(item => item.pass === tns.idp.password);
+    if (resultUserPassword) {
+      this.loader.show(this.options);
+      this.idp.isLogin = true ;
+      console.log("password connect");
+      securityService.setIdp = JSON.stringify(tns.idp);
+      tns.standbytologinService.getDataPatient()
+      .subscribe(
+        (Response) => {
+          securityService.setIsLogin = "true";
+          console.log(JSON.stringify(Response) + "user login");
+          securityService.setDataUser = JSON.stringify(Response);
+          tns.datasUser = JSON.parse(securityService.getDataUser);
+          console.log(JSON.stringify(tns.dataUser));
+          tns.router.navigate(["/loginAccept"]);
+          this.demoLoader();
+        },
+        (error) => {
+          securityService.setIsLogin = "false";
+          this.loader.hide();
+          alert("กรุณาลองใหม่อีกครั้ง");
+        }
+      )
+    }
+    else {
+      console.log("password fail");
+      alert("กรุณาใส่หมายเลข HN และ รหัสผ่าน ให้ถูกต้อง");
+    }
+  }
+  else {
+    console.log("username fail");
+    alert("กรุณาใส่หมายเลข HN และ รหัสผ่าน ให้ถูกต้อง");
+  }
+}
+}

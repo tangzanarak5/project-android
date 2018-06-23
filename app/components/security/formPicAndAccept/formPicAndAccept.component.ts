@@ -29,7 +29,7 @@ export class formPicAndAcceptComponent implements OnInit {
     pathcommit ;
     loader = new LoadingIndicator();
 
-     options = {
+    options = {
         message: 'Loading...',
         progress: 0.65,
         android: {
@@ -69,21 +69,19 @@ export class formPicAndAcceptComponent implements OnInit {
         this.user = JSON.parse(securityService.getUserData);
         this.firebase.init({
             storageBucket: "gs://fir-appproject14.appspot.com"
-            // Optionally pass in properties for database, authentication and cloud messaging,
-            // see their respective docs.
           }).then(
             instance => {
-              console.log("firebase.init done");
+                console.log("firebase.init done");
             },
             error => {
-              console.log(`firebase.init error: ${error}`);
+                console.log(`firebase.init error: ${error}`);
             }
           );
           camera.requestPermissions();
           
 }
+
 tackPic () {
-    
     var options = { width: 150, height: 150, keepAspectRatio: false, saveToGallery: true };
     camera.takePicture(options)
         .then((imageAsset) => {
@@ -100,83 +98,70 @@ tackPic () {
         });
 
 }
+
 changeImg () {
     var fs = require("file-system");
     let source = new imageSource.ImageSource();
-     source.fromAsset(this.pathimg).then((source) => {
-         let folder = fs.knownFolders.documents().path;
-         let fileName = this.user.idCard + ".png"
-         let path = fs.path.join(folder, fileName);
-         let saved = source.saveToFile(path, "png");
-         this.pathcommit = path ;
-         if(saved){
+    source.fromAsset(this.pathimg).then((source) => {
+        let folder = fs.knownFolders.documents().path;
+        let fileName = this.user.idCard + ".png"
+        let path = fs.path.join(folder, fileName);
+        let saved = source.saveToFile(path, "png");
+        this.pathcommit = path ;
+        if(saved){
             console.log("saved image");
             console.log(this.pathcommit);
-         }
-     })
+        }
+    })
   }
 
   upload () {
-      let tns = this ;
-    // init the file-system module
+    let tns = this ;
     var fs = require("file-system");
-    
-      // grab a reference to the app folder
-      var appPath = fs.knownFolders.currentApp().path;
-    
-      // determine the path to a file in the app/res folder
-      //var logoPath = appPath + this.tang.android + 'jpg'
-      //console.log(logoPath);
-    
-      // now upload the file with either of the options below:
-      this.firebase.uploadFile({
-        // optional, can also be passed during init() as 'storageBucket' param so we can cache it (find it in the Firebase console)
-        bucket: 'gs://fir-appproject14.appspot.com',
-        // the full path of the file in your Firebase storage (folders will be created)
-        remoteFullPath: 'uploads/images/' + this.user.idCard,
-        // option 1: a file-system module File object
-        localFile: fs.File.fromPath(this.pathcommit),
-        // option 2: a full file path (ignored if 'localFile' is set)
-        localFullPath: this.pathcommit,
-        // get notified of file upload progress
-        onProgress: function(status) {
-          console.log("Uploaded fraction: " + status.fractionCompleted);
-          console.log("Percentage complete: " + status.percentageCompleted);
-        }
-      }).then(
-          function (uploadedFile) {
-            console.log("File uploaded: " + JSON.stringify(uploadedFile));
-            console.log("File uploaded: " + JSON.stringify(uploadedFile.url));
-            tns.user.pic = JSON.stringify(uploadedFile.url).substring(1,JSON.stringify(uploadedFile.url).length - 1)
-            
-            securityService.setUserData = JSON.stringify(tns.user);
-            tns.formPicAndAcceptService.postDataPatient();
-            tns.user.idCard = "";
-            tns.user.nameTitle = "";
-            tns.user.name = "";
-            tns.user.surname = "" ;
-            tns.user.gender = "" ;
-            tns.user.birthDay = "";
-            tns.user.nation = "" ;
-            tns.user.religion = "" ;
-            tns.user.address = "" ;
-            tns.user.telephone = "" ;
-            tns.user.medicalEligibilityVerification = "" ;
-            tns.user.symptom = "" ;
-            tns.user.nameRelative = "" ;
-            tns.user.surnameRelative = "" ;
-            tns.user.contact = "" ;
-            tns.user.telephoneRelative = "" ;
-            tns.user.pic = "";
-            securityService.setUserData = JSON.stringify(tns.user);
-            tns.router.navigate(["/security/subMitForm"]);
-            tns.loader.hide();
-          },
-          function (error) {
-            console.log("File upload error: " + error);
-          }
-      );
-  }
+    var appPath = fs.knownFolders.currentApp().path;
+    this.firebase.uploadFile({
+    bucket: 'gs://fir-appproject14.appspot.com',
+    remoteFullPath: 'uploads/images/' + this.user.idCard,
+    localFile: fs.File.fromPath(this.pathcommit),
+    localFullPath: this.pathcommit,
+    onProgress: function(status) {
+        console.log("Uploaded fraction: " + status.fractionCompleted);
+        console.log("Percentage complete: " + status.percentageCompleted);
+    }
+}).then(
+    function (uploadedFile) {
+        console.log("File uploaded: " + JSON.stringify(uploadedFile));
+        console.log("File uploaded: " + JSON.stringify(uploadedFile.url));
+        tns.user.pic = JSON.stringify(uploadedFile.url).substring(1,JSON.stringify(uploadedFile.url).length - 1)
+        securityService.setUserData = JSON.stringify(tns.user);
+        tns.formPicAndAcceptService.postDataPatient();
+        tns.user.idCard = "";
+        tns.user.nameTitle = "";
+        tns.user.name = "";
+        tns.user.surname = "" ;
+        tns.user.gender = "" ;
+        tns.user.birthDay = "";
+        tns.user.nation = "" ;
+        tns.user.religion = "" ;
+        tns.user.address = "" ;
+        tns.user.telephone = "" ;
+        tns.user.medicalEligibilityVerification = "" ;
+        tns.user.symptom = "" ;
+        tns.user.nameRelative = "" ;
+        tns.user.surnameRelative = "" ;
+        tns.user.contact = "" ;
+        tns.user.telephoneRelative = "" ;
+        tns.user.pic = "";
+        securityService.setUserData = JSON.stringify(tns.user);
+        tns.router.navigate(["/security/subMitForm"]);
+        tns.loader.hide();
+    },
+    function (error) {
+        console.log("File upload error: " + error);
+    }
+);
+}
+
 net () {
     securityService.setUserData = JSON.stringify(this.user);
     this.formPicAndAcceptService.postDataPatient();
@@ -191,7 +176,6 @@ nextToSymptom () {
         alert("กรุณาใส่ข้อมูลให้ครบ !\n" + this.inputAlret);
     }
     if (this.inputAlret == ""){
-
         dialogs.confirm({
             title: "ข้อตกลง และยืนยันความเป็นจริง",
             message: "ข้าพเจ้าขอรับรองว่า.. ข้อมูลทั้งหมดนี้ถูกต้องตรงกับความจริงทุกประการ และยินยอมให้โรงพยาบาลเจ้าพระยาอภัยภูเบศรตรวจสอบหลักฐานข้อมูลทางทะเบียนใด ๆ ของรัฐ รวมถึงอนุญาตให้ใช้รูปภาพและข้อมูลประวัติ่ของข้าพเจ้าเพื่อการมีเวชระเบียนและการตรวจรักษา หากมีข้อมูลใด ไม่ถูกต้องหรือไม่ตรงกับความจริงและอาจจะทำให้ เกิดความเสียหายแก่ตัวข้าพเจ้าหรือบุคคลอื่น ข้าพเจ้ายินยอมรับผิดชอบ ในความเสียหายที่เกิดขึ้นทุกประการ ข้าพเจ้ายินยอมให้ใช้ข้อมูลประวัติการรักษาของข้าพเจ้าไปใช้เพื่อการศึกษา วิจัย หรือการพัฒนาคุณภาพโรงพยาบาลฯ",
@@ -210,8 +194,7 @@ nextToSymptom () {
     this.inputAlret = "";
 }
 
-dialogAgree () {
-    
+dialogAgree () {  
     dialogs.alert({
         title: "Your title",
         message: "Your message",
@@ -219,6 +202,5 @@ dialogAgree () {
     }).then(() => {
         console.log("Dialog closed!");
     });
-}
-    
+}  
 }

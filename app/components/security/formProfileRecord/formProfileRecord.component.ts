@@ -31,8 +31,7 @@ export class formProfileRecordComponent implements OnInit {
     inputAlret = "";
     allBirthday = "";
     loader = new LoadingIndicator();
-
-     options = {
+    options = {
         message: 'Loading...',
         progress: 0.65,
         android: {
@@ -71,8 +70,6 @@ ngOnInit(): void {
     this.user = new user();
     console.log(securityService.getUserData);
     this.user = JSON.parse(securityService.getUserData);
-    // this.user.birthDay = new Date() ;
-    //this.user.idCard = this.route.snapshot.params["idCard"]
 }
 
 getDate(dateStr){
@@ -89,91 +86,84 @@ public showModal() {
         viewContainerRef: this.vcRef
     };
     this.modal.showModal(formDateComponent, options).then(res => {
-        this.birthday = new Date(res) ;
-        this.showBirthDay = this.getDate(this.birthday);
-        this.showBirthDayZero = this.getDate(this.birthday);
-        let monthZero
-        let dayZero
-        let yearZero
-
-        if(this.showBirthDayZero.length == 8){
-             monthZero = this.showBirthDayZero.substring(2,3);
-             dayZero = this.showBirthDayZero.substring(0,1);
-             yearZero = this.showBirthDayZero.substring(4,8);
-             this.showBirthDayZero = "0"+ dayZero + "-0" + monthZero + "-" + yearZero
+    this.birthday = new Date(res) ;
+    this.showBirthDay = this.getDate(this.birthday);
+    this.showBirthDayZero = this.getDate(this.birthday);
+    let monthZero
+    let dayZero
+    let yearZero
+    if(this.showBirthDayZero.length == 8){
+        monthZero = this.showBirthDayZero.substring(2,3);
+        dayZero = this.showBirthDayZero.substring(0,1);
+        yearZero = this.showBirthDayZero.substring(4,8);
+        this.showBirthDayZero = "0"+ dayZero + "-0" + monthZero + "-" + yearZero
+    }
+    else if(this.showBirthDayZero.length == 9){
+        let lineZero = this.showBirthDay.substring(1,2);
+        console.log("LineZero = " + lineZero);
+        if(lineZero == "-"){
+            monthZero = this.showBirthDayZero.substring(2,4);
+            dayZero = this.showBirthDayZero.substring(0,1);
+            yearZero = this.showBirthDayZero.substring(5,9);
+            this.showBirthDayZero = "0"+ dayZero + "-" + monthZero + "-" + yearZero
         }
-
-        if(this.showBirthDayZero.length == 9){
-            let lineZero = this.showBirthDay.substring(1,2);
-            console.log("LineZero = " + lineZero);
-            if(lineZero == "-"){
-                monthZero = this.showBirthDayZero.substring(2,4);
-                dayZero = this.showBirthDayZero.substring(0,1);
-                yearZero = this.showBirthDayZero.substring(5,9);
-                this.showBirthDayZero = "0"+ dayZero + "-" + monthZero + "-" + yearZero
-            }
-            
-            else {
-                monthZero = this.showBirthDayZero.substring(3,4);
-                dayZero = this.showBirthDayZero.substring(0,2);
-                yearZero = this.showBirthDayZero.substring(5,9);
-                this.showBirthDayZero = dayZero + "-0" + monthZero + "-" + yearZero
-            }
+        else {
+            monthZero = this.showBirthDayZero.substring(3,4);
+            dayZero = this.showBirthDayZero.substring(0,2);
+            yearZero = this.showBirthDayZero.substring(5,9);
+            this.showBirthDayZero = dayZero + "-0" + monthZero + "-" + yearZero
         }
-        console.log(this.showBirthDay);
-
-        let year
-        let month
-        let day
-        if(this.showBirthDay.length == 10){
-            year = this.showBirthDay.substring(6,10);
+    }
+    console.log(this.showBirthDay);
+    let year
+    let month
+    let day
+    if(this.showBirthDay.length == 10){
+        year = this.showBirthDay.substring(6,10);
+        console.log(year);
+        month = this.showBirthDay.substring(3,5);
+        console.log(month);
+        day = this.showBirthDay.substring(0,2);
+        console.log(day);
+    }
+    else if(this.showBirthDay.length == 9){
+        let line = this.showBirthDay.substring(1,2);
+        console.log("Line = " + line);
+        if(line == "-"){
+            year = this.showBirthDay.substring(5,9);
             console.log(year);
-            month = this.showBirthDay.substring(3,5);
-            console.log(month);
-            day = this.showBirthDay.substring(0,2);
-            console.log(day);
-        }
-        else if(this.showBirthDay.length == 9){
-
-            let line = this.showBirthDay.substring(1,2);
-            console.log("Line = " + line);
-            if(line == "-"){
-                year = this.showBirthDay.substring(5,9);
-                console.log(year);
-                month = this.showBirthDay.substring(2,4);
-                console.log(month);
-                day = "0" + this.showBirthDay.substring(0,1);
-                console.log(day);
-            }
-            else{
-                year = this.showBirthDay.substring(5,9);
-                console.log(year);
-                month = "0" + this.showBirthDay.substring(3,4);
-                console.log(month);
-                day = this.showBirthDay.substring(0,2);
-                console.log(day);
-            }
-        }
-        else if(this.showBirthDay.length == 8){
-            year = this.showBirthDay.substring(4,8);
-            console.log(year);
-            month = "0" + this.showBirthDay.substring(2,3);
+            month = this.showBirthDay.substring(2,4);
             console.log(month);
             day = "0" + this.showBirthDay.substring(0,1);
             console.log(day);
         }
-        
+        else{
+            year = this.showBirthDay.substring(5,9);
+            console.log(year);
+            month = "0" + this.showBirthDay.substring(3,4);
+            console.log(month);
+            day = this.showBirthDay.substring(0,2);
+            console.log(day);
+        }
+        }
+    else if(this.showBirthDay.length == 8){
+        year = this.showBirthDay.substring(4,8);
+        console.log(year);
+        month = "0" + this.showBirthDay.substring(2,3);
+        console.log(month);
+        day = "0" + this.showBirthDay.substring(0,1);
+        console.log(day);
+    }
+    this.allBirthday = year + "-" + month + "-" + day;
+    console.log(this.allBirthday);
+    this.user.birthDay = this.allBirthday;
 
-         this.allBirthday = year + "-" + month + "-" + day;
-        console.log(this.allBirthday);
-        this.user.birthDay = this.allBirthday;
-        
     });
 }
     
 nameTitleActionDialog() {
         
-        let options = {
+    let options = {
             title: "คำนำหน้าชื่อ",
             message: "เลือก",
             cancelButtonText: "",
@@ -247,41 +237,42 @@ religionActionDialog() {
     });  
 }
 nextToAddress () {
-        this.loader.show(this.options);
-        if (this.user.nameTitle == undefined || this.user.nameTitle == "" || this.user.nameTitle == null) {
-        this.inputAlret = this.inputAlret + "\n- คำนำหน้าชื่อ"
-        }
-        if (this.user.name == undefined || this.user.name == "" || this.user.name == null) {
-            this.inputAlret = this.inputAlret + "\n- ชื่อ "
-            }
-        if (this.user.surname == undefined || this.user.surname == "" || this.user.surname == null) {
-            this.inputAlret = this.inputAlret + "\n- นามสกุล "
-        }
-        if (this.user.gender == undefined || this.user.gender == "" || this.user.gender == null) {
-            this.inputAlret = this.inputAlret + "\n- เพศ "
-        }
-        if (this.showBirthDay == "") {this.inputAlret = this.inputAlret + "วันเกิด "}
-        if (this.user.nation == undefined || this.user.nation == "" || this.user.nation == null) {
-            this.inputAlret = this.inputAlret + "\n- สัญชาติ "
-        }
-        if (this.user.religion == undefined || this.user.religion == "" || this.user.religion == null) {
-            this.inputAlret = this.inputAlret + "\n- ศาสนา "
-        }
-        if (this.inputAlret != "") {
-            alert("กรุณาใส่ข้อมูลให้ครบ !\n" + this.inputAlret);
-            this.loader.hide();
-        }
-        if (this.inputAlret == ""){
-            securityService.setUserData = JSON.stringify(this.user);
-            this.router.navigate(["/security/formAddressRecord"]);
-            this.loader.hide();
-        }
-        this.inputAlret = "";
-        
+    this.loader.show(this.options);
+    if (this.user.nameTitle == undefined || this.user.nameTitle == "" || this.user.nameTitle == null) {
+    this.inputAlret = this.inputAlret + "\n- คำนำหน้าชื่อ"
     }
-
-    net () {
+    if (this.user.name == undefined || this.user.name == "" || this.user.name == null) {
+        this.inputAlret = this.inputAlret + "\n- ชื่อ "
+    }
+    if (this.user.surname == undefined || this.user.surname == "" || this.user.surname == null) {
+        this.inputAlret = this.inputAlret + "\n- นามสกุล "
+    }
+    if (this.user.gender == undefined || this.user.gender == "" || this.user.gender == null) {
+        this.inputAlret = this.inputAlret + "\n- เพศ "
+    }
+    if (this.showBirthDay == "") {
+        this.inputAlret = this.inputAlret + "วันเกิด "
+    }
+    if (this.user.nation == undefined || this.user.nation == "" || this.user.nation == null) {
+        this.inputAlret = this.inputAlret + "\n- สัญชาติ "
+    }
+    if (this.user.religion == undefined || this.user.religion == "" || this.user.religion == null) {
+        this.inputAlret = this.inputAlret + "\n- ศาสนา "
+    }
+    if (this.inputAlret != "") {
+        alert("กรุณาใส่ข้อมูลให้ครบ !\n" + this.inputAlret);
+        this.loader.hide();
+    }
+    if (this.inputAlret == ""){
         securityService.setUserData = JSON.stringify(this.user);
         this.router.navigate(["/security/formAddressRecord"]);
+        this.loader.hide();
+    }
+    this.inputAlret = "";  
+}
+
+net () {
+    securityService.setUserData = JSON.stringify(this.user);
+    this.router.navigate(["/security/formAddressRecord"]);
     }
  }

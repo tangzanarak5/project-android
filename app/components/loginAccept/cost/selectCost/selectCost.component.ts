@@ -60,6 +60,7 @@ export class selectCostComponent implements OnInit {
     color1 = "#195e53" ;
     color2 = "#004D40" ;
     color3 = "#004D40" ;
+    day2 ;
     options = {
         message: 'Loading...',
         progress: 0.65,
@@ -103,6 +104,7 @@ export class selectCostComponent implements OnInit {
         this.hospitalnumber = this.dataUser.dataset.hn ;
         this.id = this.costSelect.numberDate ;
         this.name = this.costSelect.name ;
+        this.day2 = this.costSelect.date2 ;
 
         this.costService.getDataOperation(this.hospitalnumber, this.id)
             .subscribe(
@@ -110,7 +112,7 @@ export class selectCostComponent implements OnInit {
                     // console.log(JSON.stringify(Response));
                     this.dataCost = Response.dataset;
                     //console.log(this.dataCost) ;
-                    console.log(this.dataCost.length);
+                    console.log(this.dataCost.length) ;
                 },
                 (error) => {
                     console.log("data error") ;
@@ -179,6 +181,50 @@ export class selectCostComponent implements OnInit {
             route.url.subscribe((s:UrlSegment[]) => {
                 console.log("url", s);
             });
+    }
+    getFormatDate (dateStr) {
+        let date = new Date(dateStr)
+        let month
+        if(date.getMonth() == 0){
+            month = "มกราคม"
+        }
+        else if(date.getMonth() == 1){
+            month = "กุมภาพันธ์"
+        }
+        else if(date.getMonth() == 2){
+            month = "มีนาคม"
+        }
+        else if(date.getMonth() == 3){
+            month = "เมษายน"
+        }
+        else if(date.getMonth() == 4){
+            month = "พฤษภาคม"
+        }
+        else if(date.getMonth() == 5){
+            month = "มิถุนายน"
+        }
+        else if(date.getMonth() == 6){
+            month = "กรกฎาคม"
+        }
+        else if(date.getMonth() == 7){
+            month = "สิงหาคม"
+        }
+        else if(date.getMonth() == 8){
+            month = "กันยายน"
+        }
+        else if(date.getMonth() == 9){
+            month = "ตุลาคม"
+        }
+        else if(date.getMonth() == 10){
+            month = "พฤษจิกายน"
+        }
+        else if(date.getMonth() == 11){
+            month = "ธันวาคม"
+        }
+    
+        let str = date.getDate() + " " + month + " " + (date.getFullYear() + 543)
+        // console.log("eieiei", date.getDate)
+        return str
     }
     showStatus (n) {
         if (n == 1) {

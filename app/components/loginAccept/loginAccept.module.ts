@@ -37,7 +37,7 @@ import { hyperChartService } from "./hyper/hyperSelect/hyperChart/hyperChart.ser
 import { hyperModalComponent } from "./hyper/hyperSelect/hyperModal.component";
 import { costService } from "./cost/cost.service";
 import { bloodResultService } from "./bloodResult/bloodResult.service";
-
+import { NativeScriptUICalendarModule } from "nativescript-pro-ui/calendar/angular";
 
 @NgModule({
 
@@ -47,6 +47,7 @@ import { bloodResultService } from "./bloodResult/bloodResult.service";
         NativeScriptFormsModule,
         NativeScriptUIChartModule,
         NativeScriptUISideDrawerModule,
+        NativeScriptUICalendarModule,
         TNSFontIconModule.forRoot({
             'mdi': 'material-design-icons.css'
           })

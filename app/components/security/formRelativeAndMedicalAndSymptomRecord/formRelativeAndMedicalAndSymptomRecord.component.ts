@@ -19,8 +19,7 @@ export class formRelativeAndMedicalAndSymptomRecordComponent implements OnInit {
     symptom = "อาการหรือโรคที่ต้องการตรวจ\n\n* ตัวอย่าง \n - ปวดหัว \n - ตัวร้อน \n - เจ็บคอ \n - เป็นเมื่อวันที่ 29/10/2560";
     inputAlret = ""; 
     loader = new LoadingIndicator();
-
-     options = {
+    options = {
         message: 'Loading...',
         progress: 0.65,
         android: {
@@ -46,65 +45,65 @@ export class formRelativeAndMedicalAndSymptomRecordComponent implements OnInit {
         }
       };
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private fonticon: TNSFontIconService
-    ) {}
+constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private fonticon: TNSFontIconService
+) {}
 
-    ngOnInit(): void {
-        this.user = new user();
-        console.log(securityService.getUserData);
-        this.user = JSON.parse(securityService.getUserData);
+ngOnInit(): void {
+    this.user = new user();
+    console.log(securityService.getUserData);
+    this.user = JSON.parse(securityService.getUserData);
 }
 
 net () {
     securityService.setUserData = JSON.stringify(this.user);
     this.router.navigate(["/security/formPicAndAccept"]);
 }
-    nextTomedicalEligibilityVerification () {
-        this.loader.show(this.options);
-        if (this.user.medicalEligibilityVerification == "") {
-            this.inputAlret = this.inputAlret + "\n- สิทธิการรักษา"
-        }
-        if (this.user.symptom == "") {
-            this.inputAlret = this.inputAlret + "\n- อาการหรือโรค "
-        }
-        if (this.user.nameRelative == "") {
-            this.inputAlret = this.inputAlret + "\n- ชื่อ"
-        }
-        if (this.user.surnameRelative == "") {
-            this.inputAlret = this.inputAlret + "\n- นามสกุล "
-        }
-        if (this.user.contact == "") {
-            this.inputAlret = this.inputAlret + "\n- เกี่ยวข้องเป็น... "
-        }
-        if (this.user.telephoneRelative == "" || this.user.telephoneRelative.length < 10) {
-            this.inputAlret = this.inputAlret + "\n- โทรศัพท์ "
-        }
-        if (this.inputAlret != "") {
-            alert("กรุณาใส่ข้อมูลให้ครบ !\n" + this.inputAlret);
-            this.loader.hide();
-        }
-        if (this.inputAlret == ""){
-            securityService.setUserData = JSON.stringify(this.user);
-            this.router.navigate(["/security/formPicAndAccept"]);
-            this.loader.hide();
-        }
+nextTomedicalEligibilityVerification () {
+    this.loader.show(this.options);
+    if (this.user.medicalEligibilityVerification == "") {
+        this.inputAlret = this.inputAlret + "\n- สิทธิการรักษา"
+    }
+    if (this.user.symptom == "") {
+        this.inputAlret = this.inputAlret + "\n- อาการหรือโรค "
+    }
+    if (this.user.nameRelative == "") {
+        this.inputAlret = this.inputAlret + "\n- ชื่อ"
+    }
+    if (this.user.surnameRelative == "") {
+        this.inputAlret = this.inputAlret + "\n- นามสกุล "
+    }
+    if (this.user.contact == "") {
+        this.inputAlret = this.inputAlret + "\n- เกี่ยวข้องเป็น... "
+    }
+    if (this.user.telephoneRelative == "" || this.user.telephoneRelative.length < 10) {
+        this.inputAlret = this.inputAlret + "\n- โทรศัพท์ "
+    }
+    if (this.inputAlret != "") {
+        alert("กรุณาใส่ข้อมูลให้ครบ !\n" + this.inputAlret);
+        this.loader.hide();
+    }
+    if (this.inputAlret == ""){
+        securityService.setUserData = JSON.stringify(this.user);
+        this.router.navigate(["/security/formPicAndAccept"]);
+        this.loader.hide();
+    }
         this.inputAlret = "";
     }
 
-    rightToTreatmentActionDialog() {
-        let options = {
-            title: "สิทธิการรักษา",
-            message: "เลือก",
-            cancelButtonText: "",
-            actions: ["ชำระเงินเอง","เบิกได้ (รับราชการ)","บัตรประกันสังคม","บัตรประกันสุขภาพถ้วนหน้า (บัตรทอง)"]
-        };
-        let vm = this
-        action(options).then((result) => {
-            vm.user.medicalEligibilityVerification = result;
-            console.log(vm.user.medicalEligibilityVerification);
-        });
-    }
+rightToTreatmentActionDialog() {
+    let options = {
+        title: "สิทธิการรักษา",
+        message: "เลือก",
+        cancelButtonText: "",
+        actions: ["ชำระเงินเอง","เบิกได้ (รับราชการ)","บัตรประกันสังคม","บัตรประกันสุขภาพถ้วนหน้า (บัตรทอง)"]
+    };
+    let vm = this
+    action(options).then((result) => {
+        vm.user.medicalEligibilityVerification = result;
+        console.log(vm.user.medicalEligibilityVerification);
+    });
+}
 }

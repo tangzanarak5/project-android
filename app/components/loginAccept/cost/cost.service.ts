@@ -16,7 +16,7 @@ export class costService {
     getDataFinance (hn): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/finance/" + hn ;
+        let url = "https://apis.cpa.go.th/finance/" + hn ;
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
     }
@@ -24,7 +24,7 @@ export class costService {
     getDataOperation (hn, id): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/finance/" + hn + "/operation/" + id ;
+        let url = "https://apis.cpa.go.th/finance/" + hn + "/operation/" + id ;
         console.log(url);
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
@@ -33,7 +33,7 @@ export class costService {
     getDataDrug (hn, id): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/finance/" + hn + "/drug/" + id ;
+        let url = "https://apis.cpa.go.th/finance/" + hn + "/drug/" + id ;
         console.log(url);
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
@@ -42,7 +42,7 @@ export class costService {
     getDataService (hn, id): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/finance/" + hn + "/service/" + id ;
+        let url = "https://apis.cpa.go.th/finance/" + hn + "/service/" + id ;
         console.log(url);
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
@@ -53,7 +53,7 @@ export class costService {
         private http: Http
     ) { }
 handleErrors(error: Response) {
-    console.log(JSON.stringify(error.json()));
+    console.log(JSON.stringify(error.json())) ;
     return Observable.throw(error);
 }
 }

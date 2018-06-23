@@ -17,7 +17,7 @@
                                 <label row="0" col="0" text=""></label>
                                 <Label row="1" col="1" class = "Cloud-Light4" [text]='item.rightname'></Label>
                                 <label row="1" col="2" class = "Cloud-Light2 setCenter" text="รายละเอียด"></label>
-                                <Label row="2" col="1" class = "Cloud-Light4" [text]='"วันที่ " + item.visitdate'></Label>
+                                <Label row="2" col="1" class = "Cloud-Light4" [text]='"วันที่ " + getFormatDate(item.visitdate)'></Label>
                         </GridLayout>
                 </StackLayout>
         </ng-template>

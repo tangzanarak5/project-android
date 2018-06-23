@@ -167,7 +167,7 @@ export class VerifyHnComponent implements OnInit {
             alert("กรุณากรอกหมายเลขบัตรประชาชนให้ครบ 13 หลัก");
             this.loader.hide();
         }
-        if (test == 13) {
+        else if (test == 13) {
         this.res = this.checkHn.idCard.split("");
         console.log(this.res);
         let r = 13;
@@ -203,7 +203,7 @@ export class VerifyHnComponent implements OnInit {
                 this.loader.hide();
            }
         }
-        if(CheckDigit < 10){
+        else if(CheckDigit < 10){
             if(CheckDigit == this.res[12]){
                 console.log("หมายเลขบัตรประชาชนถูกต้อง");
                 securityService.setCheckHn = JSON.stringify(this.checkHn);

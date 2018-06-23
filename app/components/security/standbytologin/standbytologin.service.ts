@@ -19,7 +19,7 @@ export class standbytologinService {
         console.log(securityService.getIdp);
         this.idp = JSON.parse(securityService.getIdp);
         console.log(this.idp.username);
-        let url = "http://apis.cpa.go.th/patient/" + this.idp.username ;
+        let url = "https://apis.cpa.go.th/patient/" + this.idp.username;
         return this.http.get(url, this.options).map(response => response.json())
         .catch(this.handleErrors);
     }

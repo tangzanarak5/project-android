@@ -16,15 +16,15 @@ export class bloodResultService {
     getDataLab (hn): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/labs/" + hn ;
+        let url = "https://apis.cpa.go.th/labs/" + hn ;
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
     }
 
     getDataGender (hn): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
-        let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/patient/" + hn ;
+        let options = new RequestOptions({ headers: headers }) ;
+        let url = "https://apis.cpa.go.th/patient/" + hn ;
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
     }
@@ -32,7 +32,7 @@ export class bloodResultService {
     getDataDayLab (hn): Observable<any> {
         let headers = new Headers({ "apikey": "df0yViaSjdLqNRhvjBQw2R634w08IzPX" });
         let options = new RequestOptions({ headers: headers });
-        let url = "http://apis.cpa.go.th/finance/" + hn ;
+        let url = "https://apis.cpa.go.th/finance/" + hn ;
         return this.http.get(url, options).map(response => response.json())
         .catch(this.handleErrors);
     }

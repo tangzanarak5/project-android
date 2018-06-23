@@ -138,7 +138,7 @@ export class hyperChartComponent implements OnInit {
                 .subscribe(
                     (Response) => {
                         this.data1 = Response.dataset ;
-                        this._categoricalSource7 = new ObservableArray(this.data1);
+                        this._categoricalSource7 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data errorr");
@@ -160,7 +160,7 @@ export class hyperChartComponent implements OnInit {
                                 }
                                 else { this.data1[i].bmi = "" ; }
                             }
-                            this._categoricalSource8 = new ObservableArray(this.data1);
+                            this._categoricalSource8 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data errorr");
@@ -182,7 +182,7 @@ export class hyperChartComponent implements OnInit {
                                 }
                                 else { this.data1[i].bmi = "" ; }
                             }
-                            this._categoricalSource9 = new ObservableArray(this.data1);
+                            this._categoricalSource9 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data errorr");
@@ -204,7 +204,7 @@ export class hyperChartComponent implements OnInit {
                                 }
                                 else { this.data1[i].bmi = "" ; }
                             }
-                            this._categoricalSource10 = new ObservableArray(this.data1);
+                            this._categoricalSource10 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data errorr");
@@ -231,7 +231,7 @@ export class hyperChartComponent implements OnInit {
                                 this.data1[i].bp = parseInt(temp[1]) ;
                                 console.log(this.data1[i].bp);
                             }
-                            this._categoricalSource = new ObservableArray(this.data1);
+                            this._categoricalSource = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data errorr");
@@ -252,7 +252,7 @@ export class hyperChartComponent implements OnInit {
                             this.data2[i].bp = parseInt(temp[0]) ;
                             console.log(this.data2[i].bp);
                         }
-                            this._categoricalSource2 = new ObservableArray(this.data2);
+                            this._categoricalSource2 = new ObservableArray(this.data2.reverse());
                     },
                         (error) => {
                             console.log("data error");
@@ -275,7 +275,7 @@ export class hyperChartComponent implements OnInit {
                                     console.log(this.dataStard1[i].bp);
                             }
                         }
-                        this._categoricalSource3 = new ObservableArray(this.dataStard1);
+                        this._categoricalSource3 = new ObservableArray(this.dataStard1.reverse());
                         },
                         (error) => {
                             console.log("data error");
@@ -298,7 +298,7 @@ export class hyperChartComponent implements OnInit {
                                 console.log(this.dataStard2[i].bp);
                             }
                         }
-                        this._categoricalSource4 = new ObservableArray(this.dataStard2);
+                        this._categoricalSource4 = new ObservableArray(this.dataStard2.reverse());
                         },
                         (error) => {
                             console.log("data error");
@@ -321,7 +321,7 @@ export class hyperChartComponent implements OnInit {
                                 console.log(this.dataStard3[i].bp);
                             }
                         }
-                        this._categoricalSource5 = new ObservableArray(this.dataStard3);
+                        this._categoricalSource5 = new ObservableArray(this.dataStard3.reverse());
                         },
                         (error) => {
                             console.log("data error");
@@ -344,7 +344,7 @@ export class hyperChartComponent implements OnInit {
                                 console.log(this.dataStard4[i].bp);
                             }
                         }
-                        this._categoricalSource6 = new ObservableArray(this.dataStard4);
+                        this._categoricalSource6 = new ObservableArray(this.dataStard4.reverse());
                         },
                         (error) => {
                             console.log("data error");
@@ -363,7 +363,7 @@ export class hyperChartComponent implements OnInit {
                     .subscribe(
                     (Response) => {
                         this.data1 = Response.dataset ;
-                        this._categoricalSource11 = new ObservableArray(this.data1);
+                        this._categoricalSource11 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data error");
@@ -385,7 +385,7 @@ export class hyperChartComponent implements OnInit {
                                 }
                                 else { this.data1[i].pulse = "" ; }
                             }
-                            this._categoricalSource12 = new ObservableArray(this.data1);
+                            this._categoricalSource12 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data error");
@@ -407,7 +407,7 @@ export class hyperChartComponent implements OnInit {
                                 }
                                 else { this.data1[i].pulse = "" ; }
                             }
-                            this._categoricalSource13 = new ObservableArray(this.data1);
+                            this._categoricalSource13 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data error");
@@ -429,7 +429,7 @@ export class hyperChartComponent implements OnInit {
                                 }
                                 else { this.data1[i].pulse = "" ; }
                             }
-                            this._categoricalSource14 = new ObservableArray(this.data1);
+                            this._categoricalSource14 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data error");
@@ -447,12 +447,12 @@ export class hyperChartComponent implements OnInit {
                     .subscribe(
                     (Response) => {
                         this.data1 = Response.dataset ;
-                        this._categoricalSource15 = new ObservableArray(this.data1);
+                        this._categoricalSource15 = new ObservableArray(this.data1.reverse());
                         },
                         (error) => {
                             console.log("data error");
                             alert("กรุณาลองอีกครั้ง");
-                            this.router.navigate(["/hyperSelect"]);
+                            this.router.navigate(["/hyperSelect"]) ;
                         }
                     )
                     setTimeout(() => {

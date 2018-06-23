@@ -150,4 +150,12 @@ export class securityService {
     return getString("dayVisit");
   }
 
+  static set setCountApp(countAppJson: string){
+    setString("countApp",countAppJson) ;
+  }
+  
+  static get getCountApp(): string {
+    return getString("countApp") ;
+  }
+
 }

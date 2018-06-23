@@ -17,7 +17,7 @@ import { TNSFontIconService } from 'nativescript-ng2-fonticon';
 
 export class newPatientComponent implements OnInit {
 
-    ngOnInit(): void {}
-    constructor(page: Page, private fonticon: TNSFontIconService) {}
+ngOnInit(): void {}
+constructor(page: Page, private fonticon: TNSFontIconService) {}
 
  }

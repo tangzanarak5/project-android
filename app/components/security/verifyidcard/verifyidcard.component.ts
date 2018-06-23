@@ -80,44 +80,37 @@ export class verifyidcardComponent implements OnInit {
         this.verifyidcardService.getDataPatient()
         .subscribe(
             (Response) => {
-
-                //let resultUserData = Response.dataset.find(item => item.cid === vm.idCard);
-                
                 if (Response.dataset.cid == nts.user.idCard) {
                     console.log('yes');
                     alert("หมายเลขบัตรประชาชนนี้ลงทะเบียนแล้ว");
                     this.loader.hide();
                 }
-                    else {
-                        this.verifyidcardService.getDataPatientRegister().subscribe(
-                            (Response) => {
-                
-                                //let resultUserData = Response.dataset.find(item => item.cid === vm.idCard);
-                                
-                                if (Response.dataset.cid == nts.user.idCard) {
-                                    console.log('yes');
-                                    alert("หมายเลขบัตรประชาชนนี้ลงทะเบียนแล้ว");
-                                    this.loader.hide();
-                                }
-                                    else {
-                                            console.log('no');
-                                            this.router.navigate(["/security/formProfileRecord"]);
-                                            this.loader.hide();
-                                        }
-                            },
-                            (error) => {
-                                alert("Get Error");
-                                this.loader.hide();
-                            }
-                        )
+                else {
+                    this.verifyidcardService.getDataPatientRegister().subscribe(
+                    (Response) => {
+                        if (Response.dataset.cid == nts.user.idCard) {
+                            console.log('yes');
+                            alert("หมายเลขบัตรประชาชนนี้ลงทะเบียนแล้ว");
+                            this.loader.hide();
                         }
+                        else {
+                            console.log('no');
+                            this.router.navigate(["/security/formProfileRecord"]);
+                            this.loader.hide();
+                        }
+                    },
+                    (error) => {
+                        alert("Get Error");
+                        this.loader.hide();
+                    }
+                    )
+                }
             },
             (error) => {
                 alert("Get Error");
                 this.loader.hide();
             }
         )
-        
     } 
  constructor(
     page: Page,
@@ -139,7 +132,8 @@ export class verifyidcardComponent implements OnInit {
             alert("กรุณากรอกหมายเลขบัตรประชาชนให้ครบ 13 หลัก");
             this.loader.hide();
         }
-        if (test == 13) {
+
+        else if (test == 13) {
         this.res = this.user.idCard.split("");
         console.log(this.res);
         let r = 13;
@@ -148,27 +142,28 @@ export class verifyidcardComponent implements OnInit {
         let sum=0;
         let CheckDigit=0;
         let SumDigit=0;
+
         for(let i = 0;i<12;i++){
            result[i] = this.res[i] * r;
             r--;
             total = total + result[i];
             console.log(result[i] + "\n");
         }
+
         console.log(total);
         sum = sum + (total%11);
         console.log(sum);
         CheckDigit = 11-sum;
         console.log(CheckDigit);
 
-        if(CheckDigit >= 10){
+        if(CheckDigit >= 10) {
+
            SumDigit = CheckDigit%10;
+
            if(SumDigit == this.res[12]){
                 console.log("หมายเลขบัตรประชาชนถูกต้อง");
-                // this.user.idCard = this.idCard ;
                 securityService.setUserData = JSON.stringify(this.user);
-                //console.log(JSON.stringify(this.user));
                 this.getDataPeople();
-                
            }
            else{
                 console.log("หมายเลขบัตรประชาชนไม่ถูกต้อง");
@@ -176,12 +171,12 @@ export class verifyidcardComponent implements OnInit {
                 this.loader.hide();
            }
         }
-        if(CheckDigit < 10){
+
+        else if(CheckDigit < 10){
+
             if(CheckDigit == this.res[12]){
                 console.log("หมายเลขบัตรประชาชนถูกต้อง");
-                // this.user.idCard = this.idCard ;
                 securityService.setUserData = JSON.stringify(this.user);
-                //console.log(JSON.stringify(this.user))
                 this.getDataPeople();
            }
            else{

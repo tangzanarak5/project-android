@@ -22,7 +22,8 @@ import * as listViewModule from "tns-core-modules/ui/list-view";
 import { meet } from "../../security/model/meet.model"
 import { appointmentService } from "./appointment.service";
 import {SetupItemViewArgs} from "nativescript-angular/directives";
-
+import { RadCalendar, CalendarEvent, CalendarDayViewEventSelectedData } from "nativescript-ui-calendar";
+import { CalendarSelectionEventData } from "nativescript-pro-ui/calendar";
 class DataItem {
     constructor(public id: number, public name: string) { }
 }
@@ -39,18 +40,22 @@ export class appointmentComponent implements OnInit {
 
     meet: meet ;
     dataUser ;
+    fullSelect = "";
+    timeSelect = "";
     cid ;
+    test;
     nameAndsurname ;
     hospitalnumber ;
     gender ;
     dob ;
     blood ;
-    appoint1 = true;
+    appoint1 = false ;
     appoint2 = false;
     appoint3 = false;
     appoint4 = false;
     docterWorking  ;
     docterWorkingShow = [] ;
+    temp = [] ;
     docterWorkingTime ;
     docterWorkingDay;
     time1;
@@ -133,10 +138,11 @@ export class appointmentComponent implements OnInit {
         this.appointmentService.getAppointment()
         .subscribe(
                         (Response) => {
-                          //console.log(Response);
+                         // console.log(Response) ;
                           let Responsed = Response.find(item => item.hn_id === this.hospitalnumber);
-                          //console.log(tns.hospitalnumber);
+                           // console.log(Responsed) ;
                           if (Responsed.appoint_status == "0") {
+                            this.appoint1 = true ;
                             this.appoint = Responsed ;
                             this.oneDes = this.appoint.appoint_description ;
                             this.oneDay = this.appoint.appoint_day ;
@@ -147,40 +153,40 @@ export class appointmentComponent implements OnInit {
                             this.oneDocId = this.appoint.docter_id ;
                             console.log(JSON.stringify(this.appoint)) ;
                           }
+                          else if (Responsed.appoint_status == "1") {
+                            console.log("ไม่พบหมายนัด") ;
+                            alert("ไม่พบหมายนัด") ;
+                            this.router.navigate(["/loginProfile"]) ;
+                          }
+                          this.appointmentService.getDocterworking()
+                    .subscribe(
+                        (Response) => {
+                        // let ResponseDocterWorking = Response.find(item => item.docter_id === tns.appoint.docter_id);
+                        
+                        this.docterWorking = Response;
+                        
+                        Response.forEach ((element, index) => {
+                            if (parseInt(element.docter_id) == parseInt(this.oneDocId)) {
+                                this.docterWorkingShow.push(element);
+                            } 
+                        })
+                        console.log("time : " + JSON.stringify(this.docterWorkingShow)); 
                         },
                         (error) => {
                             alert("กรุณาลองอีกครั้ง");
                             this.router.navigate(["/loginProfile"]);
                         }
                     )
-                    this.appointmentService.getDocterworking()
-                    .subscribe(
-                        (Response) => {
-                        // let ResponseDocterWorking = Response.find(item => item.docter_id === tns.appoint.docter_id);
-                        
-                        this.docterWorking = Response;
-                        for (let i = 0 ; i < this.docterWorking.length ; i++) {
-                            if (parseInt(this.docterWorking[i].docter_id) == parseInt(this.oneDocId)) {
-                                this.docterWorkingShow.push(this.docterWorking[i]) ;
-                            }
-                            else if (parseInt(this.docterWorking[i].docter_id) == parseInt(this.oneDocId)) {
-                                this.docterWorkingShow.push(this.docterWorking[i]) ;
-                            }
-                            else if (parseInt(this.docterWorking[i].docter_id) == parseInt(this.oneDocId)) {
-                                this.docterWorkingShow.push(this.docterWorking[i]) ;
-                            }
-
-                        }
-                        console.log(JSON.stringify(this.docterWorkingShow)) ;  
                         },
                         (error) => {
                             alert("กรุณาลองอีกครั้ง");
-                            this.router.navigate(["/loginProfile"]) ;
+                            this.router.navigate(["/loginProfile"]);
                         }
                     )
+                    
                     setTimeout(() => {
-                        this.loader.hide() ;
-                      }, 1000) ;
+                        this.loader.hide();
+                      }, 1000);
                     //console.log(JSON.stringify(this.appoint));
     }
 
@@ -201,7 +207,7 @@ export class appointmentComponent implements OnInit {
     toBack () {
         this.loader.show(this.options);
         console.log("connect");
-        this.router.navigate(["/loginProfile"]) ;
+        this.router.navigate(["/loginProfile"]);
         this.demoLoader();
     }
 
@@ -254,11 +260,11 @@ export class appointmentComponent implements OnInit {
     }
 
     public selectDay(args) {
-        console.log("------------------------ ItemTapped: " + this.docterWorking[args.index].docterWorking_id); 
+        //console.log("------------------------ ItemTapped: " + this.docterWorking[args.index].docterWorking_id); 
         this.docterWorkingTime = this.docterWorking[args.index].docterWorking_id ;
-        
+        //console.log(this.docterWorkingTime) ;
         this.docterWorkingDay = this.docterWorking[args.index].docterWorking_day ;
-        console.log(this.docterWorkingDay);
+        //console.log(this.docterWorkingDay);
         let wTime = this.docterWorking.find(item => item.docterWorking_id === this.docterWorkingTime);
         // this.timeShow = wTime.docterWorking_1000_1030;
         // this.time2 = wTime.docterWorking_1030_1100;
@@ -279,57 +285,57 @@ export class appointmentComponent implements OnInit {
         let date = new Date(dateStr)
         let month
         if(date.getMonth() == 0){
-            month = 1
+            month = "มกราคม"
         }
         else if(date.getMonth() == 1){
-            month = 2
+            month = "กุมภาพันธ์"
         }
         else if(date.getMonth() == 2){
-            month = 3
+            month = "มีนาคม"
         }
         else if(date.getMonth() == 3){
-            month = 4
+            month = "เมษายน"
         }
         else if(date.getMonth() == 4){
-            month = 5
+            month = "พฤษภาคม"
         }
         else if(date.getMonth() == 5){
-            month = 6
+            month = "มิถุนายน"
         }
         else if(date.getMonth() == 6){
-            month = 7
+            month = "กรกฎาคม"
         }
         else if(date.getMonth() == 7){
-            month = 8
+            month = "สิงหาคม"
         }
         else if(date.getMonth() == 8){
-            month = 9
+            month = "กันยายน"
         }
         else if(date.getMonth() == 9){
-            month = 10
+            month = "ตุลาคม"
         }
         else if(date.getMonth() == 10){
-            month = 11
+            month = "พฤษจิกายน"
         }
         else if(date.getMonth() == 11){
-            month = 12
+            month = "ธันวาคม"
         }
 
-        let str = date.getDate() + "/" + month + "/" +date.getFullYear()
+        let str = date.getDate() + " " + month + " " + (date.getFullYear() + 543);
         // console.log("eieiei", date.getDate)
         return str
     }
     public onItemTap2(args) {
         let tns= this
        console.log(this.timeShow[args.index].time);
-       console.log(this.docterWorkingTime);
+       console.log(this.timeSelect);
        console.log(this.appoint.appoint_id);
-       console.log(this.docterWorkingDay) ;
+       console.log(this.fullSelect) ;
        console.log(this.appoint.appoint_day) ;
        console.log(this.appoint.appoint_time) ;
        dialogs.confirm({
         title: "เลื่อนนัด",
-        message: "จาก วันที่ " + this.getFormatDate(this.appoint.appoint_day) + " เวลา " + this.appoint.appoint_time + "\n" + "เป็น วันที่ " + this.getFormatDate(this.docterWorkingDay) + " เวลา " + this.timeShow[args.index].time,
+        message: "จาก วันที่ " + this.getFormatDate(this.appoint.appoint_day) + " เวลา " + this.appoint.appoint_time + "\n" + "เป็น วันที่ " + this.getFormatDate(this.fullSelect) + " เวลา " + this.timeShow[args.index].time,
         cancelButtonText: "ยอมรับ",
         okButtonText: "ยกเลิก"
     }).then(result => {
@@ -337,10 +343,10 @@ export class appointmentComponent implements OnInit {
         console.log("Dialog result: " + result);
         if (result == false) {
             this.loader.show(this.options);
-            tns.appointmentService.postAppoint(this.timeShow[args.index].time, this.docterWorkingTime, this.appoint.appoint_id, this.docterWorkingDay, this.appoint.appoint_day, this.appoint.appoint_time);
+            tns.appointmentService.postAppoint(this.timeShow[args.index].time, this.timeSelect, this.appoint.appoint_id, this.fullSelect, this.appoint.appoint_day, this.appoint.appoint_time);
             alert("เลื่อนนัดสำเร็จ");
             this.router.navigate(["/loginProfile"]);
-            this.demoLoader()
+            this.demoLoader();
         }
     });   
     }
@@ -353,5 +359,75 @@ export class appointmentComponent implements OnInit {
     onSetupItemView(args: SetupItemViewArgs) {
         if(this.timeCheck[args.index] === 1)
             this.timeShow.splice(args.index, 1)
+    }
+    onDateSelected(args: CalendarSelectionEventData) {
+        var date: Date = args.date;
+        let fullDate;
+        let checkDay = "" ;
+        let time;
+        console.log("args date" + args.date.getDate());
+        console.log("args date" + args.date.getDay());
+        console.log("args date" + args.date.getFullYear()) ;
+        checkDay = checkDay + args.date.getDate() ;
+        if (checkDay.length == 1) {
+            fullDate = args.date.getFullYear() + "-06" + "-0" + args.date.getDate()
+            console.log(fullDate) ;
+            this.fullSelect = fullDate ;
+            this.docterWorkingShow.forEach ((element, index) => {
+                // console.log(element.docterWorking_day) ;
+                if (element.docterWorking_day == fullDate) {
+                    time = element.docterWorking_id ;
+                    this.test = element.docterWorking_day ;
+                    this.timeSelect = time ;
+                    console.log(time) ;
+                }
+        });
+        if(this.fullSelect == this.test) {
+            let wTime = this.docterWorking.find(item => item.docterWorking_id === time);
+                this.timeShow = this.times
+                this.timeCheck.push(wTime.docterWorking_1000_1030);
+                this.timeCheck.push(wTime.docterWorking_1030_1100);
+                this.timeCheck.push(wTime.docterWorking_1100_1130);
+                this.timeCheck.push(wTime.docterWorking_1130_1200);
+                this.check () 
+                this.appoint1 = false;
+                this.appoint2 = false;
+                this.appoint3 = false;
+                this.appoint4 = true;
+        }
+        else {
+            alert("กรุณาเลือกวันอื่น");
+        }
+        }
+        else if (checkDay.length == 2) {
+            fullDate = args.date.getFullYear() + "-06" + "-" + args.date.getDate()
+            console.log(fullDate) ;
+            this.fullSelect = fullDate ;
+            this.docterWorkingShow.forEach ((element, index) => {
+            // console.log(element.docterWorking_day) ;
+            if (element.docterWorking_day == fullDate) {
+                time = element.docterWorking_id ;
+                this.test = element.docterWorking_day ;
+                this.timeSelect = time ;
+                console.log(time) ;
+            }
+        });
+        if(this.fullSelect == this.test) {
+            let wTime = this.docterWorking.find(item => item.docterWorking_id === time);
+                this.timeShow = this.times
+                this.timeCheck.push(wTime.docterWorking_1000_1030);
+                this.timeCheck.push(wTime.docterWorking_1030_1100);
+                this.timeCheck.push(wTime.docterWorking_1100_1130);
+                this.timeCheck.push(wTime.docterWorking_1130_1200);
+                this.check () 
+                this.appoint1 = false;
+                this.appoint2 = false;
+                this.appoint3 = false;
+                this.appoint4 = true;
+        }
+        else {
+            alert("กรุณาเลือกวันอื่น") ;
+        }
+        }
     }
  }

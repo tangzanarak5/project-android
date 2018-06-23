@@ -34,8 +34,6 @@ class DataItem {
 export class profileUserComponent implements OnInit {
     public myItems: Array<DataItem>;
     private counter: number;
-
-
     dataUser ;
     cid ;
     nameAndsurname ;
@@ -90,7 +88,6 @@ export class profileUserComponent implements OnInit {
 
     ngOnInit(): void {
         
-        // if (securityService.getDataUser == "") {this.router.navigate(["/security/standbytologin"]);}
         this.dataUser = JSON.parse(securityService.getDataUser);
         console.log(JSON.stringify(this.dataUser.dataset));
         console.log(this.dataUser.dataset.hn)
@@ -99,12 +96,7 @@ export class profileUserComponent implements OnInit {
         this.cid = this.dataUser.dataset.cid
         this.gender = "เพศ " + this.dataUser.dataset.gender
         this.dob = "วันเกิด " + this.dataUser.dataset.dob
-        // this.barcode = "https://barcode.tec-it.com/barcode.ashx?translate-esc=off&data=" + this.hospitalnumber + "&code=Code39&multiplebarcodes=false&unit=Fit&dpi=96&imagetype=Gif&rotation=0&color=%23000000&bgcolor=%23ffffff&qunit=Mm&quiet=0" ;
- 
-        // if (this.dataUser.dataset.blood == null) {
-        //     this.blood = "เลือด -"
-        // }
-        // else {this.blood = "เลือด " + this.dataUser.dataset.blood}
+
     }
 
     constructor(
@@ -125,6 +117,50 @@ export class profileUserComponent implements OnInit {
         console.log("connect");
         this.router.navigate(["/loginProfile"]);
         this.demoLoader();
+    }
+    getFormatDate (dateStr) {
+        let date = new Date(dateStr);
+        let month
+        if(date.getMonth() == 0){
+            month = "มกราคม"
+        }
+        else if(date.getMonth() == 1){
+            month = "กุมภาพันธ์"
+        }
+        else if(date.getMonth() == 2){
+            month = "มีนาคม"
+        }
+        else if(date.getMonth() == 3){
+            month = "เมษายน"
+        }
+        else if(date.getMonth() == 4){
+            month = "พฤษภาคม"
+        }
+        else if(date.getMonth() == 5){
+            month = "มิถุนายน"
+        }
+        else if(date.getMonth() == 6){
+            month = "กรกฎาคม"
+        }
+        else if(date.getMonth() == 7){
+            month = "สิงหาคม"
+        }
+        else if(date.getMonth() == 8){
+            month = "กันยายน"
+        }
+        else if(date.getMonth() == 9){
+            month = "ตุลาคม"
+        }
+        else if(date.getMonth() == 10){
+            month = "พฤษจิกายน"
+        }
+        else if(date.getMonth() == 11){
+            month = "ธันวาคม"
+        }
+    
+        let str = date.getDate() + " " + month + " " + (date.getFullYear() + 543)
+        // console.log("eieiei", date.getDate)
+        return str
     }
 
     private demoLoader() {
